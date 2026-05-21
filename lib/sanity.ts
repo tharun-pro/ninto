@@ -6,8 +6,8 @@ export const client = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 'fnz75tfn',
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'blogs',
   apiVersion: process.env.NEXT_PUBLIC_SANITY_API_VERSION || '2021-10-21',
-  useCdn: false,
-  token: process.env.SANITY_API_READ_TOKEN,
+  useCdn: true,
+  perspective: 'published',
 })
 
 const builder = imageUrlBuilder(client)
