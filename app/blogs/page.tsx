@@ -3,9 +3,10 @@ import Link from 'next/link'
 import NavPatient from '@/components/NavPatient'
 import FooterPatient from '@/components/FooterPatient'
 import SiteEffects from '@/components/SiteEffects'
-import { sanityFetch, urlFor } from '@/lib/sanity'
-import { patientPostsQuery } from '@/lib/queries'
+import { sanityFetch } from '@/lib/sanity'
+import { allPostsQuery } from '@/lib/queries'
 import type { SanityPost } from '@/lib/sanity'
+import BlogsFilter from './BlogsFilter'
 
 export const metadata: Metadata = {
   title: 'Blogs — Ninto',
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
 export default async function BlogsPage() {
   let posts: SanityPost[] = []
   try {
-    posts = await sanityFetch<SanityPost[]>(patientPostsQuery)
+    posts = await sanityFetch<SanityPost[]>(allPostsQuery)
   } catch {}
 
   return (
@@ -51,45 +52,7 @@ export default async function BlogsPage() {
           <p className="bl-grid-desc">Stay informed with expert blogs on India&apos;s digital healthcare ecosystem from ABDM and ABHA IDs to EMR compliance and patient data privacy.</p>
         </div>
 
-        <div className="bl-posts-grid">
-          {posts.length > 0 ? posts.map((post) => (
-            <Link href={`/blogs/${post.slug}`} key={post._id} className="bl-card">
-              <div className="bl-card-img">
-                {post.coverImage ? (
-                  <img src={urlFor(post.coverImage).width(600).height(450).url()} alt={post.title} />
-                ) : (
-                  <img src="/blog-thumb-bg.png" alt="" />
-                )}
-                <div className="bl-card-overlay" />
-              </div>
-              <div className="bl-card-arrow" aria-hidden="true"><i className="ti ti-arrow-up-right" /></div>
-              <div className="bl-card-body">
-                {post.category && <span className="bl-card-tag">{post.category}</span>}
-                <h3 className="bl-card-title">{post.title}</h3>
-                {post.excerpt && <p className="bl-card-desc">{post.excerpt}</p>}
-              </div>
-            </Link>
-          )) : [
-            { title: 'Understanding ABHA and its role in your health journey', desc: 'Everything you need to know about your Ayushman Bharat Health Account.' },
-            { title: 'How digital health records are changing patient care in India', desc: 'From paper to paperless: the shift to electronic health records.' },
-            { title: 'Consent management: giving patients control of their own data', desc: 'How India\'s digital health ecosystem puts patients in charge.' },
-            { title: 'Managing health records for the whole family with one profile', desc: 'Keep every family member\'s health history organised in one place.' },
-            { title: 'How Ninto helps clinics streamline patient record management', desc: 'Reduce admin overhead and focus on delivering care.' },
-            { title: 'Privacy and security in India\'s digital health ecosystem', desc: 'What ABDM\'s consent architecture means for your personal data.' },
-          ].map((b, i) => (
-            <Link href="/blogs" key={i} className="bl-card">
-              <div className="bl-card-img">
-                <img src="/blog-thumb-bg.png" alt="" />
-                <div className="bl-card-overlay" />
-              </div>
-              <div className="bl-card-arrow" aria-hidden="true"><i className="ti ti-arrow-up-right" /></div>
-              <div className="bl-card-body">
-                <h3 className="bl-card-title">{b.title}</h3>
-                <p className="bl-card-desc">{b.desc}</p>
-              </div>
-            </Link>
-          ))}
-        </div>
+        <BlogsFilter posts={posts} />
       </section>
 
       <section className="f-ready">

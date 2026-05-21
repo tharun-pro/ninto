@@ -62,7 +62,7 @@ export default async function ClinicBlogDetailPage({ params }: Props) {
 
   if (!post) notFound()
 
-  const coverUrl = post.coverImage ? urlFor(post.coverImage).width(1200).height(600).url() : null
+  const coverUrl = post.coverImage?.asset ? urlFor(post.coverImage).width(1200).height(600).url() : null
 
   return (
     <>
@@ -112,7 +112,7 @@ export default async function ClinicBlogDetailPage({ params }: Props) {
             {related.map((r) => (
               <Link href={`/clinic/blogs/${r.slug}`} key={r._id} className="bl-card">
                 <div className="bl-card-img">
-                  {r.coverImage ? (
+                  {r.coverImage?.asset ? (
                     <img src={urlFor(r.coverImage).width(600).height(450).url()} alt={r.title} />
                   ) : (
                     <img src="/blog-thumb-bg.png" alt="" />
@@ -130,6 +130,60 @@ export default async function ClinicBlogDetailPage({ params }: Props) {
           </div>
         </section>
       )}
+
+      <section className="f-faq" id="faq">
+        <div className="f-faq-left">
+          <h2 className="f-faq-title">Your Questions<br/><span className="green">Answered</span></h2>
+          <p className="f-faq-desc">Explore our FAQ library and take the first step toward a healthier, more informed you.</p>
+        </div>
+        <div className="f-faq-list">
+          <div className="f-faq-item">
+            <div className="f-faq-row">
+              <div className="f-faq-text">
+                <p className="f-faq-q">Is there a free trial available?</p>
+                <p className="f-faq-a">Yes, you can try us for free for 30 days.</p>
+              </div>
+              <i className="ti ti-chevron-down f-faq-icon"></i>
+            </div>
+          </div>
+          <div className="f-faq-item">
+            <div className="f-faq-divider"></div>
+            <div className="f-faq-row">
+              <div className="f-faq-text">
+                <p className="f-faq-q">Can I change my plan later?</p>
+                <p className="f-faq-a">Yes, you can upgrade or downgrade your plan at any time.</p>
+              </div>
+              <i className="ti ti-chevron-down f-faq-icon"></i>
+            </div>
+          </div>
+          <div className="f-faq-item">
+            <div className="f-faq-divider"></div>
+            <div className="f-faq-row">
+              <div className="f-faq-text">
+                <p className="f-faq-q">What is Ninto for and who are the users?</p>
+                <p className="f-faq-a">Ninto is a unified health records platform designed for patients, doctors, clinics, and family caregivers.</p>
+              </div>
+              <i className="ti ti-chevron-down f-faq-icon"></i>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="f-ready">
+        <div className="f-ready-left">
+          <p className="f-ready-heading">Ready to go <span className="green">digital</span></p>
+          <div className="f-ready-body">
+            <p>Want to bring your clinic onto Ninto?</p>
+            <p>Join our <strong>closed beta</strong> for clinics!</p>
+          </div>
+          <Link href="/clinic/contact" className="f-btn">Get started</Link>
+        </div>
+        <div className="f-ready-right">
+          <div className="f-cert"><img src="/cert-abdm.png" alt="ABDM Certified" /></div>
+          <div className="f-cert"><img src="/cert-ayushman.png" alt="Ayushman Bharat Digital Mission" /></div>
+          <div className="f-cert"><img src="/cert-nha.png" alt="National Health Authority" /></div>
+        </div>
+      </section>
 
       <FooterClinic />
     </>

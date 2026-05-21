@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import Image from 'next/image'
 
 export default function FooterClinic() {
   return (
@@ -7,7 +6,7 @@ export default function FooterClinic() {
       <div className="f-footer-top">
         <div className="f-footer-brand">
           <div className="f-footer-logo">
-            <Image src="/ninto-clinic-logo.png" alt="Ninto" width={80} height={24} style={{ height: 24, width: 'auto' }} />
+            <img src="/logo_full_black.svg" alt="Ninto" style={{ height: 24, width: 'auto' }} />
           </div>
           <p className="f-footer-desc">Meeting every regulation so you can focus exclusively on your patients. We handle the compliance, you provide the care.</p>
         </div>

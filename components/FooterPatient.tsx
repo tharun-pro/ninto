@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import Image from 'next/image'
 
 export default function FooterPatient() {
   return (
@@ -7,7 +6,7 @@ export default function FooterPatient() {
       <div className="f-footer-top">
         <div className="f-footer-brand">
           <div className="f-footer-logo">
-            <Image src="/ninto-logo.png" alt="Ninto" width={80} height={24} style={{ height: 24, width: 'auto' }} />
+            <img src="/logo_full_black.svg" alt="Ninto" style={{ height: 24, width: 'auto' }} />
           </div>
           <p className="f-footer-desc">Store, organize and share your family&apos;s medical history. ABHA-linked records, prescription tracking, and effortless sharing with doctors.</p>
         </div>

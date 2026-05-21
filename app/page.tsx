@@ -5,7 +5,7 @@ import NavPatient from '@/components/NavPatient'
 import FooterPatient from '@/components/FooterPatient'
 import SiteEffects from '@/components/SiteEffects'
 import { sanityFetch, urlFor } from '@/lib/sanity'
-import { recentPatientPostsQuery } from '@/lib/queries'
+import { recentAllPostsQuery } from '@/lib/queries'
 import type { SanityPost } from '@/lib/sanity'
 
 export const metadata: Metadata = {
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 export default async function HomePage() {
   let recentPosts: SanityPost[] = []
   try {
-    recentPosts = await sanityFetch<SanityPost[]>(recentPatientPostsQuery)
+    recentPosts = await sanityFetch<SanityPost[]>(recentAllPostsQuery)
   } catch {}
 
   return (
@@ -59,7 +59,7 @@ export default async function HomePage() {
                   <div className="liquid-gloss"></div>
                 </div>
                 <div className="orb-glyph">
-                  <Image src="/ninto-logo.png" alt="" aria-hidden width={60} height={60} />
+                  <img src="/logo_glyph.svg" alt="" aria-hidden />
                 </div>
               </div>
             </div>
@@ -126,10 +126,10 @@ export default async function HomePage() {
             </div>
             <div className="f-benefits-nav">
               <button className="f-nav-circle prev" aria-label="Previous">
-                <img src="/arrow-right.png" alt="" />
+                <i className="ti ti-arrow-left"></i>
               </button>
               <button className="f-nav-circle next" aria-label="Next">
-                <img src="/arrow-right.png" alt="" />
+                <i className="ti ti-arrow-right"></i>
               </button>
             </div>
           </div>
@@ -252,7 +252,7 @@ export default async function HomePage() {
           {recentPosts.length > 0 ? recentPosts.map((post) => (
             <Link href={`/blogs/${post.slug}`} key={post._id} className="bl-card">
               <div className="bl-card-img">
-                {post.coverImage ? (
+                {post.coverImage?.asset ? (
                   <img src={urlFor(post.coverImage).width(600).height(450).url()} alt={post.title} />
                 ) : (
                   <img src="/blog-thumb-bg.png" alt="" />
@@ -261,6 +261,7 @@ export default async function HomePage() {
               </div>
               <div className="bl-card-arrow" aria-hidden="true"><i className="ti ti-arrow-up-right" /></div>
               <div className="bl-card-body">
+                {post.category && <span className="bl-card-tag">{post.category}</span>}
                 <h3 className="bl-card-title">{post.title}</h3>
                 {post.excerpt && <p className="bl-card-desc">{post.excerpt}</p>}
               </div>

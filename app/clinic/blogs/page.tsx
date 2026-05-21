@@ -3,9 +3,10 @@ import Link from 'next/link'
 import NavClinic from '@/components/NavClinic'
 import FooterClinic from '@/components/FooterClinic'
 import SiteEffects from '@/components/SiteEffects'
-import { sanityFetch, urlFor } from '@/lib/sanity'
-import { clinicPostsQuery } from '@/lib/queries'
+import { sanityFetch } from '@/lib/sanity'
+import { allPostsQuery } from '@/lib/queries'
 import type { SanityPost } from '@/lib/sanity'
+import BlogsFilter from '@/app/blogs/BlogsFilter'
 
 export const metadata: Metadata = {
   title: 'Clinic Blogs — Ninto',
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
 export default async function ClinicBlogsPage() {
   let posts: SanityPost[] = []
   try {
-    posts = await sanityFetch<SanityPost[]>(clinicPostsQuery)
+    posts = await sanityFetch<SanityPost[]>(allPostsQuery)
   } catch {}
 
   return (
@@ -50,44 +51,44 @@ export default async function ClinicBlogsPage() {
           <p className="bl-grid-desc">Expert guides on ABDM onboarding, EMR best practices, digital consent, and growing your clinic&apos;s digital footprint.</p>
         </div>
 
-        <div className="bl-posts-grid">
-          {posts.length > 0 ? posts.map((post) => (
-            <Link href={`/clinic/blogs/${post.slug}`} key={post._id} className="bl-card">
-              <div className="bl-card-img">
-                {post.coverImage ? (
-                  <img src={urlFor(post.coverImage).width(600).height(450).url()} alt={post.title} />
-                ) : (
-                  <img src="/blog-thumb-bg.png" alt="" />
-                )}
-                <div className="bl-card-overlay" />
+        <BlogsFilter posts={posts} basePath="/clinic/blogs" />
+      </section>
+
+      <section className="f-faq" id="faq">
+        <div className="f-faq-left">
+          <h2 className="f-faq-title">Your Questions<br/><span className="green">Answered</span></h2>
+          <p className="f-faq-desc">Explore our FAQ library and take the first step toward a healthier, more informed you.</p>
+        </div>
+        <div className="f-faq-list">
+          <div className="f-faq-item">
+            <div className="f-faq-row">
+              <div className="f-faq-text">
+                <p className="f-faq-q">Is there a free trial available?</p>
+                <p className="f-faq-a">Yes, you can try us for free for 30 days.</p>
               </div>
-              <div className="bl-card-arrow" aria-hidden="true"><i className="ti ti-arrow-up-right" /></div>
-              <div className="bl-card-body">
-                {post.category && <span className="bl-card-tag">{post.category}</span>}
-                <h3 className="bl-card-title">{post.title}</h3>
-                {post.excerpt && <p className="bl-card-desc">{post.excerpt}</p>}
+              <i className="ti ti-chevron-down f-faq-icon"></i>
+            </div>
+          </div>
+          <div className="f-faq-item">
+            <div className="f-faq-divider"></div>
+            <div className="f-faq-row">
+              <div className="f-faq-text">
+                <p className="f-faq-q">Can I change my plan later?</p>
+                <p className="f-faq-a">Yes, you can upgrade or downgrade your plan at any time.</p>
               </div>
-            </Link>
-          )) : [
-            { title: 'ABDM certification guide', desc: 'Step-by-step: getting your clinic registered on India\'s national health network.' },
-            { title: 'Digital consent management', desc: "What every clinic needs to know about ABDM's consent framework." },
-            { title: 'Multi-doctor record sharing', desc: 'Managing shared patient records across a team of practitioners.' },
-            { title: 'EMR best practices for Indian clinics', desc: 'Building a paperless practice that satisfies both patients and regulators.' },
-            { title: 'Scaling your clinic with Ninto', desc: 'How multi-location practices use Ninto to stay synchronized.' },
-            { title: 'Patient data privacy under ABDM', desc: 'Understanding your obligations as a healthcare provider under the new framework.' },
-          ].map((b, i) => (
-            <Link href="/clinic/blogs" key={i} className="bl-card">
-              <div className="bl-card-img">
-                <img src="/blog-thumb-bg.png" alt="" />
-                <div className="bl-card-overlay" />
+              <i className="ti ti-chevron-down f-faq-icon"></i>
+            </div>
+          </div>
+          <div className="f-faq-item">
+            <div className="f-faq-divider"></div>
+            <div className="f-faq-row">
+              <div className="f-faq-text">
+                <p className="f-faq-q">What is Ninto for and who are the users?</p>
+                <p className="f-faq-a">Ninto is a unified health records platform designed for patients, doctors, clinics, and family caregivers.</p>
               </div>
-              <div className="bl-card-arrow" aria-hidden="true"><i className="ti ti-arrow-up-right" /></div>
-              <div className="bl-card-body">
-                <h3 className="bl-card-title">{b.title}</h3>
-                <p className="bl-card-desc">{b.desc}</p>
-              </div>
-            </Link>
-          ))}
+              <i className="ti ti-chevron-down f-faq-icon"></i>
+            </div>
+          </div>
         </div>
       </section>
 

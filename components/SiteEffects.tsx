@@ -131,8 +131,15 @@ export default function SiteEffects() {
       tagAll('.f-blog-item', 'sa-up', true)
       tagAll('.f-faq-item', 'sa-up', true)
       tagAll('.f-logo-cell', 'sa-up', true)
-      tag(document.querySelector('.f-ready-left'),  'sa-left',  0)
-      tag(document.querySelector('.f-ready-right'), 'sa-right', 1)
+      tag(document.querySelector('.f-ready-left'),        'sa-left',  0)
+      tag(document.querySelector('.f-ready-right'),       'sa-right', 1)
+      tag(document.querySelector('.f-testimonials-header'), 'sa-up', 0)
+      tag(document.querySelector('.f-users-header'),      'sa-up', 0)
+      tag(document.querySelector('.f-clinics-header'),    'sa-up', 0)
+      tag(document.querySelector('.f-benefits-left'),     'sa-left', 0)
+      tag(document.querySelector('.f-benefits-mock'),     'sa-right', 1)
+      tag(document.querySelector('.f-faq-left'),          'sa-left', 0)
+      tag(document.querySelector('.bl-filter-tabs'),      'sa-up', 1)
     }
 
     const observer = new IntersectionObserver((entries) => {
@@ -193,21 +200,44 @@ export default function SiteEffects() {
   }, [pathname])
 
   useEffect(() => {
-    // ── Intro statement word fill on scroll ──
+    // ── Intro statement letter fill on scroll ──
     const scrollEl = document.querySelector<HTMLElement>('.f-intro-scroll')
-    const introEl  = document.querySelector<HTMLElement>('.f-intro')
-    const words    = document.querySelectorAll<HTMLElement>('.f-intro-word')
-    if (!scrollEl || !introEl || !words.length) return
+    const textEl   = document.querySelector<HTMLElement>('.f-intro-text')
+    if (!scrollEl || !textEl) return
+
+    // Split into character spans once per DOM lifetime
+    if (!textEl.dataset.charSetup) {
+      textEl.dataset.charSetup = '1'
+      const raw = textEl.textContent ?? ''
+      textEl.innerHTML = Array.from(raw).map((ch) =>
+        ch === ' ' ? ' ' : `<span class="f-intro-char">${ch}</span>`
+      ).join('')
+    }
+
+    const chars = Array.from(textEl.querySelectorAll<HTMLElement>('.f-intro-char'))
+    if (!chars.length) return
+
+    // smoothstep easing
+    const ss = (e0: number, e1: number, x: number) => {
+      const t = Math.max(0, Math.min(1, (x - e0) / (e1 - e0)))
+      return t * t * (3 - 2 * t)
+    }
+
+    const SPREAD = 0.18  // transition zone spans 18% of scroll range
+    const n = chars.length
 
     const onScroll = () => {
       const rect = scrollEl.getBoundingClientRect()
       const scrollable = scrollEl.offsetHeight - window.innerHeight
       if (scrollable <= 0) return
       const progress = Math.min(Math.max(-rect.top / scrollable, 0), 1)
-      const wordCount = words.length
-      words.forEach((w, i) => {
-        const fill = Math.min(Math.max((progress * wordCount - i) * 100, 0), 100)
-        w.style.setProperty('--word-fill', fill + '%')
+
+      chars.forEach((span, i) => {
+        const charProg = (i / n) * (1 - SPREAD)
+        const t = ss(charProg, charProg + SPREAD, progress)
+        // interpolate grey(200) → dark(78)
+        const v = Math.round(200 - 122 * t)
+        span.style.color = `rgb(${v},${v},${v})`
       })
     }
 
@@ -254,17 +284,29 @@ export default function SiteEffects() {
     const imgEl = document.querySelector<HTMLImageElement>('.f-users-image img')
     if (!items.length) return
 
+    const cleanup: Array<() => void> = []
+
     items.forEach((item) => {
-      item.addEventListener('click', () => {
-        items.forEach((i) => i.classList.remove('active'))
+      const handler = () => {
+        items.forEach((i) => {
+          i.classList.remove('active')
+          const arr = i.querySelector<HTMLElement>('.f-user-arrow')
+          if (arr) { arr.classList.remove('up'); arr.classList.add('down') }
+        })
         item.classList.add('active')
+        const arr = item.querySelector<HTMLElement>('.f-user-arrow')
+        if (arr) { arr.classList.remove('down'); arr.classList.add('up') }
         const src = item.dataset.image
         if (imgEl && src) {
           imgEl.classList.add('fading')
           setTimeout(() => { imgEl.src = src; imgEl.classList.remove('fading') }, 350)
         }
-      })
+      }
+      item.addEventListener('click', handler)
+      cleanup.push(() => item.removeEventListener('click', handler))
     })
+
+    return () => cleanup.forEach((fn) => fn())
   }, [pathname])
 
   useEffect(() => {
@@ -273,42 +315,67 @@ export default function SiteEffects() {
     const imgEl = document.querySelector<HTMLImageElement>('.f-clinics-image img')
     if (!items.length) return
 
+    const cleanup: Array<() => void> = []
+
     items.forEach((item) => {
-      item.addEventListener('click', () => {
-        items.forEach((i) => i.classList.remove('active'))
+      const handler = () => {
+        items.forEach((i) => {
+          i.classList.remove('active')
+          const arr = i.querySelector<HTMLElement>('.f-clinic-arrow')
+          if (arr) { arr.classList.remove('up'); arr.classList.add('down') }
+        })
         item.classList.add('active')
+        const arr = item.querySelector<HTMLElement>('.f-clinic-arrow')
+        if (arr) { arr.classList.remove('down'); arr.classList.add('up') }
         const src = item.dataset.image
         if (imgEl && src) {
           imgEl.classList.add('fading')
           setTimeout(() => { imgEl.src = src; imgEl.classList.remove('fading') }, 350)
         }
-      })
+      }
+      item.addEventListener('click', handler)
+      cleanup.push(() => item.removeEventListener('click', handler))
     })
+
+    return () => cleanup.forEach((fn) => fn())
   }, [pathname])
 
   useEffect(() => {
     // ── FAQ accordion ──
-    const rows = document.querySelectorAll<HTMLElement>('.f-faq-row')
-    rows.forEach((row) => {
-      const wrap = row.parentElement?.querySelector<HTMLElement>('.f-faq-a-wrap')
-      const icon = row.querySelector<HTMLElement>('.f-faq-icon')
-      const answer = wrap?.querySelector<HTMLElement>('.f-faq-a')
-      if (!wrap || !answer) return
+    const items = document.querySelectorAll<HTMLElement>('.f-faq-item')
+    const cleanup: Array<() => void> = []
+
+    items.forEach((item) => {
+      const answer = item.querySelector<HTMLElement>('.f-faq-a')
+      const icon = item.querySelector<HTMLElement>('.f-faq-icon')
+      if (!answer) return
+
+      let wrap = item.querySelector<HTMLElement>('.f-faq-a-wrap')
+      if (!wrap) {
+        wrap = document.createElement('div')
+        wrap.className = 'f-faq-a-wrap'
+        answer.parentElement!.insertBefore(wrap, answer)
+        wrap.appendChild(answer)
+      }
 
       wrap.style.maxHeight = '0'
-      wrap.style.overflow = 'hidden'
       wrap.style.transition = 'max-height 0.35s cubic-bezier(.22,1,.36,1)'
 
-      row.addEventListener('click', () => {
-        const isOpen = wrap.style.maxHeight !== '0px' && wrap.style.maxHeight !== '0'
+      const handler = () => {
+        const isOpen = wrap!.style.maxHeight !== '0px' && wrap!.style.maxHeight !== '0'
         document.querySelectorAll<HTMLElement>('.f-faq-a-wrap').forEach((w) => { w.style.maxHeight = '0' })
         document.querySelectorAll<HTMLElement>('.f-faq-icon').forEach((i) => i.classList.remove('open'))
         if (!isOpen) {
-          wrap.style.maxHeight = answer.scrollHeight + 'px'
+          wrap!.style.maxHeight = answer.scrollHeight + 'px'
           icon?.classList.add('open')
         }
-      })
+      }
+
+      item.addEventListener('click', handler)
+      cleanup.push(() => item.removeEventListener('click', handler))
     })
+
+    return () => cleanup.forEach((fn) => fn())
   }, [pathname])
 
   return null
