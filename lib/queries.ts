@@ -1,3 +1,19 @@
+export const allPostsQuery = `
+  *[_type == "post"] | order(publishedAt desc) {
+    _id, title, "slug": slug.current, excerpt, coverImage,
+    "author": author->name, "category": category->title,
+    publishedAt, readTime, postType
+  }
+`
+
+export const relatedPostsQuery = `
+  *[_type == "post" && slug.current != $slug]
+  | order(publishedAt desc) [0...3] {
+    _id, title, "slug": slug.current, excerpt, coverImage,
+    "category": category->title, postType
+  }
+`
+
 export const clinicPostsQuery = `
   *[_type == "post" && postType == "clinic"] | order(publishedAt desc) {
     _id, title, "slug": slug.current, excerpt, coverImage,
@@ -53,5 +69,12 @@ export const recentClinicPostsQuery = `
 export const recentPatientPostsQuery = `
   *[_type == "post" && postType == "patient"] | order(publishedAt desc) [0...3] {
     _id, title, "slug": slug.current, excerpt, coverImage
+  }
+`
+
+export const recentAllPostsQuery = `
+  *[_type == "post"] | order(publishedAt desc) [0...3] {
+    _id, title, "slug": slug.current, excerpt, coverImage,
+    "category": category->title, postType
   }
 `

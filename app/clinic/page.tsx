@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import Image from 'next/image'
 import Link from 'next/link'
 import NavClinic from '@/components/NavClinic'
 import FooterClinic from '@/components/FooterClinic'
@@ -59,7 +58,7 @@ export default async function ClinicHomePage() {
                   <div className="liquid-gloss"></div>
                 </div>
                 <div className="orb-glyph">
-                  <Image src="/ninto-clinic-logo.png" alt="" aria-hidden width={60} height={60} />
+                  <img src="/logo_glyph.svg" alt="" aria-hidden />
                 </div>
               </div>
             </div>
@@ -126,10 +125,10 @@ export default async function ClinicHomePage() {
             </div>
             <div className="f-benefits-nav">
               <button className="f-nav-circle prev" aria-label="Previous">
-                <img src="/arrow-right.png" alt="" />
+                <i className="ti ti-arrow-left"></i>
               </button>
               <button className="f-nav-circle next" aria-label="Next">
-                <img src="/arrow-right.png" alt="" />
+                <i className="ti ti-arrow-right"></i>
               </button>
             </div>
           </div>
@@ -256,7 +255,7 @@ export default async function ClinicHomePage() {
           {recentPosts.length > 0 ? recentPosts.map((post) => (
             <Link href={`/clinic/blogs/${post.slug}`} key={post._id} className="bl-card">
               <div className="bl-card-img">
-                {post.coverImage ? (
+                {post.coverImage?.asset ? (
                   <img src={urlFor(post.coverImage).width(600).height(450).url()} alt={post.title} />
                 ) : (
                   <img src="/blog-thumb-bg.png" alt="" />

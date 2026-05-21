@@ -6,7 +6,7 @@ export default defineConfig({
   name: 'ninto',
   title: 'Ninto CMS',
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 'fnz75tfn',
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'blogs',
   basePath: '/studio',
   plugins: [
     structureTool({

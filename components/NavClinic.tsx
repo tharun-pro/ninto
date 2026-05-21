@@ -1,12 +1,11 @@
 import Link from 'next/link'
-import Image from 'next/image'
 
 export default function NavClinic() {
   return (
     <>
       <header className="fnav">
         <Link href="/clinic" className="fnav-logo">
-          <Image src="/ninto-clinic-logo.png" alt="Ninto" width={80} height={24} style={{ height: 24, width: 'auto' }} />
+          <img src="/logo_full.svg" alt="Ninto" style={{ height: 24, width: 'auto' }} />
         </Link>
         <nav>
           <ul className="fnav-links">
@@ -27,7 +26,7 @@ export default function NavClinic() {
       <div className="mobile-menu">
         <div className="mobile-menu-header">
           <Link href="/clinic" className="fnav-logo">
-            <Image src="/ninto-clinic-logo.png" alt="Ninto" width={80} height={24} style={{ height: 24, width: 'auto' }} />
+            <img src="/logo_full.svg" alt="Ninto" style={{ height: 24, width: 'auto' }} />
           </Link>
           <button className="mobile-menu-close" aria-label="Close">
             <span></span><span></span>

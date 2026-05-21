@@ -1,19 +1,18 @@
 import Link from 'next/link'
-import Image from 'next/image'
 
 export default function NavPatient() {
   return (
     <>
       <header className="fnav">
         <Link href="/" className="fnav-logo">
-          <Image src="/ninto-logo.png" alt="Ninto" width={80} height={24} style={{ height: 24, width: 'auto' }} />
+          <img src="/logo_full.svg" alt="Ninto" style={{ height: 24, width: 'auto' }} />
         </Link>
         <nav>
           <ul className="fnav-links">
             <li><Link href="/#about">About</Link></li>
             <li><Link href="/#benefits">Key Benefits</Link></li>
             <li><Link href="/#users">Ninto users</Link></li>
-            <li><Link href="/#blogs">Blogs</Link></li>
+            <li><Link href="/blogs">Blogs</Link></li>
             <li><Link href="/contact">Contact us</Link></li>
           </ul>
         </nav>
@@ -27,7 +26,7 @@ export default function NavPatient() {
       <div className="mobile-menu">
         <div className="mobile-menu-header">
           <Link href="/" className="fnav-logo">
-            <Image src="/ninto-logo.png" alt="Ninto" width={80} height={24} style={{ height: 24, width: 'auto' }} />
+            <img src="/logo_full.svg" alt="Ninto" style={{ height: 24, width: 'auto' }} />
           </Link>
           <button className="mobile-menu-close" aria-label="Close">
             <span></span><span></span>

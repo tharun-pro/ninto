@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import SmoothScroll from '@/components/SmoothScroll'
 
 export const metadata: Metadata = {
   title: 'Ninto',
@@ -15,7 +16,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@400;500&display=swap" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
       </head>
-      <body>{children}</body>
+      <body>
+        <SmoothScroll />
+        {children}
+      </body>
     </html>
   )
 }
