@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ninto Design System</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, "Segoe UI", sans-serif;
+    font-size: 14px; line-height: 1.5;
+    background: #f8f8f6; color: #1a1a1a;
+  }
+
+  /* ── Layout ── */
+  .ds-wrap { max-width: 1200px; margin: 0 auto; padding: 60px 40px; display: flex; flex-direction: column; gap: 80px; }
+  .ds-header { border-bottom: 2px solid #00a000; padding-bottom: 32px; }
+  .ds-header h1 { font-size: 32px; font-weight: 700; letter-spacing: -.02em; }
+  .ds-header p { margin-top: 8px; color: #666; font-size: 15px; }
+  .ds-header .badge { display: inline-block; margin-top: 12px; padding: 4px 10px; background: rgba(0,160,0,.1); color: #00a000; border-radius: 4px; font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; }
+
+  /* ── Section ── */
+  .ds-section { display: flex; flex-direction: column; gap: 32px; }
+  .ds-section-head { display: flex; flex-direction: column; gap: 4px; }
+  .ds-section-head h2 { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #999; }
+  .ds-section-head p { font-size: 13px; color: #666; }
+
+  /* ── Grid ── */
+  .ds-grid { display: grid; gap: 12px; }
+  .ds-grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .ds-grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .ds-grid-4 { grid-template-columns: repeat(4, 1fr); }
+  .ds-grid-5 { grid-template-columns: repeat(5, 1fr); }
+  .ds-grid-auto { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
+
+  /* ── Token card ── */
+  .ds-card { background: #fff; border: 1px solid #e8e8e8; border-radius: 8px; padding: 16px; display: flex; flex-direction: column; gap: 8px; }
+  .ds-card-label { font-size: 11px; font-weight: 600; color: #999; text-transform: uppercase; letter-spacing: .06em; }
+  .ds-card-value { font-family: "SFMono-Regular", Consolas, monospace; font-size: 12px; color: #444; }
+  .ds-card-name { font-size: 13px; font-weight: 600; color: #1a1a1a; }
+
+  /* ── Color swatch ── */
+  .swatch { width: 100%; height: 56px; border-radius: 6px; border: 1px solid rgba(0,0,0,.06); }
+
+  /* ── Type specimen ── */
+  .type-row { background: #fff; border: 1px solid #e8e8e8; border-radius: 8px; padding: 24px; display: flex; align-items: baseline; gap: 24px; }
+  .type-meta { width: 180px; flex-shrink: 0; display: flex; flex-direction: column; gap: 4px; }
+  .type-meta .label { font-size: 11px; font-weight: 600; color: #999; text-transform: uppercase; letter-spacing: .06em; }
+  .type-meta code { font-family: monospace; font-size: 11px; color: #666; }
+  .type-specimen { font-family: "Google Sans Flex", "Segoe UI", sans-serif; color: #4e4e4e; flex: 1; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+
+  /* ── Spacing ruler ── */
+  .spacing-row { background: #fff; border: 1px solid #e8e8e8; border-radius: 8px; padding: 16px; display: flex; align-items: center; gap: 16px; }
+  .spacing-bar { background: #00a000; height: 12px; border-radius: 3px; flex-shrink: 0; opacity: .85; }
+  .spacing-meta { display: flex; flex-direction: column; gap: 2px; }
+  .spacing-meta .val { font-family: monospace; font-size: 13px; font-weight: 700; color: #1a1a1a; }
+  .spacing-meta .use { font-size: 11px; color: #888; }
+
+  /* ── Shadow preview ── */
+  .shadow-card { background: #fff; border-radius: 8px; padding: 24px; display: flex; flex-direction: column; gap: 12px; }
+  .shadow-label { font-size: 11px; font-weight: 600; color: #999; text-transform: uppercase; letter-spacing: .06em; }
+  .shadow-value { font-family: monospace; font-size: 11px; color: #666; word-break: break-all; }
+  .shadow-name { font-size: 13px; font-weight: 600; }
+
+  /* ── Radius preview ── */
+  .radius-card { background: #fff; border: 1px solid #e8e8e8; padding: 20px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .radius-box { width: 64px; height: 64px; background: #00a000; opacity: .8; }
+
+  /* ── Easing preview ── */
+  .easing-card { background: #fff; border: 1px solid #e8e8e8; border-radius: 8px; padding: 20px; display: flex; flex-direction: column; gap: 10px; }
+  .easing-track { height: 4px; background: #e8e8e8; border-radius: 2px; position: relative; }
+  .easing-dot { position: absolute; top: -5px; width: 14px; height: 14px; border-radius: 50%; background: #00a000; left: 0; }
+  .easing-card:hover .easing-dot { left: calc(100% - 14px); }
+  .easing-dot { transition-property: left; transition-duration: var(--dur, .4s); transition-timing-function: var(--ease, ease); }
+
+  /* ── Animation ── */
+  .anim-card { background: #fff; border: 1px solid #e8e8e8; border-radius: 8px; padding: 20px; display: flex; flex-direction: column; gap: 10px; }
+  .anim-badge { display: inline-block; padding: 4px 10px; background: #f1f1f1; border-radius: 4px; font-family: monospace; font-size: 11px; }
+
+  /* ── Class table ── */
+  .class-table { background: #fff; border: 1px solid #e8e8e8; border-radius: 8px; overflow: hidden; }
+  .class-table table { width: 100%; border-collapse: collapse; }
+  .class-table th { background: #f5f5f5; padding: 10px 16px; font-size: 11px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: .06em; text-align: left; }
+  .class-table td { padding: 10px 16px; border-top: 1px solid #f0f0f0; font-size: 13px; vertical-align: top; }
+  .class-table td code { font-family: monospace; font-size: 12px; background: #f5f5f5; padding: 2px 5px; border-radius: 3px; }
+  .class-table tr:hover td { background: #fafafa; }
+
+  /* ── Breakpoint viz ── */
+  .bp-bar { background: #fff; border: 1px solid #e8e8e8; border-radius: 8px; padding: 24px; }
+  .bp-track { position: relative; height: 48px; background: #f5f5f5; border-radius: 6px; overflow: hidden; }
+  .bp-segment { position: absolute; top: 0; bottom: 0; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #fff; letter-spacing: .05em; }
+  .bp-labels { display: flex; justify-content: space-between; margin-top: 8px; }
+  .bp-labels span { font-size: 10px; color: #888; font-family: monospace; }
+
+  /* ── Z-index ── */
+  .z-stack { display: flex; gap: 8px; align-items: flex-end; }
+  .z-card { background: #fff; border: 1px solid #e8e8e8; border-radius: 8px; padding: 16px 12px; text-align: center; flex: 1; display: flex; flex-direction: column; gap: 4px; }
+  .z-num { font-size: 22px; font-weight: 700; color: #00a000; font-family: monospace; }
+  .z-name { font-size: 11px; color: #888; }
+
+  /* ── Divider ── */
+  .ds-divider { height: 1px; background: #e8e8e8; }
+
+  /* ── Utility ── */
+  code { font-family: "SFMono-Regular", Consolas, monospace; font-size: 12px; background: #f0f0f0; padding: 2px 5px; border-radius: 3px; }
+  .green { color: #00a000; }
+  .muted { color: #888; font-size: 12px; }
+
+  @media (max-width: 768px) {
+    .ds-grid-4, .ds-grid-5 { grid-template-columns: repeat(2, 1fr); }
+    .ds-grid-3 { grid-template-columns: repeat(2, 1fr); }
+    .type-row { flex-direction: column; }
+    .type-meta { width: 100%; }
+    .z-stack { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+<div class="ds-wrap">
+
+  <!-- Header -->
+  <div class="ds-header">
+    <h1>Ninto Design System</h1>
+    <p>Extracted token reference for <strong>app/globals.css</strong> — use this file when building new pages, components, or Figma frames.</p>
+    <span class="badge">Single source of truth</span>
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       1. COLORS
+  ══════════════════════════════════════ -->
+  <div class="ds-section">
+    <div class="ds-section-head">
+      <h2>Colors</h2>
+      <p>All hex values pulled from globals.css. No colour outside this palette should be introduced.</p>
+    </div>
+
+    <!-- Brand -->
+    <div>
+      <p style="font-size:12px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">Brand</p>
+      <div class="ds-grid ds-grid-5">
+        <div class="ds-card">
+          <div class="swatch" style="background:#00a000;"></div>
+          <div class="ds-card-name">Green</div>
+          <code>#00a000</code>
+          <div class="ds-card-label">Primary action, accent, links</div>
+        </div>
+        <div class="ds-card">
+          <div class="swatch" style="background:#007a00;"></div>
+          <div class="ds-card-name">Green Dark</div>
+          <code>#007a00</code>
+          <div class="ds-card-label">Hover state on green elements</div>
+        </div>
+        <div class="ds-card">
+          <div class="swatch" style="background:#006600;"></div>
+          <div class="ds-card-name">Green Deeper</div>
+          <code>#006600</code>
+          <div class="ds-card-label">Active/pressed state on submit</div>
+        </div>
+        <div class="ds-card">
+          <div class="swatch" style="background:#276158;"></div>
+          <div class="ds-card-name">Teal</div>
+          <code>#276158</code>
+          <div class="ds-card-label">Nav links, logo text, brand identity</div>
+        </div>
+        <div class="ds-card">
+          <div class="swatch" style="background:#a8e0a8;"></div>
+          <div class="ds-card-name">Green Mist</div>
+          <code>#a8e0a8</code>
+          <div class="ds-card-label">Emphasis on dark overlays (about page)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Neutrals -->
+    <div>
+      <p style="font-size:12px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">Neutrals — Text</p>
+      <div class="ds-grid ds-grid-5">
+        <div class="ds-card">
+          <div class="swatch" style="background:#0a0b0d;"></div>
+          <div class="ds-card-name">Ink</div>
+          <code>#0a0b0d</code>
+          <div class="ds-card-label">Hero lede, darkest body text</div>
+        </div>
+        <div class="ds-card">
+          <div class="swatch" style="background:#1a1a1a;"></div>
+          <div class="ds-card-name">Near Black</div>
+          <code>#1a1a1a</code>
+          <div class="ds-card-label">Cursor dot, eyebrow label text</div>
+        </div>
+        <div class="ds-card">
+          <div class="swatch" style="background:#4e4e4e;"></div>
+          <div class="ds-card-name">Charcoal</div>
+          <code>#4e4e4e</code>
+          <div class="ds-card-label">Primary body text, headings, nav labels</div>
+        </div>
+        <div class="ds-card">
+          <div class="swatch" style="background:#6b6b6b;"></div>
+          <div class="ds-card-name">Slate</div>
+          <code>#6b6b6b</code>
+          <div class="ds-card-label">Subheaders, secondary descriptions</div>
+        </div>
+        <div class="ds-card">
+          <div class="swatch" style="background:#52525b;"></div>
+          <div class="ds-card-name">Zinc</div>
+          <code>#52525b</code>
+          <div class="ds-card-label">Benefits body copy</div>
+        </div>
+        <div class="ds-card">
+          <div class="swatch" style="background:#959595;"></div>
+          <div class="ds-card-name">Mid Grey</div>
+          <code>#959595</code>
+          <div class="ds-card-label">Muted text, borders, FAQ answers, meta</div>
+        </div>
+        <div class="ds-card">
+          <div class="swatch" style="background:#c8c8c8;border:1px solid #e5e5e5;"></div>
+          <div class="ds-card-name">Pale Grey</div>
+          <code>#c8c8c8</code>
+          <div class="ds-card-label">Intro word fill (fade state)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Surfaces -->
+    <div>
+      <p style="font-size:12px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">Surfaces &amp; Backgrounds</p>
+      <div class="ds-grid ds-grid-5">
+        <div class="ds-card">
+          <div class="swatch" style="background:#ffffff;border:1px solid #e5e5e5;"></div>
+          <div class="ds-card-name">White</div>
+          <code>#ffffff</code>
+          <div class="ds-card-label">Default page bg, cards, nav on scroll</div>
+        </div>
+        <div class="ds-card">
+          <div class="swatch" style="background:#f5f5f5;"></div>
+          <div class="ds-card-name">Surface</div>
+          <code>#f5f5f5</code>
+          <div class="ds-card-label">Benefits, footer, CTA section bg</div>
+        </div>
+        <div class="ds-card">
+          <div class="swatch" style="background:#f1f1f1;"></div>
+          <div class="ds-card-name">Subtle</div>
+          <code>#f1f1f1</code>
+          <div class="ds-card-label">Active accordion bg border, mock bars</div>
+        </div>
+        <div class="ds-card">
+          <div class="swatch" style="background:#f0fdf0;"></div>
+          <div class="ds-card-name">Success Tint</div>
+          <code>#f0fdf0</code>
+          <div class="ds-card-label">Form success state background</div>
+        </div>
+        <div class="ds-card">
+          <div class="swatch" style="background:#fbfaf8;"></div>
+          <div class="ds-card-name">Hero Light</div>
+          <code>#fbfaf8</code>
+          <div class="ds-card-label">Hero radial gradient centre</div>
+        </div>
+        <div class="ds-card">
+          <div class="swatch" style="background:#f3f1ee;"></div>
+          <div class="ds-card-name">bg-1</div>
+          <code>var(--bg-1)</code>
+          <div class="ds-card-label">Hero ring / orb surface</div>
+        </div>
+        <div class="ds-card">
+          <div class="swatch" style="background:#e6e3df;"></div>
+          <div class="ds-card-name">bg-2</div>
+          <code>var(--bg-2)</code>
+          <div class="ds-card-label">Hero mid gradient</div>
+        </div>
+        <div class="ds-card">
+          <div class="swatch" style="background:#d8d4cf;"></div>
+          <div class="ds-card-name">bg-3</div>
+          <code>var(--bg-3)</code>
+          <div class="ds-card-label">Hero outer gradient</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Borders -->
+    <div>
+      <p style="font-size:12px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">Borders</p>
+      <div class="ds-grid ds-grid-4">
+        <div class="ds-card">
+          <div class="swatch" style="background:#e5e5e5;"></div>
+          <div class="ds-card-name">Border Default</div>
+          <code>#e5e5e5</code>
+          <div class="ds-card-label">Footer divider, chip borders, footer bottom</div>
+        </div>
+        <div class="ds-card">
+          <div class="swatch" style="background:#f1f1f1;"></div>
+          <div class="ds-card-name">Border Subtle</div>
+          <code>#f1f1f1</code>
+          <div class="ds-card-label">FAQ divider, active accordion</div>
+        </div>
+        <div class="ds-card">
+          <div class="swatch" style="background:rgba(20,22,26,.10);"></div>
+          <div class="ds-card-name">Border Glass</div>
+          <code>rgba(20,22,26,.10)</code>
+          <div class="ds-card-label">Eyebrow pill border</div>
+        </div>
+        <div class="ds-card">
+          <div class="swatch" style="background:#e53e3e;"></div>
+          <div class="ds-card-name">Error</div>
+          <code>#e53e3e</code>
+          <div class="ds-card-label">Form field error state</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tints -->
+    <div>
+      <p style="font-size:12px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">Green Alpha Tints</p>
+      <div class="ds-grid ds-grid-4">
+        <div class="ds-card">
+          <div class="swatch" style="background:rgba(0,160,0,.08);border:1px solid #e5e5e5;"></div>
+          <code>rgba(0,160,0,.08)</code>
+          <div class="ds-card-label">Tag/badge background</div>
+        </div>
+        <div class="ds-card">
+          <div class="swatch" style="background:rgba(0,160,0,.12);border:1px solid #e5e5e5;"></div>
+          <code>rgba(0,160,0,.12)</code>
+          <div class="ds-card-label">Section gradient start (users/clinics)</div>
+        </div>
+        <div class="ds-card">
+          <div class="swatch" style="background:rgba(0,160,0,.18);border:1px solid #e5e5e5;"></div>
+          <code>rgba(0,160,0,.18)</code>
+          <div class="ds-card-label">Orb ambient fill, ABHA row highlight</div>
+        </div>
+        <div class="ds-card">
+          <div class="swatch" style="background:rgba(0,160,0,.20);border:1px solid #e5e5e5;"></div>
+          <code>rgba(0,160,0,.20)</code>
+          <div class="ds-card-label">Success border</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       2. TYPOGRAPHY
+  ══════════════════════════════════════ -->
+  <div class="ds-section">
+    <div class="ds-section-head">
+      <h2>Typography</h2>
+      <p>Single typeface: <strong>"Google Sans Flex"</strong> (loaded via CDN in app/layout.tsx). Fallback: <code>sans-serif</code>.</p>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:8px;">
+
+      <div class="type-row">
+        <div class="type-meta">
+          <span class="label">Display</span>
+          <code>100px / 400 / -2px</code>
+          <code>.bl-hero-heading</code>
+          <code>.ab-hero-heading</code>
+          <code>.pp-hero-heading</code>
+        </div>
+        <div class="type-specimen" style="font-size:56px;font-weight:400;letter-spacing:-2px;line-height:1;">Blogs, Our Purpose.</div>
+      </div>
+
+      <div class="type-row">
+        <div class="type-meta">
+          <span class="label">Heading XL</span>
+          <code>60px / 400–500 / -1.2px</code>
+          <code>.hero-title</code>
+          <code>.f-about-heading</code>
+          <code>.f-ready-heading</code>
+          <code>.ct-heading</code>
+          <code>.art-title</code>
+        </div>
+        <div class="type-specimen" style="font-size:52px;font-weight:400;letter-spacing:-1.2px;line-height:1;">Your medical history,<br><em style="font-style:italic;color:#00a000;">Synced.</em></div>
+      </div>
+
+      <div class="type-row">
+        <div class="type-meta">
+          <span class="label">Heading L</span>
+          <code>40px / 400 / normal</code>
+          <code>.ab-image-text</code>
+          <code>.ab-founder-heading</code>
+        </div>
+        <div class="type-specimen" style="font-size:40px;font-weight:400;line-height:1.2;">Changing how India manages health records.</div>
+      </div>
+
+      <div class="type-row">
+        <div class="type-meta">
+          <span class="label">Heading M</span>
+          <code>32px / 500 / normal</code>
+          <code>.f-section-title-lg</code>
+          <code>.f-faq-title</code>
+          <code>.art-section-title</code>
+          <code>.pp-section-title</code>
+          <code>.f-intro-text</code>
+        </div>
+        <div class="type-specimen" style="font-size:32px;font-weight:500;line-height:1;">Everything about your health, <span class="green">in one place.</span></div>
+      </div>
+
+      <div class="type-row">
+        <div class="type-meta">
+          <span class="label">Title</span>
+          <code>24px / 500 / line-height 1</code>
+          <code>.f-user-title</code>
+          <code>.f-blog-title</code>
+          <code>.bl-title</code>
+          <code>.ct-form-title</code>
+          <code>.ab-founder-quote-text</code>
+        </div>
+        <div class="type-specimen" style="font-size:24px;font-weight:500;line-height:1;">ABHA Integration</div>
+      </div>
+
+      <div class="type-row">
+        <div class="type-meta">
+          <span class="label">Body L</span>
+          <code>20px / 500 / 22px</code>
+          <code>.f-about-body</code>
+          <code>.f-benefits-body</code>
+          <code>.ct-body</code>
+          <code>.f-ready-body</code>
+          <code>.bl-hero-body</code>
+        </div>
+        <div class="type-specimen" style="font-size:20px;font-weight:500;line-height:22px;">India's first ABDM-native health record platform.</div>
+      </div>
+
+      <div class="type-row">
+        <div class="type-meta">
+          <span class="label">Body M</span>
+          <code>16px / 400–500 / 18px</code>
+          <code>.f-faq-a</code>
+          <code>.ct-social-note</code>
+          <code>.f-footer-col a</code>
+          <code>.bl-desc</code>
+          <code>.art-section-body</code>
+        </div>
+        <div class="type-specimen" style="font-size:16px;font-weight:400;line-height:18px;">Connect your clinic to India's national health network with one-click ABDM certification and real-time consent management.</div>
+      </div>
+
+      <div class="type-row">
+        <div class="type-meta">
+          <span class="label">Body S / Subheader</span>
+          <code>15px / 400 / 1.5</code>
+          <code>.f-user-subheader</code>
+          <code>.bl-post-desc</code>
+        </div>
+        <div class="type-specimen" style="font-size:15px;font-weight:400;line-height:1.5;color:#6b6b6b;">Patients with ongoing conditions who need continuous record updates.</div>
+      </div>
+
+      <div class="type-row">
+        <div class="type-meta">
+          <span class="label">Caption / Meta</span>
+          <code>12–13px / 400–500</code>
+          <code>.f-t-role</code>
+          <code>.ct-form-subtitle</code>
+          <code>.bl-post-meta</code>
+        </div>
+        <div class="type-specimen" style="font-size:13px;font-weight:400;color:#959595;">Dr. Meera Krishnan · General Physician · May 2026</div>
+      </div>
+
+      <div class="type-row">
+        <div class="type-meta">
+          <span class="label">Eyebrow / Label</span>
+          <code>10–16px / 500 / uppercase / +0.64px</code>
+          <code>.f-eyebrow</code>
+          <code>.f-section-label</code>
+          <code>.bl-grid-label</code>
+          <code>.f-user-tag</code>
+          <code>.hero-eyebrow</code>
+        </div>
+        <div class="type-specimen" style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#00a000;">Clinic Blog · Patient Care</div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       3. SPACING
+  ══════════════════════════════════════ -->
+  <div class="ds-section">
+    <div class="ds-section-head">
+      <h2>Spacing</h2>
+      <p>All padding/gap/margin values used in the system. Desktop-first; responsive breakpoints reduce these.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;">
+      <div class="spacing-row"><div class="spacing-bar" style="width:4px;"></div><div class="spacing-meta"><span class="val">4px</span><span class="use">Tag padding, gap between dots</span></div></div>
+      <div class="spacing-row"><div class="spacing-bar" style="width:6px;"></div><div class="spacing-meta"><span class="val">6px</span><span class="use">Logo text gap, hamburger line gap</span></div></div>
+      <div class="spacing-row"><div class="spacing-bar" style="width:8px;"></div><div class="spacing-meta"><span class="val">8px</span><span class="use">Eyebrow gap, tag padding-y, FAQ answer padding-bottom</span></div></div>
+      <div class="spacing-row"><div class="spacing-bar" style="width:12px;"></div><div class="spacing-meta"><span class="val">12px</span><span class="use">Button padding-y, hero actions gap</span></div></div>
+      <div class="spacing-row"><div class="spacing-bar" style="width:16px;"></div><div class="spacing-meta"><span class="val">16px</span><span class="use">Section label gap, accordion padding, FAQ row gap</span></div></div>
+      <div class="spacing-row"><div class="spacing-bar" style="width:18px;"></div><div class="spacing-meta"><span class="val">18px</span><span class="use">Contact social links gap</span></div></div>
+      <div class="spacing-row"><div class="spacing-bar" style="width:20px;"></div><div class="spacing-meta"><span class="val">20px</span><span class="use">Social icon gaps</span></div></div>
+      <div class="spacing-row"><div class="spacing-bar" style="width:22px;"></div><div class="spacing-meta"><span class="val">22px</span><span class="use">Hero content gap</span></div></div>
+      <div class="spacing-row"><div class="spacing-bar" style="width:24px;"></div><div class="spacing-meta"><span class="val">24px</span><span class="use">Button padding-x (nav btn), testimonial card body gap, FAQ row gap</span></div></div>
+      <div class="spacing-row"><div class="spacing-bar" style="width:32px;"></div><div class="spacing-meta"><span class="val">32px</span><span class="use">Button padding-x (primary), about section gap, FAQ item gap, accordion padding-y</span></div></div>
+      <div class="spacing-row"><div class="spacing-bar" style="width:40px;"></div><div class="spacing-meta"><span class="val">40px</span><span class="use">Nav link gap, about copy gap, benefits copy gap, form field gap, section header gap</span></div></div>
+      <div class="spacing-row"><div class="spacing-bar" style="width:50px;"></div><div class="spacing-meta"><span class="val">50px</span><span class="use">Article body section gap, hero inner gap, contact form section gap</span></div></div>
+      <div class="spacing-row"><div class="spacing-bar" style="width:60px;"></div><div class="spacing-meta"><span class="val">60px</span><span class="use">Benefits nav padding-top, blog grid gap (Sanity), ready CTA mobile gap</span></div></div>
+      <div class="spacing-row"><div class="spacing-bar" style="width:80px;"></div><div class="spacing-meta"><span class="val">80px</span><span class="use">Testimonial card gap, blog row margin-bottom</span></div></div>
+      <div class="spacing-row"><div class="spacing-bar" style="width:100px;"></div><div class="spacing-meta"><span class="val">100px</span><span class="use">Standard section padding, about/benefits/footer padding, gap between major groups</span></div></div>
+      <div class="spacing-row"><div class="spacing-bar" style="width:120px;"></div><div class="spacing-meta"><span class="val">150px</span><span class="use">Ready CTA padding-y, blog/about hero padding-y</span></div></div>
+      <div class="spacing-row"><div class="spacing-bar" style="width:150px;"></div><div class="spacing-meta"><span class="val">200px</span><span class="use">FAQ section padding-y, contact page padding-top</span></div></div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       4. BORDER RADIUS
+  ══════════════════════════════════════ -->
+  <div class="ds-section">
+    <div class="ds-section-head">
+      <h2>Border Radius</h2>
+    </div>
+    <div class="ds-grid ds-grid-auto">
+      <div class="radius-card" style="border:1px solid #e8e8e8;border-radius:8px;">
+        <div class="radius-box" style="border-radius:2px;"></div>
+        <code>2px</code>
+        <div class="muted">Tags / badges</div>
+      </div>
+      <div class="radius-card" style="border:1px solid #e8e8e8;border-radius:8px;">
+        <div class="radius-box" style="border-radius:4px;"></div>
+        <code>4px</code>
+        <div class="muted">Cards, t-card bar, founder photo</div>
+      </div>
+      <div class="radius-card" style="border:1px solid #e8e8e8;border-radius:8px;">
+        <div class="radius-box" style="border-radius:8px;"></div>
+        <code>8px</code>
+        <div class="muted">Mock chips, Sanity blog image</div>
+      </div>
+      <div class="radius-card" style="border:1px solid #e8e8e8;border-radius:8px;">
+        <div class="radius-box" style="border-radius:12px;"></div>
+        <code>12px</code>
+        <div class="muted">Success box, inline accordion img</div>
+      </div>
+      <div class="radius-card" style="border:1px solid #e8e8e8;border-radius:8px;">
+        <div class="radius-box" style="border-radius:16px;"></div>
+        <code>16px</code>
+        <div class="muted">Accordion items, mock cards</div>
+      </div>
+      <div class="radius-card" style="border:1px solid #e8e8e8;border-radius:8px;">
+        <div class="radius-box" style="border-radius:19.2px;"></div>
+        <code>19.2px</code>
+        <div class="muted">Benefits mock UI frame (1.2× spec)</div>
+      </div>
+      <div class="radius-card" style="border:1px solid #e8e8e8;border-radius:8px;">
+        <div class="radius-box" style="border-radius:999px;width:64px;height:32px;"></div>
+        <code>999px</code>
+        <div class="muted">All buttons (pill), nav button</div>
+      </div>
+      <div class="radius-card" style="border:1px solid #e8e8e8;border-radius:8px;">
+        <div class="radius-box" style="border-radius:50%;width:64px;height:64px;"></div>
+        <code>50%</code>
+        <div class="muted">Orb, avatars, nav circles, cursor</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       5. SHADOWS
+  ══════════════════════════════════════ -->
+  <div class="ds-section">
+    <div class="ds-section-head">
+      <h2>Shadows</h2>
+    </div>
+    <div class="ds-grid ds-grid-3">
+      <div class="shadow-card" style="box-shadow:0 0 25px rgba(0,0,0,.06);">
+        <div class="shadow-label">Card</div>
+        <div class="shadow-name">Testimonial card</div>
+        <div class="shadow-value">0 0 25px rgba(0,0,0,.06)</div>
+        <div class="muted">.f-t-card</div>
+      </div>
+      <div class="shadow-card" style="box-shadow:0 2px 8px rgba(0,0,0,.06);">
+        <div class="shadow-label">Elevated S</div>
+        <div class="shadow-name">Nav circle button</div>
+        <div class="shadow-value">0 2px 8px rgba(0,0,0,.06)</div>
+        <div class="muted">.f-nav-circle</div>
+      </div>
+      <div class="shadow-card" style="box-shadow:0 6px 18px rgba(0,0,0,.05);">
+        <div class="shadow-label">Glass</div>
+        <div class="shadow-name">Eyebrow pill</div>
+        <div class="shadow-value">0 6px 18px rgba(0,0,0,.05)</div>
+        <div class="muted">.hero-eyebrow</div>
+      </div>
+      <div class="shadow-card" style="box-shadow:0 4px 12px rgba(0,160,0,.25);">
+        <div class="shadow-label">Brand S</div>
+        <div class="shadow-name">Submit button default</div>
+        <div class="shadow-value">0 4px 12px rgba(0,160,0,.25)</div>
+        <div class="muted">.ct-submit</div>
+      </div>
+      <div class="shadow-card" style="box-shadow:0 6px 18px rgba(0,160,0,.35);">
+        <div class="shadow-label">Brand M</div>
+        <div class="shadow-name">Submit button hover</div>
+        <div class="shadow-value">0 6px 18px rgba(0,160,0,.35)</div>
+        <div class="muted">.ct-submit:hover</div>
+      </div>
+      <div class="shadow-card" style="box-shadow:0 1.1px 10.9px rgba(0,0,0,.08),0 3.3px 6.6px rgba(0,0,0,.10),0 2.2px 4.4px rgba(0,0,0,.12);">
+        <div class="shadow-label">Mock UI Card</div>
+        <div class="shadow-name">3-layer depth shadow</div>
+        <div class="shadow-value">0 1.1px 10.9px .08 / 0 3.3px 6.6px .10 / 0 2.2px 4.4px .12</div>
+        <div class="muted">.f-mock-consent, .f-mock-view</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       6. MOTION
+  ══════════════════════════════════════ -->
+  <div class="ds-section">
+    <div class="ds-section-head">
+      <h2>Motion &amp; Easing</h2>
+      <p>Hover each card to preview the easing on a dot track.</p>
+    </div>
+    <div class="ds-grid ds-grid-3">
+
+      <div class="easing-card">
+        <div class="ds-card-name">Standard</div>
+        <code>.2s ease</code>
+        <div class="muted">Button bg, footer link colour, nav hide</div>
+        <div class="easing-track"><div class="easing-dot" style="--ease:ease;--dur:.2s;"></div></div>
+      </div>
+
+      <div class="easing-card">
+        <div class="ds-card-name">Smooth</div>
+        <code>.35s ease</code>
+        <div class="muted">Accordion image fade, user item hover, dot-enter</div>
+        <div class="easing-track"><div class="easing-dot" style="--ease:ease;--dur:.35s;"></div></div>
+      </div>
+
+      <div class="easing-card">
+        <div class="ds-card-name">Reveal</div>
+        <code>.45s ease</code>
+        <div class="muted">Benefits panel crossfade, nav diagonal</div>
+        <div class="easing-track"><div class="easing-dot" style="--ease:ease;--dur:.45s;"></div></div>
+      </div>
+
+      <div class="easing-card">
+        <div class="ds-card-name">Slide</div>
+        <code>.6s cubic-bezier(.4,0,.2,1)</code>
+        <div class="muted">Nav link slide-in/out (Material standard)</div>
+        <div class="easing-track"><div class="easing-dot" style="--ease:cubic-bezier(.4,0,.2,1);--dur:.6s;"></div></div>
+      </div>
+
+      <div class="easing-card">
+        <div class="ds-card-name">Spring</div>
+        <code>.7s cubic-bezier(.22,1,.36,1)</code>
+        <div class="muted">Scroll animations .sa, FAQ open</div>
+        <div class="easing-track"><div class="easing-dot" style="--ease:cubic-bezier(.22,1,.36,1);--dur:.7s;"></div></div>
+      </div>
+
+      <div class="easing-card">
+        <div class="ds-card-name">Float</div>
+        <code>.4s cubic-bezier(.2,0,.2,1)</code>
+        <div class="muted">Button dot-inner translate on hover</div>
+        <div class="easing-track"><div class="easing-dot" style="--ease:cubic-bezier(.2,0,.2,1);--dur:.4s;"></div></div>
+      </div>
+
+      <div class="easing-card">
+        <div class="ds-card-name">Accordion</div>
+        <code>.4s cubic-bezier(.22,1,.36,1)</code>
+        <div class="muted">Grid-template-rows expand for desc/subheader/inline-img</div>
+        <div class="easing-track"><div class="easing-dot" style="--ease:cubic-bezier(.22,1,.36,1);--dur:.4s;"></div></div>
+      </div>
+
+      <div class="easing-card">
+        <div class="ds-card-name">Float Cycle</div>
+        <code>5s cubic-bezier(.45,.05,.55,.95) ∞</code>
+        <div class="muted">Orb float, contact shadow (var --cycle)</div>
+        <div class="easing-track"><div class="easing-dot" style="--ease:cubic-bezier(.45,.05,.55,.95);--dur:5s;"></div></div>
+      </div>
+
+      <div class="easing-card">
+        <div class="ds-card-name">Marquee</div>
+        <code>22s linear ∞</code>
+        <div class="muted">Logo strip (.f-logos-track) — pauses on hover</div>
+        <div class="easing-track"><div class="easing-dot" style="--ease:linear;--dur:22s;"></div></div>
+      </div>
+
+    </div>
+
+    <!-- Named animations -->
+    <div>
+      <p style="font-size:12px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">Named @keyframes</p>
+      <div class="class-table">
+        <table>
+          <thead><tr><th>Name</th><th>Duration</th><th>Element</th><th>What it does</th></tr></thead>
+          <tbody>
+            <tr><td><code>hero-in</code></td><td>.9s (.2s delay)</td><td>.hero-content</td><td>Fade + slide up on page load</td></tr>
+            <tr><td><code>ring-expand</code></td><td>20s (--ring-life) ∞</td><td>.ring.r1–r4</td><td>Expanding ripple rings on surface</td></tr>
+            <tr><td><code>orb-float</code></td><td>5s (--cycle) ∞</td><td>.orb-floater</td><td>Gentle vertical float ±28px</td></tr>
+            <tr><td><code>contact</code></td><td>5s ∞</td><td>.contact-shadow</td><td>Shadow breathing in sync with float</td></tr>
+            <tr><td><code>splash-flash</code></td><td>5s ∞</td><td>.splash-flash</td><td>White flash at orb contact point</td></tr>
+            <tr><td><code>liquid-level</code></td><td>6s ∞</td><td>.liquid-clip</td><td>Liquid fill level oscillation 18%→50%</td></tr>
+            <tr><td><code>wave-x1/x2</code></td><td>6s / 4s ∞</td><td>.wave.w1/w2</td><td>Horizontal wave scroll</td></tr>
+            <tr><td><code>wave-y1/y2</code></td><td>4.2s / 3.1s ∞</td><td>.wave.w1/w2</td><td>Vertical wave oscillation</td></tr>
+            <tr><td><code>gloss-shift</code></td><td>6s ∞</td><td>.liquid-gloss</td><td>Gloss highlight shift ±4%</td></tr>
+            <tr><td><code>glyph-drift</code></td><td>9s ∞</td><td>.orb-glyph</td><td>Logo drift ±3px</td></tr>
+            <tr><td><code>pulse</code></td><td>2s ∞</td><td>.hero-eyebrow .pulse</td><td>Green dot pulse ring</td></tr>
+            <tr><td><code>marquee-logos</code></td><td>22s ∞</td><td>.f-logos-track</td><td>Logo strip scroll left</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       7. SCROLL ANIMATION UTILITY
+  ══════════════════════════════════════ -->
+  <div class="ds-section">
+    <div class="ds-section-head">
+      <h2>Scroll Animation Utility (.sa)</h2>
+      <p>Add <code>.sa</code> + a direction class to any element. JavaScript (SiteEffects.tsx) adds <code>.sa-in</code> on IntersectionObserver enter. Add <code>.sa-dN</code> for stagger delays.</p>
+    </div>
+    <div class="class-table">
+      <table>
+        <thead><tr><th>Class</th><th>Initial state</th><th>Transition</th></tr></thead>
+        <tbody>
+          <tr><td><code>.sa.sa-up</code></td><td>opacity:0, translateY(50px)</td><td>.7s spring</td></tr>
+          <tr><td><code>.sa.sa-down</code></td><td>opacity:0, translateY(-50px)</td><td>.7s spring</td></tr>
+          <tr><td><code>.sa.sa-left</code></td><td>opacity:0, translateX(-50px)</td><td>.7s spring</td></tr>
+          <tr><td><code>.sa.sa-right</code></td><td>opacity:0, translateX(50px)</td><td>.7s spring</td></tr>
+          <tr><td><code>.sa.sa-scale</code></td><td>opacity:0, scale(0.88)</td><td>.7s spring</td></tr>
+          <tr><td><code>.sa-d1</code> → <code>.sa-d6</code></td><td colspan="2">transition-delay: .1s → .6s (stagger)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       8. CSS CUSTOM PROPERTIES
+  ══════════════════════════════════════ -->
+  <div class="ds-section">
+    <div class="ds-section-head">
+      <h2>CSS Custom Properties</h2>
+      <p>All defined in <code>:root</code>. Breakpoints override <code>--hit-y</code> and <code>--orb-size</code>.</p>
+    </div>
+    <div class="class-table">
+      <table>
+        <thead><tr><th>Variable</th><th>Default</th><th>Overrides</th><th>Use</th></tr></thead>
+        <tbody>
+          <tr><td><code>--bg-1</code></td><td>#f3f1ee</td><td>—</td><td>Hero orb surface tone</td></tr>
+          <tr><td><code>--bg-2</code></td><td>#e6e3df</td><td>—</td><td>Hero mid gradient</td></tr>
+          <tr><td><code>--bg-3</code></td><td>#d8d4cf</td><td>—</td><td>Hero outer gradient</td></tr>
+          <tr><td><code>--ink-0</code></td><td>#0a0b0d</td><td>—</td><td>Darkest text token</td></tr>
+          <tr><td><code>--ink-1</code></td><td>#4b5058</td><td>—</td><td>Secondary ink</td></tr>
+          <tr><td><code>--ink-2</code></td><td>#8a8f97</td><td>—</td><td>Tertiary ink</td></tr>
+          <tr><td><code>--green</code></td><td>#00a000</td><td>—</td><td>Brand green alias</td></tr>
+          <tr><td><code>--green-dk</code></td><td>#007a00</td><td>—</td><td>Hover green alias</td></tr>
+          <tr><td><code>--cycle</code></td><td>5s</td><td>—</td><td>Orb float / splash / contact animation duration</td></tr>
+          <tr><td><code>--ring-life</code></td><td>20s</td><td>—</td><td>Surface ring expand duration</td></tr>
+          <tr><td><code>--orb-amp</code></td><td>28px</td><td>—</td><td>Orb float travel distance ±</td></tr>
+          <tr><td><code>--orb-size</code></td><td>clamp(200px,28vw,420px)</td><td>≤768px: 210px<br>≤480px: 190px</td><td>Orb diameter</td></tr>
+          <tr><td><code>--hit-y</code></td><td>calc(50% + 130px)</td><td>≤768px: 65%<br>≤480px: 67%</td><td>Orb vertical anchor on surface</td></tr>
+          <tr><td><code>--word-fill</code></td><td>0% (JS sets 0–100%)</td><td>—</td><td>Intro text reveal gradient %</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       9. BREAKPOINTS
+  ══════════════════════════════════════ -->
+  <div class="ds-section">
+    <div class="ds-section-head">
+      <h2>Breakpoints</h2>
+      <p>Desktop-first. Media queries use <code>max-width</code>.</p>
+    </div>
+    <div class="bp-bar">
+      <div class="bp-track">
+        <div class="bp-segment" style="left:0;right:calc(100% - (320/1400*100%));background:#276158;">320</div>
+        <div class="bp-segment" style="left:calc(320/1400*100%);right:calc(100% - (480/1400*100%));background:#1e6e5e;">480</div>
+        <div class="bp-segment" style="left:calc(480/1400*100%);right:calc(100% - (600/1400*100%));background:#176655;">600</div>
+        <div class="bp-segment" style="left:calc(600/1400*100%);right:calc(100% - (768/1400*100%));background:#0f5d4c;">768</div>
+        <div class="bp-segment" style="left:calc(768/1400*100%);right:calc(100% - (900/1400*100%));background:#085443;">900</div>
+        <div class="bp-segment" style="left:calc(900/1400*100%);right:calc(100% - (1100/1400*100%));background:#034c3a;">1100</div>
+        <div class="bp-segment" style="left:calc(1100/1400*100%);right:calc(100% - (1200/1400*100%));background:#014430;">1200</div>
+        <div class="bp-segment" style="left:calc(1200/1400*100%);right:0;background:#00a000;">Desktop+</div>
+      </div>
+    </div>
+
+    <div class="class-table">
+      <table>
+        <thead><tr><th>Breakpoint</th><th>Key changes</th></tr></thead>
+        <tbody>
+          <tr><td><code>≤1200px</code></td><td>Blog grid → 2 columns, section padding → 80/60px</td></tr>
+          <tr><td><code>≤1100px</code></td><td>Nav padding → 40px; about/benefits/faq/footer → column layout; side image hidden in accordions → inline image shown; logo marquee → 80px height</td></tr>
+          <tr><td><code>≤900px</code></td><td>Contact page stacks; heading reduces to 48px</td></tr>
+          <tr><td><code>≤768px</code></td><td>Nav → hamburger; hero actions → column; display headings → 48px; orb → 210px; --hit-y → 65%; hero-content → -10vh; blog grid → 1 column; art body padding removed</td></tr>
+          <tr><td><code>≤600px</code></td><td>All sections → 16px padding; about img grid → absolute stacked layout</td></tr>
+          <tr><td><code>≤480px</code></td><td>Hero title → 34px; orb → 190px; --hit-y → 67%</td></tr>
+          <tr><td><code>≤320px</code></td><td>Art title → 24px with word-break; art-wrap → 12px padding</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       10. Z-INDEX
+  ══════════════════════════════════════ -->
+  <div class="ds-section">
+    <div class="ds-section-head">
+      <h2>Z-Index Stack</h2>
+    </div>
+    <div class="z-stack">
+      <div class="z-card"><div class="z-num">0</div><div class="z-name">Base content</div></div>
+      <div class="z-card"><div class="z-num">1</div><div class="z-name">hero overlay, f-about, surface rings, orb halo</div></div>
+      <div class="z-card"><div class="z-num">2</div><div class="z-name">f-intro sticky, contact shadow, logo fade masks</div></div>
+      <div class="z-card"><div class="z-num">3</div><div class="z-name">orb-anchor, orb-glyph</div></div>
+      <div class="z-card"><div class="z-num">5</div><div class="z-name">hero-content</div></div>
+      <div class="z-card"><div class="z-num">200</div><div class="z-name">.fnav (fixed nav)</div></div>
+      <div class="z-card"><div class="z-num">500</div><div class="z-name">.mobile-menu</div></div>
+      <div class="z-card"><div class="z-num">99998</div><div class="z-name">.c-ring (cursor ring)</div></div>
+      <div class="z-card"><div class="z-num">99999</div><div class="z-name">.c-dot (cursor dot)</div></div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       11. COMPONENT CLASS MAP
+  ══════════════════════════════════════ -->
+  <div class="ds-section">
+    <div class="ds-section-head">
+      <h2>Component Class Map</h2>
+      <p>All BEM-style prefixes and their sections in globals.css.</p>
+    </div>
+    <div class="class-table">
+      <table>
+        <thead><tr><th>Prefix</th><th>Component</th><th>Key classes</th></tr></thead>
+        <tbody>
+          <tr><td><code>fnav-</code></td><td>Navigation (both)</td><td>fnav, fnav-logo, fnav-links, fnav-btn, fnav-hamburger, mobile-menu</td></tr>
+          <tr><td><code>hero-</code></td><td>Home hero orb</td><td>hero, stage, surface-scene, surface, ring, orb-anchor, orb-floater, orb, orb-body, liquid-clip, wave, orb-glyph, hero-content, hero-eyebrow, hero-title, hero-lede, hero-actions, hero-btn-patient</td></tr>
+          <tr><td><code>f-intro-</code></td><td>Sticky intro text</td><td>f-intro-scroll, f-intro, f-intro-inner, f-intro-label, f-intro-text, f-intro-word</td></tr>
+          <tr><td><code>f-about-</code></td><td>About section (home)</td><td>f-about, f-about-left, f-eyebrow, f-about-heading, f-about-body, f-about-imgs, f-about-img-grid, f-about-img-card</td></tr>
+          <tr><td><code>f-benefits-</code></td><td>Benefits carousel</td><td>f-benefits, f-benefits-inner, f-benefits-left, f-benefits-copy, f-benefits-title, f-benefits-nav, f-nav-circle, f-benefits-mock, f-benefits-mock-panel</td></tr>
+          <tr><td><code>f-t-</code></td><td>Testimonials</td><td>f-testimonials, f-t-cards, f-t-card, f-t-card-bar, f-t-body, f-t-avatar-wrap, f-t-quote, f-t-name, f-t-role</td></tr>
+          <tr><td><code>f-logos-</code></td><td>Logo marquee</td><td>f-logos, f-logos-track, f-logo-cell</td></tr>
+          <tr><td><code>f-user-</code></td><td>Users accordion (patient)</td><td>f-users, f-users-header, f-users-body, f-users-image, f-users-list, f-user-item, f-user-tag, f-user-title, f-user-subheader, f-user-desc, f-user-desc-wrap, f-user-arrow, f-user-inline-img-wrap</td></tr>
+          <tr><td><code>f-clinic-</code></td><td>Clinics accordion</td><td>f-clinics, f-clinics-body, f-clinics-image, f-clinic-item, f-clinic-tag, f-clinic-title, f-clinic-subheader, f-clinic-desc, f-clinic-arrow, f-clinic-inline-img-wrap</td></tr>
+          <tr><td><code>f-blog-</code></td><td>Blog cards (home)</td><td>f-blogs, f-blogs-header, f-blogs-grid, f-blog-item, f-blog-thumb, f-blog-thumb-bg, f-blog-copy, f-blog-title, f-blog-desc, f-blog-more</td></tr>
+          <tr><td><code>f-ready-</code></td><td>CTA / Ready section</td><td>f-ready, f-ready-left, f-ready-heading, f-ready-body, f-cert</td></tr>
+          <tr><td><code>f-faq-</code></td><td>FAQ accordion</td><td>f-faq, f-faq-left, f-faq-title, f-faq-list, f-faq-item, f-faq-divider, f-faq-row, f-faq-q, f-faq-a-wrap, f-faq-a, f-faq-icon</td></tr>
+          <tr><td><code>f-footer-</code></td><td>Footer</td><td>f-footer, f-footer-top, f-footer-brand, f-footer-logo, f-footer-desc, f-footer-cols, f-footer-col, f-footer-bottom, f-footer-copy, f-socials, f-social-btn</td></tr>
+          <tr><td><code>bl-</code></td><td>Blog listing page</td><td>bl-hero, bl-hero-heading, bl-grid-section, bl-grid-header, bl-row, bl-card, bl-thumb, bl-copy, bl-title, bl-desc, bl-more, bl-posts-grid (Sanity grid)</td></tr>
+          <tr><td><code>art-</code></td><td>Blog detail (article)</td><td>art-wrap, art-hero, art-hero-img, art-hero-content, art-title, art-subtitle, art-meta, art-body, art-section, art-section-title, art-section-body</td></tr>
+          <tr><td><code>ab-</code></td><td>About page</td><td>ab-hero, ab-hero-heading, ab-image, ab-image-overlay, ab-image-content, ab-image-text, ab-founder, ab-founder-heading, ab-founder-row, ab-founder-photo, ab-founder-quote</td></tr>
+          <tr><td><code>ct-</code></td><td>Contact page form</td><td>ct-main, ct-left, ct-heading, ct-body, ct-right, ct-form, ct-field, ct-submit, ct-success</td></tr>
+          <tr><td><code>pp- / tc-</code></td><td>Privacy / Terms pages</td><td>pp-hero/tc-hero, pp-content/tc-content, pp-sections/tc-sections, pp-section/tc-section, pp-section-title, pp-section-body</td></tr>
+          <tr><td><code>sa-</code></td><td>Scroll animation util</td><td>sa, sa-up, sa-down, sa-left, sa-right, sa-scale, sa-in, sa-d1–sa-d6</td></tr>
+          <tr><td><code>f-btn</code></td><td>Primary CTA button</td><td>f-btn (green pill), f-btn-outline (bordered), fnav-btn (nav variant), ct-submit (form variant)</td></tr>
+          <tr><td><code>c-</code></td><td>Custom cursor</td><td>c-dot, c-ring, is-hover</td></tr>
+          <tr><td><code>f-section-</code></td><td>Shared section labels</td><td>f-section-icon, f-section-label, f-section-title-lg, f-section-desc</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       12. BUTTON VARIANTS
+  ══════════════════════════════════════ -->
+  <div class="ds-section">
+    <div class="ds-section-head">
+      <h2>Button Variants</h2>
+      <p>All buttons use <code>border-radius: 999px</code> and share the dot-slide hover animation (handled by SiteEffects.tsx).</p>
+    </div>
+    <div class="ds-grid ds-grid-3">
+      <div class="ds-card">
+        <div class="ds-card-label">Primary</div>
+        <div class="ds-card-name">.f-btn / .fnav-btn / .ct-submit</div>
+        <div style="margin-top:8px;display:inline-flex;align-items:center;padding:12px 32px;border-radius:999px;background:#00a000;color:#fff;font-size:15px;font-weight:500;">Get started</div>
+        <div class="ds-card-value">bg #00a000 → #007a00 hover<br>color #fff · padding 12px 32px</div>
+      </div>
+      <div class="ds-card">
+        <div class="ds-card-label">Outline</div>
+        <div class="ds-card-name">.f-btn-outline</div>
+        <div style="margin-top:8px;display:inline-flex;align-items:center;padding:12px 32px;border-radius:999px;border:1px solid #959595;background:transparent;color:#00a000;font-size:15px;font-weight:500;">Learn more</div>
+        <div class="ds-card-value">border #959595 · color #00a000<br>padding 12px 32px</div>
+      </div>
+      <div class="ds-card">
+        <div class="ds-card-label">Ghost (hero nav)</div>
+        <div class="ds-card-name">.hero-btn-patient / .hero-btn-clinic</div>
+        <div style="margin-top:8px;display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:999px;border:1px solid #959595;background:transparent;color:#4e4e4e;font-size:15px;font-weight:500;"><span style="width:7px;height:7px;border-radius:50%;background:#959595;flex-shrink:0;"></span>For patients</div>
+        <div class="ds-card-value">border #959595 · color #4e4e4e<br>padding 12px 24px · dot slide animation</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       13. LAYOUT CONSTANTS
+  ══════════════════════════════════════ -->
+  <div class="ds-section">
+    <div class="ds-section-head">
+      <h2>Layout Constants</h2>
+    </div>
+    <div class="class-table">
+      <table>
+        <thead><tr><th>Token</th><th>Value</th><th>Context</th></tr></thead>
+        <tbody>
+          <tr><td>Nav height</td><td>80px</td><td>.fnav height; pages top-pad by 80–100px to clear it</td></tr>
+          <tr><td>Section padding (desktop)</td><td>100px</td><td>Horizontal and vertical on most sections</td></tr>
+          <tr><td>Section padding (tablet)</td><td>40–60px</td><td>≤1100px breakpoint</td></tr>
+          <tr><td>Section padding (mobile)</td><td>16–20px</td><td>≤600px / ≤768px</td></tr>
+          <tr><td>Max content width</td><td>No explicit max-width — sections use full width at 100px padding</td><td>About .f-about-left: max-width 800px; FAQ list: 768px</td></tr>
+          <tr><td>Blog card width</td><td>340px</td><td>.bl-thumb, .bl-copy, .f-blog-thumb — fixed 340px in row layout</td></tr>
+          <tr><td>Users/Clinics image</td><td>500×500px</td><td>.f-users-image, .f-clinics-image — hidden ≤1100px, replaced by inline</td></tr>
+          <tr><td>Benefits mock width</td><td>600px × 650px</td><td>.f-benefits-mock — fluid at ≤1100px (padding-bottom: 108.33%)</td></tr>
+          <tr><td>Hero orb</td><td>clamp(200px, 28vw, 420px)</td><td>var(--orb-size)</td></tr>
+          <tr><td>About image cards</td><td>292×400px</td><td>.f-about-img-card — 2-up stacked with overlap</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="ds-divider"></div>
+  <p class="muted" style="text-align:center;padding-bottom:20px;">Generated from <code>app/globals.css</code> — update this file whenever new tokens are added to the codebase.</p>
+
+</div>
+</body>
+</html>
