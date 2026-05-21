@@ -252,20 +252,21 @@ export default async function ClinicHomePage() {
           <p className="f-section-desc">Expert guides on ABDM onboarding, EMR best practices, digital consent, and growing your clinic&apos;s digital footprint.</p>
           <Link href="/clinic/blogs" className="f-btn">Explore blogs</Link>
         </div>
-        <div className="f-blogs-grid">
+        <div className="bl-posts-grid">
           {recentPosts.length > 0 ? recentPosts.map((post) => (
-            <Link href={`/clinic/blogs/${post.slug}`} key={post._id} className="f-blog-item" style={{textDecoration:'none'}}>
-              <div className="f-blog-thumb">
-                <div className="f-blog-thumb-bg">
-                  {post.coverImage && (
-                    <img src={urlFor(post.coverImage).width(340).height(300).url()} alt={post.title} style={{position:'absolute',inset:0,width:'100%',height:'100%',objectFit:'cover'}} />
-                  )}
-                </div>
+            <Link href={`/clinic/blogs/${post.slug}`} key={post._id} className="bl-card">
+              <div className="bl-card-img">
+                {post.coverImage ? (
+                  <img src={urlFor(post.coverImage).width(600).height(450).url()} alt={post.title} />
+                ) : (
+                  <img src="/blog-thumb-bg.png" alt="" />
+                )}
+                <div className="bl-card-overlay" />
               </div>
-              <div className="f-blog-copy">
-                <h3 className="f-blog-title">{post.title}</h3>
-                {post.excerpt && <p className="f-blog-desc">{post.excerpt}</p>}
-                <span className="f-blog-more">Read more</span>
+              <div className="bl-card-arrow" aria-hidden="true"><i className="ti ti-arrow-up-right" /></div>
+              <div className="bl-card-body">
+                <h3 className="bl-card-title">{post.title}</h3>
+                {post.excerpt && <p className="bl-card-desc">{post.excerpt}</p>}
               </div>
             </Link>
           )) : [
@@ -273,18 +274,17 @@ export default async function ClinicHomePage() {
             { title: 'Digital consent management', desc: "What every clinic needs to know about ABDM's consent framework" },
             { title: 'Multi-doctor record sharing', desc: 'Managing shared patient records across a team of practitioners' },
           ].map((blog, i) => (
-            <div className="f-blog-item" key={i}>
-              <div className="f-blog-thumb">
-                <div className="f-blog-thumb-bg">
-                  <img src="/blog-thumb-bg.png" alt="" />
-                </div>
+            <Link href="/clinic/blogs" key={i} className="bl-card">
+              <div className="bl-card-img">
+                <img src="/blog-thumb-bg.png" alt="" />
+                <div className="bl-card-overlay" />
               </div>
-              <div className="f-blog-copy">
-                <h3 className="f-blog-title">{blog.title}</h3>
-                <p className="f-blog-desc">{blog.desc}</p>
-                <Link href="/clinic/blogs" className="f-blog-more">Read more</Link>
+              <div className="bl-card-arrow" aria-hidden="true"><i className="ti ti-arrow-up-right" /></div>
+              <div className="bl-card-body">
+                <h3 className="bl-card-title">{blog.title}</h3>
+                <p className="bl-card-desc">{blog.desc}</p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </section>

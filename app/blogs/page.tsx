@@ -51,66 +51,45 @@ export default async function BlogsPage() {
           <p className="bl-grid-desc">Stay informed with expert blogs on India&apos;s digital healthcare ecosystem from ABDM and ABHA IDs to EMR compliance and patient data privacy.</p>
         </div>
 
-        {posts.length > 0 ? (
-          <div className="bl-posts-grid">
-            {posts.map((post) => (
-              <Link href={`/blogs/${post.slug}`} key={post._id} className="bl-card" style={{textDecoration:'none'}}>
-                <div className="bl-thumb">
-                  <div className="bl-thumb-bg">
-                    {post.coverImage ? (
-                      <img src={urlFor(post.coverImage).width(340).height(300).url()} alt={post.title} style={{position:'absolute',inset:0,width:'100%',height:'100%',objectFit:'cover',borderRadius:8}} />
-                    ) : (
-                      <img src="/blog-thumb-bg.png" alt="" style={{position:'absolute',inset:0,width:'100%',height:'100%'}} />
-                    )}
-                  </div>
-                </div>
-                <div className="bl-copy">
-                  <h3 className="bl-title">{post.title}</h3>
-                  {post.excerpt && <p className="bl-desc">{post.excerpt}</p>}
-                  <span className="bl-more">Read more</span>
-                </div>
-              </Link>
-            ))}
-          </div>
-        ) : (
-          <>
-            <div className="bl-row">
-              {[
-                'Understanding ABHA and its role in your health journey',
-                'How digital health records are changing patient care in India',
-                'Consent management: giving patients control of their own data',
-              ].map((title, i) => (
-                <div className="bl-card" key={i}>
-                  <div className="bl-thumb">
-                    <div className="bl-thumb-bg"><img src="/blog-thumb-bg.png" alt="" /></div>
-                  </div>
-                  <div className="bl-copy">
-                    <h3 className="bl-title">{title}</h3>
-                    <p className="bl-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultricies dapibus pulvinar.</p>
-                    <span className="bl-more">Read more</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <div className="bl-row">
-              {[
-                'Managing health records for the whole family with one profile',
-                'How Ninto helps clinics streamline patient record management',
-              ].map((title, i) => (
-                <div className="bl-card" key={i}>
-                  <div className="bl-thumb">
-                    <div className="bl-thumb-bg"><img src="/blog-thumb-bg.png" alt="" /></div>
-                  </div>
-                  <div className="bl-copy">
-                    <h3 className="bl-title">{title}</h3>
-                    <p className="bl-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultricies dapibus pulvinar.</p>
-                    <span className="bl-more">Read more</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </>
-        )}
+        <div className="bl-posts-grid">
+          {posts.length > 0 ? posts.map((post) => (
+            <Link href={`/blogs/${post.slug}`} key={post._id} className="bl-card">
+              <div className="bl-card-img">
+                {post.coverImage ? (
+                  <img src={urlFor(post.coverImage).width(600).height(450).url()} alt={post.title} />
+                ) : (
+                  <img src="/blog-thumb-bg.png" alt="" />
+                )}
+                <div className="bl-card-overlay" />
+              </div>
+              <div className="bl-card-arrow" aria-hidden="true"><i className="ti ti-arrow-up-right" /></div>
+              <div className="bl-card-body">
+                {post.category && <span className="bl-card-tag">{post.category}</span>}
+                <h3 className="bl-card-title">{post.title}</h3>
+                {post.excerpt && <p className="bl-card-desc">{post.excerpt}</p>}
+              </div>
+            </Link>
+          )) : [
+            { title: 'Understanding ABHA and its role in your health journey', desc: 'Everything you need to know about your Ayushman Bharat Health Account.' },
+            { title: 'How digital health records are changing patient care in India', desc: 'From paper to paperless: the shift to electronic health records.' },
+            { title: 'Consent management: giving patients control of their own data', desc: 'How India\'s digital health ecosystem puts patients in charge.' },
+            { title: 'Managing health records for the whole family with one profile', desc: 'Keep every family member\'s health history organised in one place.' },
+            { title: 'How Ninto helps clinics streamline patient record management', desc: 'Reduce admin overhead and focus on delivering care.' },
+            { title: 'Privacy and security in India\'s digital health ecosystem', desc: 'What ABDM\'s consent architecture means for your personal data.' },
+          ].map((b, i) => (
+            <Link href="/blogs" key={i} className="bl-card">
+              <div className="bl-card-img">
+                <img src="/blog-thumb-bg.png" alt="" />
+                <div className="bl-card-overlay" />
+              </div>
+              <div className="bl-card-arrow" aria-hidden="true"><i className="ti ti-arrow-up-right" /></div>
+              <div className="bl-card-body">
+                <h3 className="bl-card-title">{b.title}</h3>
+                <p className="bl-card-desc">{b.desc}</p>
+              </div>
+            </Link>
+          ))}
+        </div>
       </section>
 
       <section className="f-ready">

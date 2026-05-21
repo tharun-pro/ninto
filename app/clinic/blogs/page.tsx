@@ -50,66 +50,45 @@ export default async function ClinicBlogsPage() {
           <p className="bl-grid-desc">Expert guides on ABDM onboarding, EMR best practices, digital consent, and growing your clinic&apos;s digital footprint.</p>
         </div>
 
-        {posts.length > 0 ? (
-          <div className="bl-posts-grid">
-            {posts.map((post) => (
-              <Link href={`/clinic/blogs/${post.slug}`} key={post._id} className="bl-card" style={{textDecoration:'none'}}>
-                <div className="bl-thumb">
-                  <div className="bl-thumb-bg">
-                    {post.coverImage ? (
-                      <img src={urlFor(post.coverImage).width(340).height(300).url()} alt={post.title} style={{position:'absolute',inset:0,width:'100%',height:'100%',objectFit:'cover',borderRadius:8}} />
-                    ) : (
-                      <img src="/blog-thumb-bg.png" alt="" style={{position:'absolute',inset:0,width:'100%',height:'100%'}} />
-                    )}
-                  </div>
-                </div>
-                <div className="bl-copy">
-                  <h3 className="bl-title">{post.title}</h3>
-                  {post.excerpt && <p className="bl-desc">{post.excerpt}</p>}
-                  <span className="bl-more">Read more</span>
-                </div>
-              </Link>
-            ))}
-          </div>
-        ) : (
-          <>
-            <div className="bl-row">
-              {[
-                { title: 'ABDM certification guide', desc: 'Step-by-step: getting your clinic registered on India\'s national health network' },
-                { title: 'Digital consent management', desc: "What every clinic needs to know about ABDM's consent framework" },
-                { title: 'Multi-doctor record sharing', desc: 'Managing shared patient records across a team of practitioners' },
-              ].map((b, i) => (
-                <div className="bl-card" key={i}>
-                  <div className="bl-thumb">
-                    <div className="bl-thumb-bg"><img src="/blog-thumb-bg.png" alt="" /></div>
-                  </div>
-                  <div className="bl-copy">
-                    <h3 className="bl-title">{b.title}</h3>
-                    <p className="bl-desc">{b.desc}</p>
-                    <span className="bl-more">Read more</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <div className="bl-row">
-              {[
-                { title: 'EMR best practices for Indian clinics', desc: 'Building a paperless practice that satisfies both patients and regulators' },
-                { title: 'Scaling your clinic with Ninto', desc: 'How multi-location practices use Ninto to stay synchronized' },
-              ].map((b, i) => (
-                <div className="bl-card" key={i}>
-                  <div className="bl-thumb">
-                    <div className="bl-thumb-bg"><img src="/blog-thumb-bg.png" alt="" /></div>
-                  </div>
-                  <div className="bl-copy">
-                    <h3 className="bl-title">{b.title}</h3>
-                    <p className="bl-desc">{b.desc}</p>
-                    <span className="bl-more">Read more</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </>
-        )}
+        <div className="bl-posts-grid">
+          {posts.length > 0 ? posts.map((post) => (
+            <Link href={`/clinic/blogs/${post.slug}`} key={post._id} className="bl-card">
+              <div className="bl-card-img">
+                {post.coverImage ? (
+                  <img src={urlFor(post.coverImage).width(600).height(450).url()} alt={post.title} />
+                ) : (
+                  <img src="/blog-thumb-bg.png" alt="" />
+                )}
+                <div className="bl-card-overlay" />
+              </div>
+              <div className="bl-card-arrow" aria-hidden="true"><i className="ti ti-arrow-up-right" /></div>
+              <div className="bl-card-body">
+                {post.category && <span className="bl-card-tag">{post.category}</span>}
+                <h3 className="bl-card-title">{post.title}</h3>
+                {post.excerpt && <p className="bl-card-desc">{post.excerpt}</p>}
+              </div>
+            </Link>
+          )) : [
+            { title: 'ABDM certification guide', desc: 'Step-by-step: getting your clinic registered on India\'s national health network.' },
+            { title: 'Digital consent management', desc: "What every clinic needs to know about ABDM's consent framework." },
+            { title: 'Multi-doctor record sharing', desc: 'Managing shared patient records across a team of practitioners.' },
+            { title: 'EMR best practices for Indian clinics', desc: 'Building a paperless practice that satisfies both patients and regulators.' },
+            { title: 'Scaling your clinic with Ninto', desc: 'How multi-location practices use Ninto to stay synchronized.' },
+            { title: 'Patient data privacy under ABDM', desc: 'Understanding your obligations as a healthcare provider under the new framework.' },
+          ].map((b, i) => (
+            <Link href="/clinic/blogs" key={i} className="bl-card">
+              <div className="bl-card-img">
+                <img src="/blog-thumb-bg.png" alt="" />
+                <div className="bl-card-overlay" />
+              </div>
+              <div className="bl-card-arrow" aria-hidden="true"><i className="ti ti-arrow-up-right" /></div>
+              <div className="bl-card-body">
+                <h3 className="bl-card-title">{b.title}</h3>
+                <p className="bl-card-desc">{b.desc}</p>
+              </div>
+            </Link>
+          ))}
+        </div>
       </section>
 
       <section className="f-ready">

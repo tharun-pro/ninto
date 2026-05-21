@@ -110,20 +110,20 @@ export default async function BlogDetailPage({ params }: Props) {
           </div>
           <div className="bl-posts-grid">
             {related.map((r) => (
-              <Link href={`/blogs/${r.slug}`} key={r._id} className="bl-card" style={{textDecoration:'none'}}>
-                <div className="bl-thumb">
-                  <div className="bl-thumb-bg">
-                    {r.coverImage ? (
-                      <img src={urlFor(r.coverImage).width(340).height(300).url()} alt={r.title} style={{position:'absolute',inset:0,width:'100%',height:'100%',objectFit:'cover',borderRadius:8}} />
-                    ) : (
-                      <img src="/blog-thumb-bg.png" alt="" style={{position:'absolute',inset:0,width:'100%',height:'100%'}} />
-                    )}
-                  </div>
+              <Link href={`/blogs/${r.slug}`} key={r._id} className="bl-card">
+                <div className="bl-card-img">
+                  {r.coverImage ? (
+                    <img src={urlFor(r.coverImage).width(600).height(450).url()} alt={r.title} />
+                  ) : (
+                    <img src="/blog-thumb-bg.png" alt="" />
+                  )}
+                  <div className="bl-card-overlay" />
                 </div>
-                <div className="bl-copy">
-                  <h3 className="bl-title">{r.title}</h3>
-                  {r.excerpt && <p className="bl-desc">{r.excerpt}</p>}
-                  <span className="bl-more">Read more</span>
+                <div className="bl-card-arrow" aria-hidden="true"><i className="ti ti-arrow-up-right" /></div>
+                <div className="bl-card-body">
+                  {r.category && <span className="bl-card-tag">{r.category}</span>}
+                  <h3 className="bl-card-title">{r.title}</h3>
+                  {r.excerpt && <p className="bl-card-desc">{r.excerpt}</p>}
                 </div>
               </Link>
             ))}
