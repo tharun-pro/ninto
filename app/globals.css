@@ -51,8 +51,7 @@ img, svg { display: block; max-width: 100%; }
 .fnav-links a:hover .nav-in, .f-footer-col a:hover .nav-in { transform: translate(0,0); opacity: 1; }
 
 /* ── Custom cursor ── */
-*, *::before, *::after { cursor: none !important; }
-body.studio-open *, body.studio-open *::before, body.studio-open *::after { cursor: auto !important; }
+body:not(.no-custom-cursor) *, body:not(.no-custom-cursor) *::before, body:not(.no-custom-cursor) *::after { cursor: none !important; }
 .c-dot {
   width: 8px; height: 8px; border-radius: 50%; background: #1a1a1a;
   position: fixed; top: 0; left: 0; pointer-events: none; z-index: 99999;
@@ -786,7 +785,7 @@ body.studio-open *, body.studio-open *::before, body.studio-open *::after { curs
 .bl-grid-desc { font-size: 16px; line-height: 1.5; color: #4e4e4e; font-weight: 400; margin: 0; max-width: 640px; }
 /* Blog posts grid — shared across listing pages and home section */
 .bl-filter-tabs { display: flex; gap: 8px; justify-content: center; margin-bottom: 48px; flex-wrap: wrap; }
-.bl-filter-tab { padding: 10px 22px; border-radius: 999px; border: 1px solid #d0d0d0; background: transparent; font-size: 14px; font-weight: 500; color: #555; cursor: none; transition: background .2s, color .2s, border-color .2s; }
+.bl-filter-tab { padding: 10px 22px; border-radius: 999px; border: 1px solid #d0d0d0; background: transparent; font-size: 14px; font-weight: 500; color: #555; cursor: pointer; transition: background .2s, color .2s, border-color .2s; }
 .bl-filter-tab.active { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
 .bl-posts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 80px; }
 
