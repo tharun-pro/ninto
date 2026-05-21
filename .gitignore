@@ -1,0 +1,22 @@
+# dependencies
+node_modules
+studio/node_modules
+
+# Next.js
+.next
+out
+
+# env
+.env.local
+.env*.local
+
+# Sanity
+.sanity
+
+# OS
+.DS_Store
+Thumbs.db
+
+# editor
+.vscode
+.idea

@@ -1,0 +1,50 @@
+import { createClient } from '@sanity/client'
+import imageUrlBuilder from '@sanity/image-url'
+import type { SanityImageSource } from '@sanity/image-url/lib/types/types'
+
+export const client = createClient({
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 'fnz75tfn',
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
+  apiVersion: process.env.NEXT_PUBLIC_SANITY_API_VERSION || '2021-10-21',
+  useCdn: true,
+})
+
+const builder = imageUrlBuilder(client)
+
+export function urlFor(source: SanityImageSource) {
+  return builder.image(source)
+}
+
+export async function sanityFetch<T>(
+  query: string,
+  params?: Record<string, unknown>
+): Promise<T> {
+  return client.fetch<T>(query, params ?? {})
+}
+
+export interface SanityPost {
+  _id: string
+  title: string
+  slug: string
+  excerpt?: string
+  coverImage?: { asset: { _ref: string } }
+  author?: string
+  category?: string
+  publishedAt?: string
+  readTime?: number
+}
+
+export interface SanityPostFull extends SanityPost {
+  body?: SanityBlock[]
+}
+
+export interface SanityBlock {
+  _type: string
+  _key: string
+  style?: string
+  children?: Array<{ _type: string; _key: string; text: string; marks: string[] }>
+  markDefs?: Array<{ _key: string; _type: string; href?: string }>
+  asset?: { _ref: string }
+  alt?: string
+  caption?: string
+}
