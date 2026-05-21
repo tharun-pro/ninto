@@ -5,6 +5,10 @@ studio/node_modules
 # Next.js
 .next
 out
+tsconfig.tsbuildinfo
+
+# Design reference (HTML originals — not deployed)
+design-reference/
 
 # env
 .env.local
@@ -20,3 +24,9 @@ Thumbs.db
 # editor
 .vscode
 .idea
+
+# Claude Code
+.claude/
+
+# Legacy standalone Sanity studio (superseded by embedded /studio)
+studio/
