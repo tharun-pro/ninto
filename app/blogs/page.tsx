@@ -8,6 +8,8 @@ import { allPostsQuery } from '@/lib/queries'
 import type { SanityPost } from '@/lib/sanity'
 import BlogsFilter from './BlogsFilter'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'Blogs — Ninto',
   description: 'Stay informed with expert blogs on India\'s digital healthcare ecosystem.',
@@ -81,7 +83,7 @@ export default async function BlogsPage() {
             <div className="f-faq-row">
               <div className="f-faq-text">
                 <p className="f-faq-q">Is there a free trial available?</p>
-                <p className="f-faq-a">Yes, you can try us for free for 30 days.</p>
+                <p className="f-faq-a">Yes, you can try us for free for 30 days. If you want, we&apos;ll provide you with a free, personalized 30-minute onboarding call to get you up and running as soon as possible.</p>
               </div>
               <i className="ti ti-chevron-down f-faq-icon"></i>
             </div>
@@ -91,7 +93,7 @@ export default async function BlogsPage() {
             <div className="f-faq-row">
               <div className="f-faq-text">
                 <p className="f-faq-q">Can I change my plan later?</p>
-                <p className="f-faq-a">Yes, you can upgrade or downgrade your plan at any time.</p>
+                <p className="f-faq-a">Yes, you can upgrade or downgrade your plan at any time from your account settings. Changes take effect at the start of the next billing cycle.</p>
               </div>
               <i className="ti ti-chevron-down f-faq-icon"></i>
             </div>
@@ -101,7 +103,27 @@ export default async function BlogsPage() {
             <div className="f-faq-row">
               <div className="f-faq-text">
                 <p className="f-faq-q">What is Ninto for and who are the users?</p>
-                <p className="f-faq-a">Ninto is a unified health records platform designed for patients, doctors, clinics, and family caregivers.</p>
+                <p className="f-faq-a">Ninto is a unified health records platform designed for patients, doctors, clinics, and family caregivers. Anyone managing healthcare journeys can benefit from Ninto.</p>
+              </div>
+              <i className="ti ti-chevron-down f-faq-icon"></i>
+            </div>
+          </div>
+          <div className="f-faq-item">
+            <div className="f-faq-divider"></div>
+            <div className="f-faq-row">
+              <div className="f-faq-text">
+                <p className="f-faq-q">Can we use the application without ABHA address?</p>
+                <p className="f-faq-a">Yes, you can use Ninto without an ABHA address. However, linking your ABHA ID unlocks features like nationwide record sharing and government health scheme integration.</p>
+              </div>
+              <i className="ti ti-chevron-down f-faq-icon"></i>
+            </div>
+          </div>
+          <div className="f-faq-item">
+            <div className="f-faq-divider"></div>
+            <div className="f-faq-row">
+              <div className="f-faq-text">
+                <p className="f-faq-q">How many accounts can be created in one profile?</p>
+                <p className="f-faq-a">A single Ninto profile supports up to 6 linked family member accounts, making it easy for caregivers to manage health records for their entire household from one login.</p>
               </div>
               <i className="ti ti-chevron-down f-faq-icon"></i>
             </div>

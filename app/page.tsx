@@ -103,10 +103,10 @@ export default async function HomePage() {
         <div className="f-about-imgs">
           <div className="f-about-img-grid">
             <div className="f-about-img-card">
-              <Image src="/about-img-1.jpg" alt="" fill style={{objectFit:'cover'}} />
+              <Image src="/About/about-img-1.jpg" alt="" fill style={{objectFit:'cover'}} />
             </div>
             <div className="f-about-img-card">
-              <Image src="/about-img-2.jpg" alt="" fill style={{objectFit:'cover'}} />
+              <Image src="/About/about-img-2.jpg" alt="" fill style={{objectFit:'cover'}} />
             </div>
           </div>
         </div>

@@ -76,6 +76,64 @@ export default function ClinicPrivacyPage() {
         </div>
       </section>
 
+      <section className="f-faq" id="faq">
+        <div className="f-faq-left">
+          <h2 className="f-faq-title">Your Questions<br/><span className="green">Answered</span></h2>
+          <p className="f-faq-desc">Everything you need to know about bringing your clinic onto Ninto&apos;s ABDM-certified platform.</p>
+        </div>
+        <div className="f-faq-list">
+          <div className="f-faq-item">
+            <div className="f-faq-row">
+              <div className="f-faq-text">
+                <p className="f-faq-q">Is Ninto Clinics ABDM certified?</p>
+                <p className="f-faq-a">Yes. Ninto Clinics is fully ABDM-compliant and certified by the National Health Authority. Your clinic&apos;s digital records and patient consents are managed in line with India&apos;s national health data standards.</p>
+              </div>
+              <i className="ti ti-chevron-down f-faq-icon"></i>
+            </div>
+          </div>
+          <div className="f-faq-item">
+            <div className="f-faq-divider"></div>
+            <div className="f-faq-row">
+              <div className="f-faq-text">
+                <p className="f-faq-q">How long does clinic onboarding take?</p>
+                <p className="f-faq-a">Most clinics are fully onboarded within 3&ndash;5 business days. Our team handles the ABDM registration, data migration setup, and staff training so you can focus on your patients from day one.</p>
+              </div>
+              <i className="ti ti-chevron-down f-faq-icon"></i>
+            </div>
+          </div>
+          <div className="f-faq-item">
+            <div className="f-faq-divider"></div>
+            <div className="f-faq-row">
+              <div className="f-faq-text">
+                <p className="f-faq-q">What is Ninto Clinics?</p>
+                <p className="f-faq-a">Ninto Clinics is the provider-facing arm of Ninto &mdash; a digital health records platform built for clinics, hospitals, and independent practitioners. It handles EMR, patient consent, ABDM compliance, and record sharing in one place.</p>
+              </div>
+              <i className="ti ti-chevron-down f-faq-icon"></i>
+            </div>
+          </div>
+          <div className="f-faq-item">
+            <div className="f-faq-divider"></div>
+            <div className="f-faq-row">
+              <div className="f-faq-text">
+                <p className="f-faq-q">Can multiple doctors use one clinic account?</p>
+                <p className="f-faq-a">Yes. A single Ninto Clinics account supports multiple practitioners with role-based access. Each doctor has their own login while sharing the clinic&apos;s patient database securely.</p>
+              </div>
+              <i className="ti ti-chevron-down f-faq-icon"></i>
+            </div>
+          </div>
+          <div className="f-faq-item">
+            <div className="f-faq-divider"></div>
+            <div className="f-faq-row">
+              <div className="f-faq-text">
+                <p className="f-faq-q">Is patient data secure on Ninto Clinics?</p>
+                <p className="f-faq-a">Absolutely. All patient data is encrypted at rest and in transit, stored on India-based servers, and accessed only with explicit patient consent as required by ABDM regulations.</p>
+              </div>
+              <i className="ti ti-chevron-down f-faq-icon"></i>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <FooterClinic />
     </>
   )

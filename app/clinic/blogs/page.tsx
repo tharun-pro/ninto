@@ -8,6 +8,8 @@ import { allPostsQuery } from '@/lib/queries'
 import type { SanityPost } from '@/lib/sanity'
 import BlogsFilter from '@/app/blogs/BlogsFilter'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'Clinic Blogs — Ninto',
   description: 'Expert guides on ABDM onboarding, EMR best practices, digital consent, and growing your clinic\'s digital footprint.',
@@ -54,44 +56,6 @@ export default async function ClinicBlogsPage() {
         <BlogsFilter posts={posts} basePath="/clinic/blogs" />
       </section>
 
-      <section className="f-faq" id="faq">
-        <div className="f-faq-left">
-          <h2 className="f-faq-title">Your Questions<br/><span className="green">Answered</span></h2>
-          <p className="f-faq-desc">Explore our FAQ library and take the first step toward a healthier, more informed you.</p>
-        </div>
-        <div className="f-faq-list">
-          <div className="f-faq-item">
-            <div className="f-faq-row">
-              <div className="f-faq-text">
-                <p className="f-faq-q">Is there a free trial available?</p>
-                <p className="f-faq-a">Yes, you can try us for free for 30 days.</p>
-              </div>
-              <i className="ti ti-chevron-down f-faq-icon"></i>
-            </div>
-          </div>
-          <div className="f-faq-item">
-            <div className="f-faq-divider"></div>
-            <div className="f-faq-row">
-              <div className="f-faq-text">
-                <p className="f-faq-q">Can I change my plan later?</p>
-                <p className="f-faq-a">Yes, you can upgrade or downgrade your plan at any time.</p>
-              </div>
-              <i className="ti ti-chevron-down f-faq-icon"></i>
-            </div>
-          </div>
-          <div className="f-faq-item">
-            <div className="f-faq-divider"></div>
-            <div className="f-faq-row">
-              <div className="f-faq-text">
-                <p className="f-faq-q">What is Ninto for and who are the users?</p>
-                <p className="f-faq-a">Ninto is a unified health records platform designed for patients, doctors, clinics, and family caregivers.</p>
-              </div>
-              <i className="ti ti-chevron-down f-faq-icon"></i>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section className="f-ready">
         <div className="f-ready-left">
           <p className="f-ready-heading">Ready to go <span className="green">digital</span></p>
@@ -105,6 +69,64 @@ export default async function ClinicBlogsPage() {
           <div className="f-cert"><img src="/cert-abdm.png" alt="ABDM Certified" /></div>
           <div className="f-cert"><img src="/cert-ayushman.png" alt="Ayushman Bharat Digital Mission" /></div>
           <div className="f-cert"><img src="/cert-nha.png" alt="National Health Authority" /></div>
+        </div>
+      </section>
+
+      <section className="f-faq" id="faq">
+        <div className="f-faq-left">
+          <h2 className="f-faq-title">Your Questions<br/><span className="green">Answered</span></h2>
+          <p className="f-faq-desc">Everything you need to know about bringing your clinic onto Ninto&apos;s ABDM-certified platform.</p>
+        </div>
+        <div className="f-faq-list">
+          <div className="f-faq-item">
+            <div className="f-faq-row">
+              <div className="f-faq-text">
+                <p className="f-faq-q">Is Ninto Clinics ABDM certified?</p>
+                <p className="f-faq-a">Yes. Ninto Clinics is fully ABDM-compliant and certified by the National Health Authority. Your clinic&apos;s digital records and patient consents are managed in line with India&apos;s national health data standards.</p>
+              </div>
+              <i className="ti ti-chevron-down f-faq-icon"></i>
+            </div>
+          </div>
+          <div className="f-faq-item">
+            <div className="f-faq-divider"></div>
+            <div className="f-faq-row">
+              <div className="f-faq-text">
+                <p className="f-faq-q">How long does clinic onboarding take?</p>
+                <p className="f-faq-a">Most clinics are fully onboarded within 3&ndash;5 business days. Our team handles the ABDM registration, data migration setup, and staff training so you can focus on your patients from day one.</p>
+              </div>
+              <i className="ti ti-chevron-down f-faq-icon"></i>
+            </div>
+          </div>
+          <div className="f-faq-item">
+            <div className="f-faq-divider"></div>
+            <div className="f-faq-row">
+              <div className="f-faq-text">
+                <p className="f-faq-q">What is Ninto Clinics?</p>
+                <p className="f-faq-a">Ninto Clinics is the provider-facing arm of Ninto &mdash; a digital health records platform built for clinics, hospitals, and independent practitioners. It handles EMR, patient consent, ABDM compliance, and record sharing in one place.</p>
+              </div>
+              <i className="ti ti-chevron-down f-faq-icon"></i>
+            </div>
+          </div>
+          <div className="f-faq-item">
+            <div className="f-faq-divider"></div>
+            <div className="f-faq-row">
+              <div className="f-faq-text">
+                <p className="f-faq-q">Can multiple doctors use one clinic account?</p>
+                <p className="f-faq-a">Yes. A single Ninto Clinics account supports multiple practitioners with role-based access. Each doctor has their own login while sharing the clinic&apos;s patient database securely.</p>
+              </div>
+              <i className="ti ti-chevron-down f-faq-icon"></i>
+            </div>
+          </div>
+          <div className="f-faq-item">
+            <div className="f-faq-divider"></div>
+            <div className="f-faq-row">
+              <div className="f-faq-text">
+                <p className="f-faq-q">Is patient data secure on Ninto Clinics?</p>
+                <p className="f-faq-a">Absolutely. All patient data is encrypted at rest and in transit, stored on India-based servers, and accessed only with explicit patient consent as required by ABDM regulations.</p>
+              </div>
+              <i className="ti ti-chevron-down f-faq-icon"></i>
+            </div>
+          </div>
         </div>
       </section>
 

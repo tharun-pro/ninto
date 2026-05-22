@@ -143,6 +143,26 @@ export default function AboutPage() {
               <i className="ti ti-chevron-down f-faq-icon"></i>
             </div>
           </div>
+          <div className="f-faq-item">
+            <div className="f-faq-divider"></div>
+            <div className="f-faq-row">
+              <div className="f-faq-text">
+                <p className="f-faq-q">Can we use the application without ABHA address?</p>
+                <p className="f-faq-a">Yes, you can use Ninto without an ABHA address. However, linking your ABHA ID unlocks features like nationwide record sharing and government health scheme integration.</p>
+              </div>
+              <i className="ti ti-chevron-down f-faq-icon"></i>
+            </div>
+          </div>
+          <div className="f-faq-item">
+            <div className="f-faq-divider"></div>
+            <div className="f-faq-row">
+              <div className="f-faq-text">
+                <p className="f-faq-q">How many accounts can be created in one profile?</p>
+                <p className="f-faq-a">A single Ninto profile supports up to 6 linked family member accounts, making it easy for caregivers to manage health records for their entire household from one login.</p>
+              </div>
+              <i className="ti ti-chevron-down f-faq-icon"></i>
+            </div>
+          </div>
         </div>
       </section>
 
