@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+﻿import type { Metadata } from 'next'
 import Link from 'next/link'
 import NavClinic from '@/components/NavClinic'
 import FooterClinic from '@/components/FooterClinic'
@@ -104,10 +104,10 @@ export default async function ClinicHomePage() {
         <div className="f-about-imgs">
           <div className="f-about-img-grid">
             <div className="f-about-img-card">
-              <img src="/clinic-about-img-1.jpg" alt="" style={{width:'100%',height:'100%',objectFit:'cover'}} />
+              <img src="/Clinic/about%20img%201.jpg" alt="" style={{width:'100%',height:'100%',objectFit:'cover'}} />
             </div>
             <div className="f-about-img-card">
-              <img src="/clinic-about-img-2.jpg" alt="" style={{width:'100%',height:'100%',objectFit:'cover'}} />
+              <img src="/Clinic/about%20img%202.jpg" alt="" style={{width:'100%',height:'100%',objectFit:'cover'}} />
             </div>
           </div>
         </div>
@@ -115,10 +115,10 @@ export default async function ClinicHomePage() {
 
       {/* Benefits */}
       <section className="f-benefits" id="benefits">
+        <div className="f-benefits-bg" aria-hidden="true">
+          <img id="benefits-bg-img" src="/Clinic/benifits%20bg.png" alt="" style={{transition:'opacity .45s ease'}} />
+        </div>
         <div className="f-benefits-inner">
-          <div className="f-benefits-bg" aria-hidden="true">
-            <img id="benefits-bg-img" src="/clinic-benefits-bg.png" alt="" style={{transition:'opacity .45s ease'}} />
-          </div>
           <div className="f-benefits-left">
             <div className="f-benefits-copy">
               <p className="f-eyebrow">key benefits</p>
@@ -136,13 +136,13 @@ export default async function ClinicHomePage() {
           </div>
           <div className="f-benefits-mock">
             <div className="f-benefits-mock-panel active">
-              <img src="/clinic-benefits-panel-1.png" alt="Counter management" style={{position:'absolute',left:0,top:'50%',transform:'translateY(-50%)',width:'100%',height:'492px',objectFit:'cover'}} />
+              <img src="/Clinic/benifits.png" alt="Counter management" style={{position:'absolute',left:0,top:'50%',transform:'translateY(-50%)',width:'100%',height:'492px',objectFit:'cover'}} />
             </div>
             <div className="f-benefits-mock-panel">
-              <img src="/clinic-benefits-panel-2.png" alt="Document management" style={{position:'absolute',left:0,top:'50%',transform:'translateY(-50%)',width:'100%',height:'580px',objectFit:'cover'}} />
+              <img src="/Clinic/benifits%20%282%29.png" alt="Document management" style={{position:'absolute',left:0,top:'50%',transform:'translateY(-50%)',width:'100%',height:'580px',objectFit:'cover'}} />
             </div>
             <div className="f-benefits-mock-panel">
-              <img src="/clinic-benefits-panel-3.png" alt="Patient management" style={{position:'absolute',left:0,top:'50%',transform:'translateY(-50%)',width:'100%',height:'580px',objectFit:'cover'}} />
+              <img src="/Clinic/benifits%20%283%29.png" alt="Patient management" style={{position:'absolute',left:0,top:'50%',transform:'translateY(-50%)',width:'100%',height:'580px',objectFit:'cover'}} />
             </div>
           </div>
         </div>
@@ -165,7 +165,7 @@ export default async function ClinicHomePage() {
               <div className="f-t-card-bar"></div>
               <div className="f-t-card-body">
                 <div className="f-t-avatar-wrap">
-                  <img src="/avatar-placeholder.png" alt="" />
+                  <img src={`/Clinic/avatar%20${i + 1}.jpg`} alt="" />
                 </div>
                 <p className="f-t-quote">{t.quote}</p>
                 <div className="f-t-meta">
@@ -179,7 +179,7 @@ export default async function ClinicHomePage() {
         <div className="f-logos" aria-label="Partner clinics">
           <div className="f-logos-track" aria-hidden="true">
             {[...Array(4)].map((_, set) =>
-              ['/logo-1.png','/logo-2.png','/logo-3.png','/logo-4.png','/logo-5.png'].map((src, i) => (
+              ['/Shared/partner%20logo.png','/Shared/partner%20logo%20%282%29.png','/Shared/partner%20logo%20%283%29.png','/Shared/partner%20logo%20%284%29.png','/Shared/partner%20logo%20%285%29.png'].map((src, i) => (
                 <div className="f-logo-cell" key={`${set}-${i}`}>
                   <img src={src} alt="" style={{width:80,height:60,objectFit:'contain'}} />
                 </div>
@@ -200,45 +200,45 @@ export default async function ClinicHomePage() {
           <div className="f-clinics-sticky-body">
             <div className="f-clinics-body">
               <div className="f-clinics-list">
-                <div className="f-clinic-item active" data-image="/clinic-specialist.jpg">
+                <div className="f-clinic-item active" data-image="/Clinic/specialist.png">
                   <div className="f-clinic-item-content">
                     <span className="f-clinic-tag">Specialist</span>
                     <p className="f-clinic-title">Specialist Clinics</p>
                     <div className="f-clinic-subheader-wrap"><p className="f-clinic-subheader">HPR-registered specialists need more than just records; they need a workflow that respects the patient&apos;s journey. From digital consent to specialty-specific handoffs, we&apos;ve got the details covered.</p></div>
-                    <div className="f-clinic-inline-img-wrap"><div className="f-clinic-inline-img-inner"><img src="/clinic-specialist.jpg" alt="Specialist clinic" /></div></div>
+                    <div className="f-clinic-inline-img-wrap"><div className="f-clinic-inline-img-inner"><img src="/Clinic/specialist.png" alt="Specialist clinic" /></div></div>
                   </div>
                   <div className="f-clinic-arrow up"><i className="ti ti-chevron-right"></i></div>
                 </div>
-                <div className="f-clinic-item" data-image="/clinic-hospital.jpg">
+                <div className="f-clinic-item" data-image="/Clinic/abha.png">
                   <div className="f-clinic-item-content">
                     <span className="f-clinic-tag">Hospital</span>
                     <p className="f-clinic-title">Multispecialty Hospitals &amp; Polyclinics</p>
                     <div className="f-clinic-subheader-wrap"><p className="f-clinic-subheader">Managing a hospital shouldn&apos;t feel like managing ten different businesses. Ninto connects your counters, labs, and departments into a single, synchronized heartbeat.</p></div>
-                    <div className="f-clinic-inline-img-wrap"><div className="f-clinic-inline-img-inner"><img src="/clinic-hospital.jpg" alt="Hospital" /></div></div>
+                    <div className="f-clinic-inline-img-wrap"><div className="f-clinic-inline-img-inner"><img src="/Clinic/abha.png" alt="Hospital" /></div></div>
                   </div>
                   <div className="f-clinic-arrow down"><i className="ti ti-chevron-right"></i></div>
                 </div>
-                <div className="f-clinic-item" data-image="/clinic-diagnostic.jpg">
+                <div className="f-clinic-item" data-image="/Clinic/chronic.png">
                   <div className="f-clinic-item-content">
                     <span className="f-clinic-tag">Diagnostic</span>
                     <p className="f-clinic-title">Diagnostic Labs &amp; Radiology Centers</p>
                     <div className="f-clinic-subheader-wrap"><p className="f-clinic-subheader">Don&apos;t let reports get lost in an inbox. Deliver results directly to the patient&apos;s ABHA-linked record, ensuring that doctors see your findings the moment they are ready.</p></div>
-                    <div className="f-clinic-inline-img-wrap"><div className="f-clinic-inline-img-inner"><img src="/clinic-diagnostic.jpg" alt="Diagnostic centre" /></div></div>
+                    <div className="f-clinic-inline-img-wrap"><div className="f-clinic-inline-img-inner"><img src="/Clinic/chronic.png" alt="Diagnostic centre" /></div></div>
                   </div>
                   <div className="f-clinic-arrow down"><i className="ti ti-chevron-right"></i></div>
                 </div>
-                <div className="f-clinic-item" data-image="/clinic-telemedicine.jpg">
+                <div className="f-clinic-item" data-image="/Clinic/family.png">
                   <div className="f-clinic-item-content">
                     <span className="f-clinic-tag">Hybrid</span>
                     <p className="f-clinic-title">Telemedicine &amp; Hybrid-Care Providers</p>
                     <div className="f-clinic-subheader-wrap"><p className="f-clinic-subheader">Whether your patient is on a screen or in your office, their record should be the same. Ninto creates a continuous care journey that bridges the gap between remote and in-person visits.</p></div>
-                    <div className="f-clinic-inline-img-wrap"><div className="f-clinic-inline-img-inner"><img src="/clinic-telemedicine.jpg" alt="Telemedicine" /></div></div>
+                    <div className="f-clinic-inline-img-wrap"><div className="f-clinic-inline-img-inner"><img src="/Clinic/family.png" alt="Telemedicine" /></div></div>
                   </div>
                   <div className="f-clinic-arrow down"><i className="ti ti-chevron-right"></i></div>
                 </div>
               </div>
               <div className="f-clinics-image">
-                <img src="/clinic-specialist.jpg" alt="Ninto User" />
+                <img src="/Clinic/specialist.png" alt="Ninto User" />
               </div>
             </div>
           </div>
@@ -301,9 +301,9 @@ export default async function ClinicHomePage() {
           <Link href="/clinic/contact" className="f-btn">Get started</Link>
         </div>
         <div className="f-ready-right">
-          <div className="f-cert"><img src="/cert-abdm.png" alt="ABDM Certified" /></div>
-          <div className="f-cert"><img src="/cert-ayushman.png" alt="Ayushman Bharat Digital Mission" /></div>
-          <div className="f-cert"><img src="/cert-nha.png" alt="National Health Authority" /></div>
+          <div className="f-cert"><img src="/Shared/cert%20abha.png" alt="ABDM Certified" /></div>
+          <div className="f-cert"><img src="/Shared/cert%20ayushman.png" alt="Ayushman Bharat Digital Mission" /></div>
+          <div className="f-cert"><img src="/Shared/cert%20nha.png" alt="National Health Authority" /></div>
         </div>
       </section>
 

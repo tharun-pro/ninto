@@ -7,7 +7,13 @@ export default function SiteEffects() {
   const pathname = usePathname()
 
   useEffect(() => {
-    // ── Custom cursor ──
+    // ── Custom cursor (mouse/desktop only) ──
+    const isTouch = !window.matchMedia('(pointer: fine)').matches
+    if (isTouch) {
+      document.body.classList.add('no-custom-cursor')
+      return
+    }
+
     const dot = document.createElement('div')
     dot.className = 'c-dot'
     const ring = document.createElement('div')

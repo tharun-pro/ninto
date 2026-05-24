@@ -6,7 +6,7 @@ export default function FooterPatient() {
       <div className="f-footer-top">
         <div className="f-footer-brand">
           <div className="f-footer-logo">
-            <img src="/logo_full_black.svg" alt="Ninto" style={{ height: 24, width: 'auto' }} />
+            <img src="/Patient/patient%20logo.png" alt="Ninto" style={{ height: 24, width: 'auto' }} />
           </div>
           <p className="f-footer-desc">Store, organize and share your family&apos;s medical history. ABHA-linked records, prescription tracking, and effortless sharing with doctors.</p>
         </div>

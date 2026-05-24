@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+﻿import type { Metadata } from 'next'
 import Link from 'next/link'
 import NavPatient from '@/components/NavPatient'
 import FooterPatient from '@/components/FooterPatient'
@@ -28,7 +28,7 @@ export default async function BlogsPage() {
 
       <section className="bl-hero">
         <div className="bl-hero-bg" aria-hidden="true">
-          <img src="/blogs-hero-bg.png" alt="" />
+          <img src="/Shared/hero%20bg.png" alt="" />
         </div>
         <div className="bl-hero-inner">
           <div className="bl-hero-top">
@@ -67,9 +67,9 @@ export default async function BlogsPage() {
           <Link href="/clinic/contact" className="f-btn">Get started</Link>
         </div>
         <div className="f-ready-right">
-          <div className="f-cert"><img src="/cert-abdm.png" alt="ABDM Certified" /></div>
-          <div className="f-cert"><img src="/cert-ayushman.png" alt="Ayushman Bharat Digital Mission" /></div>
-          <div className="f-cert"><img src="/cert-nha.png" alt="National Health Authority" /></div>
+          <div className="f-cert"><img src="/Shared/cert%20abha.png" alt="ABDM Certified" /></div>
+          <div className="f-cert"><img src="/Shared/cert%20ayushman.png" alt="Ayushman Bharat Digital Mission" /></div>
+          <div className="f-cert"><img src="/Shared/cert%20nha.png" alt="National Health Authority" /></div>
         </div>
       </section>
 

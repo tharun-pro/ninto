@@ -5,7 +5,7 @@ export default function NavPatient() {
     <>
       <header className="fnav">
         <Link href="/" className="fnav-logo">
-          <img src="/logo_full.svg" alt="Ninto" style={{ height: 24, width: 'auto' }} />
+          <img src="/Patient/patient%20logo.png" alt="Ninto" style={{ height: 24, width: 'auto' }} />
         </Link>
         <nav>
           <ul className="fnav-links">
@@ -26,7 +26,7 @@ export default function NavPatient() {
       <div className="mobile-menu">
         <div className="mobile-menu-header">
           <Link href="/" className="fnav-logo">
-            <img src="/logo_full.svg" alt="Ninto" style={{ height: 24, width: 'auto' }} />
+            <img src="/Patient/patient%20logo.png" alt="Ninto" style={{ height: 24, width: 'auto' }} />
           </Link>
           <button className="mobile-menu-close" aria-label="Close">
             <span></span><span></span>

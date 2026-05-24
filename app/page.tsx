@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+﻿import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import NavPatient from '@/components/NavPatient'
@@ -105,10 +105,10 @@ export default async function HomePage() {
         <div className="f-about-imgs">
           <div className="f-about-img-grid">
             <div className="f-about-img-card">
-              <Image src="/About/about-img-1.jpg" alt="" fill style={{objectFit:'cover'}} />
+              <Image src="/Patient/about%20img%201.jpg" alt="" fill style={{objectFit:'cover'}} />
             </div>
             <div className="f-about-img-card">
-              <Image src="/About/about-img-2.jpg" alt="" fill style={{objectFit:'cover'}} />
+              <Image src="/Patient/about%20img%202.jpg" alt="" fill style={{objectFit:'cover'}} />
             </div>
           </div>
         </div>
@@ -116,10 +116,10 @@ export default async function HomePage() {
 
       {/* Benefits */}
       <section className="f-benefits" id="benefits">
+        <div className="f-benefits-bg" aria-hidden="true">
+          <img id="benefits-bg-img" src="/Patient/benifits%20bg.png" alt="" style={{transition:'opacity .45s ease'}} />
+        </div>
         <div className="f-benefits-inner">
-          <div className="f-benefits-bg" aria-hidden="true">
-            <img id="benefits-bg-img" src="/benefits-bg.png" alt="" style={{transition:'opacity .45s ease'}} />
-          </div>
           <div className="f-benefits-left">
             <div className="f-benefits-copy">
               <p className="f-eyebrow">key benefits</p>
@@ -137,13 +137,13 @@ export default async function HomePage() {
           </div>
           <div className="f-benefits-mock">
             <div className="f-benefits-mock-panel active">
-              <img src="/benefits-panel-1.png" alt="Consent management" style={{position:'absolute',left:0,top:'50%',transform:'translateY(-50%)',width:'100%',height:'686px',objectFit:'cover'}} />
+              <img src="/Patient/benifits%201.png" alt="Consent management" style={{position:'absolute',left:0,top:'50%',transform:'translateY(-50%)',width:'100%',height:'686px',objectFit:'cover'}} />
             </div>
             <div className="f-benefits-mock-panel">
-              <img src="/benefits-panel-2.png" alt="Manage health locker" style={{position:'absolute',left:0,top:'50%',transform:'translateY(-50%)',width:'100%',height:'591px',objectFit:'cover'}} />
+              <img src="/Patient/benifits%202.png" alt="Manage health locker" style={{position:'absolute',left:0,top:'50%',transform:'translateY(-50%)',width:'100%',height:'591px',objectFit:'cover'}} />
             </div>
             <div className="f-benefits-mock-panel">
-              <img src="/benefits-panel-3.png" alt="Profile management" style={{position:'absolute',left:0,top:'50%',transform:'translateY(-50%)',width:'100%',height:'650px',objectFit:'cover'}} />
+              <img src="/Patient/benifits%203.png" alt="Profile management" style={{position:'absolute',left:0,top:'50%',transform:'translateY(-50%)',width:'100%',height:'650px',objectFit:'cover'}} />
             </div>
           </div>
         </div>
@@ -157,12 +157,12 @@ export default async function HomePage() {
           <p className="f-section-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultricies dapibus pulvinar. Sed non pretium elit, quis facilisis orci donec</p>
         </div>
         <div className="f-t-cards">
-          {[0,1,2].map((i) => (
+          {[1,2,3].map((i) => (
             <div className="f-t-card" key={i}>
               <div className="f-t-card-bar"></div>
               <div className="f-t-card-body">
                 <div className="f-t-avatar-wrap">
-                  <img src="/avatar-placeholder.png" alt="" />
+                  <img src={`/Patient/avatar%20${i}.jpg`} alt="" />
                 </div>
                 <p className="f-t-quote">We reduced our customer onboarding time by 60% using Ninto. The Byepo team felt like an extension of our product team.</p>
                 <div className="f-t-meta">
@@ -176,7 +176,7 @@ export default async function HomePage() {
         <div className="f-logos" aria-label="Partner clinics">
           <div className="f-logos-track" aria-hidden="true">
             {[...Array(4)].map((_, set) =>
-              ['/logo-1.png','/logo-2.png','/logo-3.png','/logo-4.png','/logo-5.png'].map((src, i) => (
+              ['/Shared/partner%20logo.png','/Shared/partner%20logo%20%282%29.png','/Shared/partner%20logo%20%283%29.png','/Shared/partner%20logo%20%284%29.png','/Shared/partner%20logo%20%285%29.png'].map((src, i) => (
                 <div className="f-logo-cell" key={`${set}-${i}`}>
                   <img src={src} alt="" style={{width:80,height:60,objectFit:'contain'}} />
                 </div>
@@ -197,45 +197,45 @@ export default async function HomePage() {
           <div className="f-users-sticky-body">
             <div className="f-users-body">
               <div className="f-users-list">
-                <div className="f-user-item active" data-image="/user-abha.jpg">
+                <div className="f-user-item active" data-image="/Patient/abha.png">
                   <div className="f-user-item-content">
                     <span className="f-user-tag">ABHA</span>
                     <p className="f-user-title">The ABHA-Enabled Patient</p>
                     <div className="f-user-subheader-wrap"><p className="f-user-subheader">If you&apos;re already part of India&apos;s national health stack, Ninto is your ultimate command center. We bridge the gap between your ABHA ID and actionable health management.</p></div>
-                    <div className="f-user-inline-img-wrap"><div className="f-user-inline-img-inner"><img src="/user-abha.jpg" alt="Ninto user" /></div></div>
+                    <div className="f-user-inline-img-wrap"><div className="f-user-inline-img-inner"><img src="/Patient/abha.png" alt="Ninto user" /></div></div>
                   </div>
                   <div className="f-user-arrow up"><i className="ti ti-chevron-right"></i></div>
                 </div>
-                <div className="f-user-item" data-image="/user-chronic.jpg">
+                <div className="f-user-item" data-image="/Patient/chronic.png">
                   <div className="f-user-item-content">
                     <span className="f-user-tag">Chronic</span>
                     <p className="f-user-title">The Chronic Care Warrior</p>
                     <div className="f-user-subheader-wrap"><p className="f-user-subheader">Living with conditions like Diabetes, hypertension, or thyroid disorders means managing a mountain of data. Ninto turns scattered lab results and prescriptions into a clear story.</p></div>
-                    <div className="f-user-inline-img-wrap"><div className="f-user-inline-img-inner"><img src="/user-chronic.jpg" alt="Ninto user" /></div></div>
+                    <div className="f-user-inline-img-wrap"><div className="f-user-inline-img-inner"><img src="/Patient/chronic.png" alt="Ninto user" /></div></div>
                   </div>
                   <div className="f-user-arrow down"><i className="ti ti-chevron-right"></i></div>
                 </div>
-                <div className="f-user-item" data-image="/user-family.jpg">
+                <div className="f-user-item" data-image="/Patient/family.png">
                   <div className="f-user-item-content">
                     <span className="f-user-tag">Family</span>
                     <p className="f-user-title">The Family Caregiver</p>
                     <div className="f-user-subheader-wrap"><p className="f-user-subheader">From a toddler&apos;s first vaccinations to a parent&apos;s cardiology reports, managing family health across different hospitals is exhausting. Ninto puts the whole family&apos;s history in your pocket.</p></div>
-                    <div className="f-user-inline-img-wrap"><div className="f-user-inline-img-inner"><img src="/user-family.jpg" alt="Ninto user" /></div></div>
+                    <div className="f-user-inline-img-wrap"><div className="f-user-inline-img-inner"><img src="/Patient/family.png" alt="Ninto user" /></div></div>
                   </div>
                   <div className="f-user-arrow down"><i className="ti ti-chevron-right"></i></div>
                 </div>
-                <div className="f-user-item" data-image="/user-specialist.jpg">
+                <div className="f-user-item" data-image="/Patient/specialist.png">
                   <div className="f-user-item-content">
                     <span className="f-user-tag">Specialist</span>
                     <p className="f-user-title">The Multi-Specialist Patient</p>
                     <div className="f-user-subheader-wrap"><p className="f-user-subheader">When you&apos;re seeing a cardiologist, a nutritionist, and a GP simultaneously, things get lost in translation. Ninto acts as the &quot;connective tissue&quot; between your doctors.</p></div>
-                    <div className="f-user-inline-img-wrap"><div className="f-user-inline-img-inner"><img src="/user-specialist.jpg" alt="Ninto user" /></div></div>
+                    <div className="f-user-inline-img-wrap"><div className="f-user-inline-img-inner"><img src="/Patient/specialist.png" alt="Ninto user" /></div></div>
                   </div>
                   <div className="f-user-arrow down"><i className="ti ti-chevron-right"></i></div>
                 </div>
               </div>
               <div className="f-users-image">
-                <img src="/user-abha.jpg" alt="Ninto user" />
+                <img src="/Patient/abha.png" alt="Ninto user" />
               </div>
             </div>
           </div>
@@ -299,9 +299,9 @@ export default async function HomePage() {
           <Link href="/clinic/contact" className="f-btn">Get started</Link>
         </div>
         <div className="f-ready-right">
-          <div className="f-cert"><img src="/cert-abdm.png" alt="ABDM Certified" /></div>
-          <div className="f-cert"><img src="/cert-ayushman.png" alt="Ayushman Bharat Digital Mission" /></div>
-          <div className="f-cert"><img src="/cert-nha.png" alt="National Health Authority" /></div>
+          <div className="f-cert"><img src="/Shared/cert%20abha.png" alt="ABDM Certified" /></div>
+          <div className="f-cert"><img src="/Shared/cert%20ayushman.png" alt="Ayushman Bharat Digital Mission" /></div>
+          <div className="f-cert"><img src="/Shared/cert%20nha.png" alt="National Health Authority" /></div>
         </div>
       </section>
 

@@ -6,7 +6,7 @@ export default function FooterClinic() {
       <div className="f-footer-top">
         <div className="f-footer-brand">
           <div className="f-footer-logo">
-            <img src="/logo_full_black.svg" alt="Ninto" style={{ height: 24, width: 'auto' }} />
+            <img src="/Clinic/clinic%20and%20lab%20logo.png" alt="Ninto" style={{ height: 24, width: 'auto' }} />
           </div>
           <p className="f-footer-desc">Meeting every regulation so you can focus exclusively on your patients. We handle the compliance, you provide the care.</p>
         </div>
