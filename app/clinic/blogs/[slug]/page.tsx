@@ -38,19 +38,40 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 function renderBody(body: any[]): React.ReactNode {
   if (!body?.length) return null
-  return body.map((block: any, i: number) => {
-    if (block._type === 'block') {
-      const text = block.children?.map((c: any) => c.text).join('') ?? ''
-      if (block.style === 'h2') return <h2 className="art-section-title" key={i}>{text}</h2>
-      if (block.style === 'h3') return <h3 key={i} style={{fontSize:20,fontWeight:500,margin:'0 0 8px'}}>{text}</h3>
-      if (block.style === 'blockquote') return <blockquote key={i} style={{borderLeft:'3px solid #00a000',paddingLeft:16,color:'#4e4e4e',fontStyle:'italic',margin:'16px 0'}}>{text}</blockquote>
-      return <p className="art-section-body" key={i}>{text}</p>
+
+  const sections: any[][] = []
+  let current: any[] = []
+  for (const block of body) {
+    if (block._type === 'block' && block.style === 'h2' && current.length > 0) {
+      sections.push(current)
+      current = [block]
+    } else {
+      current.push(block)
     }
-    if (block._type === 'image' && block.asset) {
-      return <img key={i} src={urlFor(block).width(800).url()} alt={block.alt ?? ''} style={{width:'100%',borderRadius:8,margin:'24px 0'}} />
-    }
-    return null
-  })
+  }
+  if (current.length > 0) sections.push(current)
+
+  return (
+    <div style={{display:'flex', flexDirection:'column', gap:40}}>
+      {sections.map((section, si) => (
+        <div key={si} style={{padding:'24px 0'}}>
+          {section.map((block: any, i: number) => {
+            if (block._type === 'block') {
+              const text = block.children?.map((c: any) => c.text).join('') ?? ''
+              if (block.style === 'h2') return <h2 className="art-section-title" key={i} style={{marginBottom:40}}>{text}</h2>
+              if (block.style === 'h3') return <h3 key={i} style={{fontSize:20,fontWeight:500,margin:'40px 0 8px'}}>{text}</h3>
+              if (block.style === 'blockquote') return <blockquote key={i} style={{borderLeft:'3px solid #00a000',paddingLeft:16,color:'#4e4e4e',fontStyle:'italic',margin:'16px 0'}}>{text}</blockquote>
+              return <p className="art-section-body" key={i}>{text}</p>
+            }
+            if (block._type === 'image' && block.asset) {
+              return <img key={i} src={urlFor(block).width(800).url()} alt={block.alt ?? ''} style={{width:'100%',borderRadius:8,margin:'24px 0'}} />
+            }
+            return null
+          })}
+        </div>
+      ))}
+    </div>
+  )
 }
 
 export default async function ClinicBlogDetailPage({ params }: Props) {
@@ -64,7 +85,7 @@ export default async function ClinicBlogDetailPage({ params }: Props) {
 
   if (!post) notFound()
 
-  const coverUrl = post.coverImage?.asset ? urlFor(post.coverImage).width(1200).height(600).url() : null
+  const coverUrl = post.coverImage?.asset ? urlFor(post.coverImage).width(1000).height(750).fit('crop').crop('focalpoint').url() : null
 
   return (
     <>

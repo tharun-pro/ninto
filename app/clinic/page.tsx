@@ -4,8 +4,10 @@ import NavClinic from '@/components/NavClinic'
 import FooterClinic from '@/components/FooterClinic'
 import SiteEffects from '@/components/SiteEffects'
 import { sanityFetch, urlFor } from '@/lib/sanity'
-import { recentClinicPostsQuery } from '@/lib/queries'
+import { recentAllPostsQuery } from '@/lib/queries'
 import type { SanityPost } from '@/lib/sanity'
+
+export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   title: 'Ninto Clinics — Powering the future of care',
@@ -15,7 +17,7 @@ export const metadata: Metadata = {
 export default async function ClinicHomePage() {
   let recentPosts: SanityPost[] = []
   try {
-    recentPosts = await sanityFetch<SanityPost[]>(recentClinicPostsQuery)
+    recentPosts = await sanityFetch<SanityPost[]>(recentAllPostsQuery)
   } catch {}
 
   return (
@@ -82,8 +84,8 @@ export default async function ClinicHomePage() {
       <div className="f-intro-scroll">
         <section className="f-intro">
           <div className="f-intro-inner">
-            <p className="f-intro-label">Health Hub</p>
-            <p className="f-intro-text">At Ninto, we bring all your medical records together in one secure, easy-to-use app. With simple ABHA integration and effortless family sharing, taking care of the people you love is now right in your pocket.</p>
+            <p className="f-intro-label">Beyond Paperwork</p>
+            <p className="f-intro-text">As a clinic, the last thing you need is patient data scattered everywhere. That&apos;s why Ninto unifies your records, smartens up your OPD daily workflows, and handles ABDM compliance automatically. We connect the dots in the background so you can deliver seamless, stress-free care</p>
           </div>
         </section>
       </div>

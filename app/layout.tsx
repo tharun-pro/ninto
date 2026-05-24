@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import SmoothScroll from '@/components/SmoothScroll'
+import PageTransitionManager from '@/components/PageTransitionManager'
 
 export const metadata: Metadata = {
   title: 'Ninto',
@@ -18,7 +19,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <SmoothScroll />
-        {children}
+        <PageTransitionManager>
+          {children}
+        </PageTransitionManager>
       </body>
     </html>
   )

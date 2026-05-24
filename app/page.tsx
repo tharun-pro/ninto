@@ -8,6 +8,8 @@ import { sanityFetch, urlFor } from '@/lib/sanity'
 import { recentAllPostsQuery } from '@/lib/queries'
 import type { SanityPost } from '@/lib/sanity'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'Ninto — Smarter way to manage health',
   description: 'Store, organize and share your family\'s medical history. ABHA-linked records, prescription tracking, and effortless sharing with doctors.',
