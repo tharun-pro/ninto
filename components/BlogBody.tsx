@@ -27,12 +27,12 @@ const components: PortableTextComponents = {
 
   list: {
     bullet: ({ children }) => (
-      <ul style={{ paddingLeft: 24, margin: '40px 0 0', display: 'flex', flexDirection: 'column', gap: 8, listStyleType: 'disc' }}>
+      <ul style={{ paddingLeft: 24, margin: '24px 0 0', display: 'flex', flexDirection: 'column', gap: 8, listStyleType: 'disc' }}>
         {children}
       </ul>
     ),
     number: ({ children }) => (
-      <ol style={{ paddingLeft: 24, margin: '40px 0 0', display: 'flex', flexDirection: 'column', gap: 8, listStyleType: 'decimal' }}>
+      <ol style={{ paddingLeft: 24, margin: '24px 0 0', display: 'flex', flexDirection: 'column', gap: 8, listStyleType: 'decimal' }}>
         {children}
       </ol>
     ),
