@@ -2,6 +2,7 @@
 *, *::before, *::after {
   box-sizing: border-box;
   font-family: "Google Sans Flex", sans-serif;
+  font-optical-sizing: auto;
 }
 .ti::before { font-family: "tabler-icons" !important; }
 html, body { margin: 0; padding: 0; width: 100%; min-height: 100%; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
