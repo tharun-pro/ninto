@@ -10,13 +10,13 @@ const components: PortableTextComponents = {
       <p className="art-section-body" style={{ margin: 0 }}>{children}</p>
     ),
     h2: ({ children }) => (
-      <h2 className="art-section-title" style={{ marginTop: 8, marginBottom: 0 }}>{children}</h2>
+      <h2 className="art-section-title" style={{ marginTop: 16, marginBottom: 0 }}>{children}</h2>
     ),
     h3: ({ children }) => (
-      <h3 style={{ fontSize: 22, fontWeight: 500, lineHeight: 1.2, color: '#4e4e4e', margin: 0 }}>{children}</h3>
+      <h3 style={{ fontSize: 22, fontWeight: 500, lineHeight: 1.2, color: '#4e4e4e', margin: '16px 0 0' }}>{children}</h3>
     ),
     h4: ({ children }) => (
-      <h4 style={{ fontSize: 18, fontWeight: 500, lineHeight: 1.3, color: '#4e4e4e', margin: 0 }}>{children}</h4>
+      <h4 style={{ fontSize: 18, fontWeight: 500, lineHeight: 1.3, color: '#4e4e4e', margin: '16px 0 0' }}>{children}</h4>
     ),
     blockquote: ({ children }) => (
       <blockquote style={{ borderLeft: '3px solid #00a000', paddingLeft: 16, margin: 0, fontStyle: 'italic', color: '#6b6b6b', lineHeight: 1.6 }}>
@@ -27,12 +27,12 @@ const components: PortableTextComponents = {
 
   list: {
     bullet: ({ children }) => (
-      <ul style={{ paddingLeft: 24, margin: 0, display: 'flex', flexDirection: 'column', gap: 8, listStyleType: 'disc' }}>
+      <ul style={{ paddingLeft: 24, margin: '40px 0 0', display: 'flex', flexDirection: 'column', gap: 8, listStyleType: 'disc' }}>
         {children}
       </ul>
     ),
     number: ({ children }) => (
-      <ol style={{ paddingLeft: 24, margin: 0, display: 'flex', flexDirection: 'column', gap: 8, listStyleType: 'decimal' }}>
+      <ol style={{ paddingLeft: 24, margin: '40px 0 0', display: 'flex', flexDirection: 'column', gap: 8, listStyleType: 'decimal' }}>
         {children}
       </ol>
     ),
