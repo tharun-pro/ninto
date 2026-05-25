@@ -85,7 +85,7 @@ export default async function ClinicHomePage() {
         <section className="f-intro">
           <div className="f-intro-inner">
             <p className="f-intro-label">Beyond Paperwork</p>
-            <p className="f-intro-text">As a clinic, the last thing you need is patient data scattered everywhere. That&apos;s why Ninto unifies your records, smartens up your OPD daily workflows, and handles ABDM compliance automatically. We connect the dots in the background so you can deliver seamless, stress-free care</p>
+            <p className="f-intro-text">As a clinic, the last thing you need is patient data scattered everywhere. That&apos;s why Ninto unifies your records, smartens up your OPD daily workflows, and handles ABDM compliance automatically.</p>
           </div>
         </section>
       </div>

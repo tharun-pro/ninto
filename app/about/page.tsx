@@ -68,24 +68,20 @@ export default function AboutPage() {
           <p className="f-section-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultricies dapibus pulvinar. Sed non pretium elit, quis facilisis orci donec</p>
           <a href="#" className="f-btn">Meet Our Team</a>
         </div>
-        <div className="f-blogs-grid">
+        <div className="bl-posts-grid">
           {[
-            { blob: '/team-blob-1.png', name: 'Bennet', role: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
-            { blob: '/team-blob-2.png', name: 'Bennet', role: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
-            { blob: '/team-blob-3.png', name: 'Bennet', role: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
+            { img: '/team-blob-1.png', name: 'Bennet', role: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
+            { img: '/team-blob-2.png', name: 'Bennet', role: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
+            { img: '/team-blob-3.png', name: 'Bennet', role: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
           ].map((member, i) => (
-            <div className="f-blog-item" key={i}>
-              <div className="f-blog-thumb">
-                <div className="f-blog-thumb-blob" style={{position:'absolute'}}>
-                  <img src={member.blob} alt="" style={{width:340,height:300}} />
-                </div>
-                <div className="f-blog-thumb-bg">
-                  <img src="/team-thumb-bg.png" alt="" />
-                </div>
+            <div className="bl-card" key={i}>
+              <div className="bl-card-img">
+                <img src={member.img} alt={member.name} />
+                <div className="bl-card-overlay" />
               </div>
-              <div className="f-blog-copy">
-                <h3 className="f-blog-title">{member.name}</h3>
-                <p className="f-blog-desc">{member.role}</p>
+              <div className="bl-card-body">
+                <h3 className="bl-card-title">{member.name}</h3>
+                <p className="bl-card-desc">{member.role}</p>
               </div>
             </div>
           ))}

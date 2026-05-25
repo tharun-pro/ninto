@@ -61,6 +61,33 @@ export default function ClinicAboutPage() {
         </div>
       </section>
 
+      <section className="f-blogs">
+        <div className="f-blogs-header">
+          <p className="f-section-label">our team</p>
+          <h2 className="f-section-title-lg">The people who made this for you</h2>
+          <p className="f-section-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultricies dapibus pulvinar. Sed non pretium elit, quis facilisis orci donec</p>
+          <a href="#" className="f-btn">Meet Our Team</a>
+        </div>
+        <div className="bl-posts-grid">
+          {[
+            { img: '/team-blob-1.png', name: 'Bennet', role: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
+            { img: '/team-blob-2.png', name: 'Bennet', role: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
+            { img: '/team-blob-3.png', name: 'Bennet', role: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
+          ].map((member, i) => (
+            <div className="bl-card" key={i}>
+              <div className="bl-card-img">
+                <img src={member.img} alt={member.name} />
+                <div className="bl-card-overlay" />
+              </div>
+              <div className="bl-card-body">
+                <h3 className="bl-card-title">{member.name}</h3>
+                <p className="bl-card-desc">{member.role}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       <section className="f-ready">
         <div className="f-ready-left">
           <p className="f-ready-heading">Ready to go <span className="green">digital</span></p>

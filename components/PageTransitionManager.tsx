@@ -3,8 +3,8 @@
 import { useCallback, useEffect, useLayoutEffect, useRef } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 
-const SLIDE_MS = 680   // new page slide-up duration
-const FADE_MS  = 180   // old page fade-out duration
+const SLIDE_MS = 300   // new page slides up
+const FADE_MS  = 80    // old page fades out (brief, just for feedback)
 
 export default function PageTransitionManager({ children }: { children: React.ReactNode }) {
   const router   = useRouter()
@@ -32,13 +32,15 @@ export default function PageTransitionManager({ children }: { children: React.Re
       p.style.opacity    = ''
     }
     document.documentElement.style.overflow = ''
+    document.body.style.overflow            = ''
     animating.current = false
   }, [])
 
   // ─────────────────────────────────────────────────────────────────
   // Fires synchronously BEFORE the browser paints after React commits
   // the new page content. Pins the new page below the viewport, then
-  // slides it up — content is already there, no blank state.
+  // slides it up — content is fully rendered before any paint,
+  // so the arriving screen always shows white bg + content together.
   // ─────────────────────────────────────────────────────────────────
   useLayoutEffect(() => {
     if (!mounted.current) { mounted.current = true; return }
@@ -48,14 +50,14 @@ export default function PageTransitionManager({ children }: { children: React.Re
     if (!p) return
     cancel()
 
-    // Snap new page below viewport & make fully opaque (before any paint)
+    // Snap new page below viewport (before browser paints — no blank flash)
     p.style.willChange = 'transform'
     p.style.transition = 'none'
     p.style.opacity    = '1'
     p.style.transform  = 'translate3d(0, 100%, 0)'
-    p.style.boxShadow  = '0 -20px 60px rgba(0,0,0,0.10), 0 -4px 20px rgba(0,0,0,0.06)'
+    p.style.boxShadow  = '0 -24px 80px rgba(0,0,0,0.08), 0 -4px 24px rgba(0,0,0,0.05)'
 
-    // Frame 1 → commit off-screen position. Frame 2 → start animation.
+    // Frame 1 → commit off-screen position. Frame 2 → animate.
     const r1 = requestAnimationFrame(() => {
       const r2 = requestAnimationFrame(() => {
         p.style.transition = `transform ${SLIDE_MS}ms cubic-bezier(0.22, 1, 0.36, 1)`
@@ -70,10 +72,9 @@ export default function PageTransitionManager({ children }: { children: React.Re
   }, [pathname, cancel, done])
 
   // ─────────────────────────────────────────────────────────────────
-  // Global click interceptor.
-  // On click: immediately fade the current page out, then navigate.
-  // The fade gives instant visual feedback and the useLayoutEffect
-  // above handles the slide-in of the new page when it's ready.
+  // Global click interceptor — captures every anchor click.
+  // Skips: modifier keys, external links, blank targets, hash-only,
+  // same-page navigation (path + search unchanged), studio routes.
   // ─────────────────────────────────────────────────────────────────
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
@@ -90,7 +91,9 @@ export default function PageTransitionManager({ children }: { children: React.Re
         const u = new URL(a.href, location.origin)
         if (u.origin !== location.origin) return
         if (u.pathname.startsWith('/studio')) return
-        if (u.pathname === pathname && !u.search && !u.hash) return
+        if (u.pathname.startsWith('/blogs') || u.pathname.startsWith('/clinic/blogs')) return
+        // Skip if only the hash is changing (same-page scroll, handled by SiteEffects)
+        if (u.pathname === pathname && u.search === location.search) return
         to = u.pathname + u.search + u.hash
       } catch { return }
 
@@ -102,16 +105,18 @@ export default function PageTransitionManager({ children }: { children: React.Re
 
       animating.current = true
 
-      // 1. Fade current page out immediately (gives instant feedback)
+      // Immediately fade current page — gives instant click feedback
       p.style.transition = `opacity ${FADE_MS}ms ease`
       p.style.opacity    = '0'
 
-      // 2. Lock scroll during transition
+      // Lock scroll on both root elements (covers iOS Safari)
       document.documentElement.style.overflow = 'hidden'
+      document.body.style.overflow            = 'hidden'
 
-      // 3. Navigate partway through the fade so they overlap
+      // Navigate partway through the fade so transitions overlap cleanly
       setTimeout(() => {
         document.documentElement.scrollTop = 0
+        document.body.scrollTop            = 0
         router.push(to)
       }, FADE_MS * 0.5)
     }
@@ -127,7 +132,7 @@ export default function PageTransitionManager({ children }: { children: React.Re
         position:   'relative',
         zIndex:     1,
         minHeight:  '100vh',
-        background: '#fff',      // solid bg prevents see-through during fade
+        background: '#fff',  // solid white — new page is never transparent during slide
         willChange: 'auto',
       }}
     >

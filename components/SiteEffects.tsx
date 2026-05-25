@@ -384,5 +384,26 @@ export default function SiteEffects() {
     return () => cleanup.forEach((fn) => fn())
   }, [pathname])
 
+  useEffect(() => {
+    // ── Smooth hash scroll (same-page and cross-page) ──
+    const scrollToHash = () => {
+      const hash = window.location.hash
+      if (!hash) return
+      const el = document.getElementById(hash.slice(1))
+      if (el) el.scrollIntoView({ behavior: 'smooth' })
+    }
+
+    let timer: ReturnType<typeof setTimeout> | null = null
+    if (window.location.hash) {
+      timer = setTimeout(scrollToHash, 100)
+    }
+
+    window.addEventListener('hashchange', scrollToHash)
+    return () => {
+      window.removeEventListener('hashchange', scrollToHash)
+      if (timer !== null) clearTimeout(timer)
+    }
+  }, [pathname])
+
   return null
 }
