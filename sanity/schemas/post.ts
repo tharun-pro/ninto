@@ -75,7 +75,35 @@ export default defineType({
       type: 'array',
       of: [
         { type: 'block' },
-        { type: 'table' },
+        {
+          type: 'object',
+          name: 'table',
+          title: 'Table',
+          fields: [
+            defineField({
+              name: 'rows',
+              title: 'Rows',
+              type: 'array',
+              of: [
+                {
+                  type: 'object',
+                  name: 'tableRow',
+                  title: 'Row',
+                  fields: [
+                    defineField({
+                      name: 'cells',
+                      title: 'Cells',
+                      type: 'array',
+                      of: [{ type: 'string' }],
+                    }),
+                  ],
+                  preview: { select: { cells: 'cells' }, prepare: ({ cells }: any) => ({ title: (cells ?? []).join(' | ') || 'Empty row' }) },
+                },
+              ],
+            }),
+          ],
+          preview: { select: { rows: 'rows' }, prepare: ({ rows }: any) => ({ title: `Table (${(rows ?? []).length} rows)` }) },
+        },
         {
           type: 'image',
           options: { hotspot: true },
