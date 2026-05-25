@@ -1,5 +1,6 @@
 import { defineConfig } from 'sanity'
 import { structureTool } from 'sanity/structure'
+import { table } from '@sanity/table'
 import { schemaTypes } from './sanity/schemas'
 
 export default defineConfig({
@@ -9,6 +10,7 @@ export default defineConfig({
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'blogs',
   basePath: '/studio',
   plugins: [
+    table(),
     structureTool({
       structure: (S) =>
         S.list()
