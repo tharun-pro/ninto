@@ -10,13 +10,13 @@ const components: PortableTextComponents = {
       <p className="art-section-body" style={{ margin: 0 }}>{children}</p>
     ),
     h2: ({ children }) => (
-      <h2 className="art-section-title" style={{ marginTop: 16, marginBottom: 0 }}>{children}</h2>
+      <h2 className="art-section-title" style={{ marginTop: 40, marginBottom: 0 }}>{children}</h2>
     ),
     h3: ({ children }) => (
-      <h3 style={{ fontSize: 22, fontWeight: 500, lineHeight: 1.2, color: '#4e4e4e', margin: '16px 0 0' }}>{children}</h3>
+      <h3 style={{ fontSize: 22, fontWeight: 500, lineHeight: 1.2, color: '#4e4e4e', margin: '4px 0 0' }}>{children}</h3>
     ),
     h4: ({ children }) => (
-      <h4 style={{ fontSize: 18, fontWeight: 500, lineHeight: 1.3, color: '#4e4e4e', margin: '16px 0 0' }}>{children}</h4>
+      <h4 style={{ fontSize: 18, fontWeight: 500, lineHeight: 1.3, color: '#4e4e4e', margin: '4px 0 0' }}>{children}</h4>
     ),
     blockquote: ({ children }) => (
       <blockquote style={{ borderLeft: '3px solid #00a000', paddingLeft: 16, margin: 0, fontStyle: 'italic', color: '#6b6b6b', lineHeight: 1.6 }}>
@@ -84,13 +84,40 @@ const components: PortableTextComponents = {
         )}
       </figure>
     ),
+    table: ({ value }) => {
+      const rows: { _key?: string; cells?: string[] }[] = value?.rows ?? []
+      if (!rows.length) return null
+      return (
+        <div style={{ overflowX: 'auto', marginTop: 8 }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 15, color: '#4e4e4e' }}>
+            <tbody>
+              {rows.map((row, ri) => (
+                <tr key={row._key ?? ri} style={{ borderBottom: '1px solid #e5e7eb' }}>
+                  {(row.cells ?? []).map((cell, ci) => (
+                    ri === 0 ? (
+                      <th key={ci} style={{ padding: '10px 14px', textAlign: 'left', fontWeight: 600, background: '#f9fafb', borderRight: '1px solid #e5e7eb', whiteSpace: 'nowrap' }}>
+                        {cell}
+                      </th>
+                    ) : (
+                      <td key={ci} style={{ padding: '10px 14px', borderRight: '1px solid #e5e7eb', lineHeight: 1.6 }}>
+                        {cell}
+                      </td>
+                    )
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )
+    },
   },
 }
 
 export default function BlogBody({ body }: { body: any[] }) {
   if (!body?.length) return null
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
       <PortableText value={body} components={components} />
     </div>
   )
