@@ -136,8 +136,8 @@ export default async function ClinicBlogDetailPage({ params }: Props) {
           <div className="f-faq-item">
             <div className="f-faq-row">
               <div className="f-faq-text">
-                <p className="f-faq-q">Is Ninto Clinics ABDM certified?</p>
-                <p className="f-faq-a">Yes. Ninto Clinics is fully ABDM-compliant and certified by the National Health Authority. Your clinic&apos;s digital records and patient consents are managed in line with India&apos;s national health data standards.</p>
+                <p className="f-faq-q">What is Ninto, and how does it support clinic growth?</p>
+                <p className="f-faq-a">Ninto is an all-in-one digital healthcare ecosystem designed to bridge the gap between clinics and patients. We help you centralize medical records, automate scheduling, and improve patient retention all through one intuitive dashboard.</p>
               </div>
               <i className="ti ti-chevron-down f-faq-icon"></i>
             </div>
@@ -146,8 +146,8 @@ export default async function ClinicBlogDetailPage({ params }: Props) {
             <div className="f-faq-divider"></div>
             <div className="f-faq-row">
               <div className="f-faq-text">
-                <p className="f-faq-q">How long does clinic onboarding take?</p>
-                <p className="f-faq-a">Most clinics are fully onboarded within 3&ndash;5 business days. Our team handles the ABDM registration, data migration setup, and staff training so you can focus on your patients from day one.</p>
+                <p className="f-faq-q">Does Ninto include Electronic Medical Records (EMR)?</p>
+                <p className="f-faq-a">Absolutely. Ninto&apos;s secure cloud-based EMR/EHR system allows you to digitize everything from patient history and prescriptions to visit notes. It&apos;s paperless, searchable, and accessible whenever you need it.</p>
               </div>
               <i className="ti ti-chevron-down f-faq-icon"></i>
             </div>
@@ -156,8 +156,8 @@ export default async function ClinicBlogDetailPage({ params }: Props) {
             <div className="f-faq-divider"></div>
             <div className="f-faq-row">
               <div className="f-faq-text">
-                <p className="f-faq-q">What is Ninto Clinics?</p>
-                <p className="f-faq-a">Ninto Clinics is the provider-facing arm of Ninto &mdash; a digital health records platform built for clinics, hospitals, and independent practitioners. It handles EMR, patient consent, ABDM compliance, and record sharing in one place.</p>
+                <p className="f-faq-q">Can Ninto handle the needs of a large, multi-specialty clinic?</p>
+                <p className="f-faq-a">Yes, it&apos;s built for scale. Ninto simplifies the complexity of multi-specialty environments by unifying workflows across different departments.</p>
               </div>
               <i className="ti ti-chevron-down f-faq-icon"></i>
             </div>
@@ -166,8 +166,8 @@ export default async function ClinicBlogDetailPage({ params }: Props) {
             <div className="f-faq-divider"></div>
             <div className="f-faq-row">
               <div className="f-faq-text">
-                <p className="f-faq-q">Can multiple doctors use one clinic account?</p>
-                <p className="f-faq-a">Yes. A single Ninto Clinics account supports multiple practitioners with role-based access. Each doctor has their own login while sharing the clinic&apos;s patient database securely.</p>
+                <p className="f-faq-q">Is patient data safe with Ninto?</p>
+                <p className="f-faq-a">Security isn&apos;t just a feature; it&apos;s our foundation. We use high-level encryption and follow global healthcare privacy standards to ensure that clinic data and sensitive patient records remain confidential and tamper-proof.</p>
               </div>
               <i className="ti ti-chevron-down f-faq-icon"></i>
             </div>
@@ -176,8 +176,8 @@ export default async function ClinicBlogDetailPage({ params }: Props) {
             <div className="f-faq-divider"></div>
             <div className="f-faq-row">
               <div className="f-faq-text">
-                <p className="f-faq-q">Is patient data secure on Ninto Clinics?</p>
-                <p className="f-faq-a">Absolutely. All patient data is encrypted at rest and in transit, stored on India-based servers, and accessed only with explicit patient consent as required by ABDM regulations.</p>
+                <p className="f-faq-q">Can Ninto integrate with other hospitals or labs?</p>
+                <p className="f-faq-a">Yes. Ninto is designed for true healthcare interoperability. By leveraging the ABHA Address, our platform allows providers to access a patient&apos;s long-term medical history across the entire digital health network, ensuring better care regardless of where the patient was previously treated.</p>
               </div>
               <i className="ti ti-chevron-down f-faq-icon"></i>
             </div>

@@ -262,11 +262,17 @@ export default function SiteEffects() {
     const nextBtn = document.querySelector<HTMLElement>('.f-nav-circle.next')
     if (!panels.length || !prevBtn || !nextBtn) return
 
-    const slides = [
-      { title: 'Consent management', body: 'Reviewing consent requests, setting access periods, and toggling auto-approval.' },
-      { title: 'Manage health locker', body: 'Upload and organise all your health documents in one place, accessible anytime.' },
-      { title: 'Profile management', body: 'Manage your family profiles, track records, and stay on top of upcoming appointments.' },
-    ]
+    const slides = pathname.startsWith('/clinic')
+      ? [
+          { title: 'Counter management', body: 'Set up counters, invite your staff, and assign roles in minutes. Every member knows where to show up and who to serve.' },
+          { title: 'Document management', body: 'Upload and organise all patient documents in one place, accessible to the right staff at the right time.' },
+          { title: 'Patient health locker', body: 'Give patients a secure space to store their health records, linked directly to their ABHA profile.' },
+        ]
+      : [
+          { title: 'Consent management', body: 'Reviewing consent requests, setting access periods, and toggling auto-approval.' },
+          { title: 'Manage health locker', body: 'Upload and organise all your health documents in one place, accessible anytime.' },
+          { title: 'Profile management', body: 'Manage your family profiles, track records, and stay on top of upcoming appointments.' },
+        ]
     let current = 0
 
     const go = (idx: number) => {

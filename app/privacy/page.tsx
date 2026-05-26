@@ -64,10 +64,10 @@ export default function PrivacyPage() {
         <div className="f-ready-left">
           <p className="f-ready-heading">Ready to go <span className="green">digital</span></p>
           <div className="f-ready-body">
-            <p>Want to bring your clinic onto Ninto?</p>
-            <p>Join our <strong>closed beta</strong> for clinics!</p>
+            <p>Interested in what we offer?</p>
+            <p>Sign up for our <strong>closed beta</strong>!</p>
           </div>
-          <Link href="/clinic/contact" className="f-btn">Get started</Link>
+          <Link href="/contact" className="f-btn">Get started</Link>
         </div>
         <div className="f-ready-right">
           <div className="f-cert"><img src="/Shared/cert%20abha.png" alt="ABDM Certified" /></div>
@@ -85,8 +85,8 @@ export default function PrivacyPage() {
           <div className="f-faq-item">
             <div className="f-faq-row">
               <div className="f-faq-text">
-                <p className="f-faq-q">Is there a free trial available?</p>
-                <p className="f-faq-a">Yes, you can try us for free for 30 days. If you want, we&apos;ll provide you with a free, personalized 30-minute onboarding call to get you up and running as soon as possible.</p>
+                <p className="f-faq-q">What is Ninto and how does it change the way I manage my health?</p>
+                <p className="f-faq-a">Think of Ninto as your personal health command center. Instead of juggling paper files and forgotten appointments, Ninto lets you store medical records and manage your entire wellness journey from one intuitive app. It&apos;s about putting the power of your health back in your hands.</p>
               </div>
               <i className="ti ti-chevron-down f-faq-icon"></i>
             </div>
@@ -95,8 +95,8 @@ export default function PrivacyPage() {
             <div className="f-faq-divider"></div>
             <div className="f-faq-row">
               <div className="f-faq-text">
-                <p className="f-faq-q">Can I change my plan later?</p>
-                <p className="f-faq-a">Yes, you can upgrade or downgrade your plan at any time from your account settings. Changes take effect at the start of the next billing cycle.</p>
+                <p className="f-faq-q">Can I really keep all my medical records in one place?</p>
+                <p className="f-faq-a">Absolutely. Gone are the days of digging through folders for old blood work. With Ninto&apos;s digital storage, your prescriptions, lab reports, and doctor&apos;s summaries are organized and accessible on your phone 24/7.</p>
               </div>
               <i className="ti ti-chevron-down f-faq-icon"></i>
             </div>
@@ -105,8 +105,8 @@ export default function PrivacyPage() {
             <div className="f-faq-divider"></div>
             <div className="f-faq-row">
               <div className="f-faq-text">
-                <p className="f-faq-q">What is Ninto for and who are the users?</p>
-                <p className="f-faq-a">Ninto is a unified health records platform designed for patients, doctors, clinics, and family caregivers. Anyone managing healthcare journeys can benefit from Ninto.</p>
+                <p className="f-faq-q">Is Ninto available for my smartphone?</p>
+                <p className="f-faq-a">Yes! Ninto is a mobile-first platform designed for life on the go. Currently, you can download the app for Android to manage your healthcare anytime, anywhere.</p>
               </div>
               <i className="ti ti-chevron-down f-faq-icon"></i>
             </div>
@@ -115,8 +115,8 @@ export default function PrivacyPage() {
             <div className="f-faq-divider"></div>
             <div className="f-faq-row">
               <div className="f-faq-text">
-                <p className="f-faq-q">Can we use the application without ABHA address?</p>
-                <p className="f-faq-a">Yes, you can use Ninto without an ABHA address. However, linking your ABHA ID unlocks features like nationwide record sharing and government health scheme integration.</p>
+                <p className="f-faq-q">How safe is my private health information?</p>
+                <p className="f-faq-a">We take your privacy as seriously as your health. Ninto uses bank-grade end-to-end encryption. This means your data is locked away and only accessible to two people: you and the healthcare providers you explicitly choose to authorize.</p>
               </div>
               <i className="ti ti-chevron-down f-faq-icon"></i>
             </div>
@@ -125,8 +125,8 @@ export default function PrivacyPage() {
             <div className="f-faq-divider"></div>
             <div className="f-faq-row">
               <div className="f-faq-text">
-                <p className="f-faq-q">How many accounts can be created in one profile?</p>
-                <p className="f-faq-a">A single Ninto profile supports up to 6 linked family member accounts, making it easy for caregivers to manage health records for their entire household from one login.</p>
+                <p className="f-faq-q">Does it cost anything to use Ninto?</p>
+                <p className="f-faq-a">Signing up and using Ninto&apos;s core features like record storage and profile management is completely free for patients. We believe managing your health shouldn&apos;t come with a barrier to entry.</p>
               </div>
               <i className="ti ti-chevron-down f-faq-icon"></i>
             </div>

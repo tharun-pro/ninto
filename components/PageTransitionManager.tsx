@@ -3,13 +3,11 @@
 import { useCallback, useEffect, useLayoutEffect, useRef } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 
-const SLIDE_MS = 300   // new page slides up
-const FADE_MS  = 80    // old page fades out (brief, just for feedback)
+const SLIDE_MS = 100
 
 export default function PageTransitionManager({ children }: { children: React.ReactNode }) {
-  const router   = useRouter()
-  const pathname = usePathname()
-
+  const router    = useRouter()
+  const pathname  = usePathname()
   const pageRef   = useRef<HTMLDivElement>(null)
   const mounted   = useRef(false)
   const animating = useRef(false)
@@ -29,19 +27,13 @@ export default function PageTransitionManager({ children }: { children: React.Re
       p.style.transition = ''
       p.style.willChange = ''
       p.style.boxShadow  = ''
-      p.style.opacity    = ''
     }
-    document.documentElement.style.overflow = ''
-    document.body.style.overflow            = ''
+    document.getElementById('pt-ghost')?.remove()
     animating.current = false
   }, [])
 
-  // ─────────────────────────────────────────────────────────────────
-  // Fires synchronously BEFORE the browser paints after React commits
-  // the new page content. Pins the new page below the viewport, then
-  // slides it up — content is fully rendered before any paint,
-  // so the arriving screen always shows white bg + content together.
-  // ─────────────────────────────────────────────────────────────────
+  // Fires synchronously before the browser paints the new page.
+  // Pins new page below viewport then slides it up over the ghost.
   useLayoutEffect(() => {
     if (!mounted.current) { mounted.current = true; return }
     if (!animating.current) return
@@ -50,14 +42,11 @@ export default function PageTransitionManager({ children }: { children: React.Re
     if (!p) return
     cancel()
 
-    // Snap new page below viewport (before browser paints — no blank flash)
     p.style.willChange = 'transform'
     p.style.transition = 'none'
-    p.style.opacity    = '1'
     p.style.transform  = 'translate3d(0, 100%, 0)'
     p.style.boxShadow  = '0 -24px 80px rgba(0,0,0,0.08), 0 -4px 24px rgba(0,0,0,0.05)'
 
-    // Frame 1 → commit off-screen position. Frame 2 → animate.
     const r1 = requestAnimationFrame(() => {
       const r2 = requestAnimationFrame(() => {
         p.style.transition = `transform ${SLIDE_MS}ms cubic-bezier(0.22, 1, 0.36, 1)`
@@ -71,11 +60,6 @@ export default function PageTransitionManager({ children }: { children: React.Re
     return cancel
   }, [pathname, cancel, done])
 
-  // ─────────────────────────────────────────────────────────────────
-  // Global click interceptor — captures every anchor click.
-  // Skips: modifier keys, external links, blank targets, hash-only,
-  // same-page navigation (path + search unchanged), studio routes.
-  // ─────────────────────────────────────────────────────────────────
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
       if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return
@@ -92,7 +76,6 @@ export default function PageTransitionManager({ children }: { children: React.Re
         if (u.origin !== location.origin) return
         if (u.pathname.startsWith('/studio')) return
         if (u.pathname.startsWith('/blogs') || u.pathname.startsWith('/clinic/blogs')) return
-        // Skip if only the hash is changing (same-page scroll, handled by SiteEffects)
         if (u.pathname === pathname && u.search === location.search) return
         to = u.pathname + u.search + u.hash
       } catch { return }
@@ -105,20 +88,20 @@ export default function PageTransitionManager({ children }: { children: React.Re
 
       animating.current = true
 
-      // Immediately fade current page — gives instant click feedback
-      p.style.transition = `opacity ${FADE_MS}ms ease`
-      p.style.opacity    = '0'
+      // Pin a plain white cover so the old page stays visible while the new
+      // page slides up from below.
+      const ghost = document.createElement('div')
+      ghost.id = 'pt-ghost'
+      Object.assign(ghost.style, {
+        position:      'fixed',
+        inset:         '0',
+        zIndex:        '0',
+        pointerEvents: 'none',
+        background:    '#fff',
+      })
+      document.body.appendChild(ghost)
 
-      // Lock scroll on both root elements (covers iOS Safari)
-      document.documentElement.style.overflow = 'hidden'
-      document.body.style.overflow            = 'hidden'
-
-      // Navigate partway through the fade so transitions overlap cleanly
-      setTimeout(() => {
-        document.documentElement.scrollTop = 0
-        document.body.scrollTop            = 0
-        router.push(to)
-      }, FADE_MS * 0.5)
+      router.push(to)
     }
 
     document.addEventListener('click', onClick, true)
@@ -132,7 +115,7 @@ export default function PageTransitionManager({ children }: { children: React.Re
         position:   'relative',
         zIndex:     1,
         minHeight:  '100vh',
-        background: '#fff',  // solid white — new page is never transparent during slide
+        background: '#fff',
         willChange: 'auto',
       }}
     >

@@ -12,7 +12,6 @@ export default defineType({
       options: {
         list: [
           { title: 'Patient Blog', value: 'patient' },
-          { title: 'Clinic Blog', value: 'clinic' },
         ],
         layout: 'radio',
       },
