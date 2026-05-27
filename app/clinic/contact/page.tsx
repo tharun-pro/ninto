@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef } from 'react'
+import emailjs from '@emailjs/browser'
 import NavClinic from '@/components/NavClinic'
 import FooterClinic from '@/components/FooterClinic'
 import SiteEffects from '@/components/SiteEffects'
@@ -39,11 +40,12 @@ export default function ClinicContactPage() {
 
     setStatus('submitting')
     try {
-      await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, phone, email, description, type: 'clinic' }),
-      })
+      await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
+        { name, phone, email, description, source: 'Clinic', title: `New Clinic signup — ${name}` },
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!,
+      )
       setStatus('success')
     } catch {
       setStatus('error')

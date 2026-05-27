@@ -6,9 +6,12 @@ import { urlFor } from '@/lib/sanity'
 
 const components: PortableTextComponents = {
   block: {
-    normal: ({ children }) => (
-      <p className="art-section-body" style={{ margin: 0 }}>{children}</p>
-    ),
+    normal: ({ children, value }) => {
+      const isEmpty = !value?.children?.length ||
+        (value.children.length === 1 && (value.children[0] as any)?.text === '')
+      if (isEmpty) return null
+      return <p className="art-section-body" style={{ margin: 0 }}>{children}</p>
+    },
     h2: ({ children }) => (
       <h2 className="art-section-title" style={{ marginTop: 40, marginBottom: 0 }}>{children}</h2>
     ),
@@ -27,7 +30,7 @@ const components: PortableTextComponents = {
 
   list: {
     bullet: ({ children }) => (
-      <ul style={{ paddingLeft: 24, margin: '24px 0 0', display: 'flex', flexDirection: 'column', gap: 8, listStyleType: 'disc' }}>
+      <ul style={{ paddingLeft: 24, margin: 0, display: 'flex', flexDirection: 'column', gap: 8, listStyleType: 'disc' }}>
         {children}
       </ul>
     ),
@@ -40,10 +43,10 @@ const components: PortableTextComponents = {
 
   listItem: {
     bullet: ({ children }) => (
-      <li style={{ fontSize: 16, lineHeight: 1.7, color: '#4e4e4e', fontWeight: 400 }}>{children}</li>
+      <li style={{ fontSize: 16, lineHeight: '18px', color: '#4e4e4e', fontWeight: 400 }}>{children}</li>
     ),
     number: ({ children }) => (
-      <li style={{ fontSize: 16, lineHeight: 1.7, color: '#4e4e4e', fontWeight: 400 }}>{children}</li>
+      <li style={{ fontSize: 16, lineHeight: '18px', color: '#4e4e4e', fontWeight: 400 }}>{children}</li>
     ),
   },
 

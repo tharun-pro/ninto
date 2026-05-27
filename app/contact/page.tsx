@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef } from 'react'
+import emailjs from '@emailjs/browser'
 import Link from 'next/link'
 import NavPatient from '@/components/NavPatient'
 import FooterPatient from '@/components/FooterPatient'
@@ -40,11 +41,12 @@ export default function ContactPage() {
 
     setStatus('submitting')
     try {
-      await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, phone, email, description }),
-      })
+      await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
+        { name, phone, email, description, source: 'Patient', title: `New Patient signup — ${name}` },
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!,
+      )
       setStatus('success')
     } catch {
       setStatus('error')
