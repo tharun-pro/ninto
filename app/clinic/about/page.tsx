@@ -50,7 +50,7 @@ export default function ClinicAboutPage() {
         <h2 className="ab-founder-heading">Meet <span className="green">Our Founder</span></h2>
         <div className="ab-founder-row">
           <div className="ab-founder-photo">
-            <img src="/founder-photo.jpg" alt="Founder of Ninto" />
+            <img src="/Shared/founder-photo.jpg" alt="Founder of Ninto" />
           </div>
           <div className="ab-founder-quote">
             <p className="ab-founder-quote-text">

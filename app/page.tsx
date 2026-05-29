@@ -154,20 +154,24 @@ export default async function HomePage() {
         <div className="f-testimonials-header">
           <p className="f-section-label">testimonials</p>
           <h2 className="f-section-title-lg">Feedback from <span className="green">our users</span></h2>
-          <p className="f-section-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultricies dapibus pulvinar. Sed non pretium elit, quis facilisis orci donec</p>
+          <p className="f-section-desc">Real results from real people. See how our users are achieving their goals with our platform.</p>
         </div>
         <div className="f-t-cards">
-          {[1,2,3].map((i) => (
+          {[
+            { quote: 'We reduced our customer onboarding time by 60% using Ninto. The Byepo team felt like an extension of our product team, deeply collaborative and incredibly fast.', name: 'Dr. Sam J', role: 'General physician' },
+            { quote: 'Ninto completely changed how we handle support. Response times dropped by half, and our engineers can finally focus on shipping features instead of putting out fires.', name: 'Dr. Sam J', role: 'General physician' },
+            { quote: 'Within two weeks of going live, we saw measurable results. The dashboard visibility alone was worth the switch — I\'d recommend Ninto to any team that\'s scaling fast.', name: 'Dr. Sam J', role: 'General physician' },
+          ].map((t, i) => (
             <div className="f-t-card" key={i}>
               <div className="f-t-card-bar"></div>
               <div className="f-t-card-body">
                 <div className="f-t-avatar-wrap">
-                  <img src={`/Patient/avatar%20${i}.jpg`} alt="" />
+                  <img src={`/Patient/avatar%20${i + 1}.jpg`} alt="" />
                 </div>
-                <p className="f-t-quote">We reduced our customer onboarding time by 60% using Ninto. The Byepo team felt like an extension of our product team.</p>
+                <p className="f-t-quote">{t.quote}</p>
                 <div className="f-t-meta">
-                  <span className="f-t-name">Dr. Sam J</span>
-                  <span className="f-t-role">General physician</span>
+                  <span className="f-t-name">{t.name}</span>
+                  <span className="f-t-role">{t.role}</span>
                 </div>
               </div>
             </div>
@@ -190,8 +194,8 @@ export default async function HomePage() {
       <section className="f-users" id="users">
         <div className="f-users-header">
           <p className="f-section-label">ninto users</p>
-          <h2 className="f-section-title-lg">The people who made this for you</h2>
-          <p className="f-section-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultricies dapibus pulvinar. Sed non pretium elit, quis facilisis orci donec</p>
+          <h2 className="f-section-title-lg">The people who <span className="green">made this for you</span></h2>
+          <p className="f-section-desc">Health looks different for everyone. A chronic diagnosis, a growing family, a handful of specialists — Ninto fits into it.</p>
         </div>
         <div className="f-users-scroll-track">
           <div className="f-users-sticky-body">

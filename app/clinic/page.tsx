@@ -1,4 +1,5 @@
 ﻿import type { Metadata } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
 import NavClinic from '@/components/NavClinic'
 import FooterClinic from '@/components/FooterClinic'
@@ -104,10 +105,10 @@ export default async function ClinicHomePage() {
         <div className="f-about-imgs">
           <div className="f-about-img-grid">
             <div className="f-about-img-card">
-              <img src="/Clinic/about%20img%201.jpg" alt="" style={{width:'100%',height:'100%',objectFit:'cover'}} />
+              <Image src="/Clinic/about%20img%201.jpg" alt="" fill style={{objectFit:'cover'}} />
             </div>
             <div className="f-about-img-card">
-              <img src="/Clinic/about%20img%202.jpg" alt="" style={{width:'100%',height:'100%',objectFit:'cover'}} />
+              <Image src="/Clinic/about%20img%202.jpg" alt="" fill style={{objectFit:'cover'}} />
             </div>
           </div>
         </div>
@@ -153,13 +154,13 @@ export default async function ClinicHomePage() {
         <div className="f-testimonials-header">
           <p className="f-section-label">testimonials</p>
           <h2 className="f-section-title-lg">Feedback from <span className="green">our clinics</span></h2>
-          <p className="f-section-desc">Clinics across India are already using Ninto to simplify compliance and deliver better patient experiences.</p>
+          <p className="f-section-desc">Real results from real people. See how our users are achieving their goals with our platform.</p>
         </div>
         <div className="f-t-cards">
           {[
-            { quote: 'Ninto cut our patient onboarding time by 60%. Consent is now digital and patients actually trust us more because of the transparency.', name: 'Dr. Meera Krishnan', role: 'General Physician, Chennai' },
-            { quote: "The ABDM onboarding was painless. Ninto's team handled everything — we were live in four days without touching a single government portal ourselves.", name: 'Dr. Arjun Nair', role: 'Cardiologist, Kochi' },
-            { quote: "Our lab now pushes results directly into patients' ABHA lockers. Patients love it and we get fewer callback requests asking for report copies.", name: 'Priya Sharma', role: 'Lab Director, Bengaluru' },
+            { quote: 'We reduced our customer onboarding time by 60% using Ninto. The Byepo team felt like an extension of our product team, deeply collaborative and incredibly fast.', name: 'Dr. Meera Krishnan', role: 'General Physician, Chennai' },
+            { quote: 'Ninto completely changed how we handle support. Response times dropped by half, and our engineers can finally focus on shipping features instead of putting out fires.', name: 'Dr. Arjun Nair', role: 'Cardiologist, Kochi' },
+            { quote: "Within two weeks of going live, we saw measurable results. The dashboard visibility alone was worth the switch — I'd recommend Ninto to any team that's scaling fast.", name: 'Priya Sharma', role: 'Lab Director, Bengaluru' },
           ].map((t, i) => (
             <div className="f-t-card" key={i}>
               <div className="f-t-card-bar"></div>
@@ -194,7 +195,7 @@ export default async function ClinicHomePage() {
         <div className="f-clinics-header">
           <p className="f-section-label">ninto users</p>
           <h2 className="f-section-title-lg">Built for every <span className="green">kind of clinic</span></h2>
-          <p className="f-section-desc">From solo GP practices to multi-specialty hospitals, Ninto Clinics adapts to how your practice works — not the other way around.</p>
+          <p className="f-section-desc">Health looks different for everyone. A chronic diagnosis, a growing family, a handful of specialists — Ninto fits into it.</p>
         </div>
         <div className="f-clinics-scroll-track">
           <div className="f-clinics-sticky-body">

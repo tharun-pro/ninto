@@ -128,7 +128,7 @@ export default function ClinicContactPage() {
             >
               <span className="btn-dot btn-dot-l"></span>
               <span className="btn-inner">
-                <span className="btn-txt">{status === 'submitting' ? 'Submitting...' : 'Get in Touch'}</span>
+                <span className="btn-txt">{status === 'submitting' ? 'Submitting...' : 'Get in touch'}</span>
                 <span className="btn-dot btn-dot-r"></span>
               </span>
             </button>
