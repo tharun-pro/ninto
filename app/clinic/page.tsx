@@ -67,7 +67,7 @@ export default async function ClinicHomePage() {
             </div>
           </div>
           <div className="hero-content">
-            <h1 className="hero-title"><span style={{color:'#00a000'}}>Powering</span> the future of care</h1>
+            <h1 className="hero-title"><span style={{color:'#242b24'}}>Powering</span> the future of care</h1>
             <p className="hero-lede">All-in-one patient record and OPD management software for clinics. Manage appointments, histories, prescriptions, and billing in one dashboard.</p>
             <div className="hero-actions">
               <Link href="/clinic/contact" className="fnav-btn">Get started</Link>
@@ -267,6 +267,7 @@ export default async function ClinicHomePage() {
               </div>
               <div className="bl-card-arrow" aria-hidden="true"><i className="ti ti-arrow-up-right" /></div>
               <div className="bl-card-body">
+                {post.category && <span className="bl-card-tag">{post.category}</span>}
                 <h3 className="bl-card-title">{post.title}</h3>
                 {post.excerpt && <p className="bl-card-desc">{post.excerpt}</p>}
               </div>
@@ -283,6 +284,7 @@ export default async function ClinicHomePage() {
               </div>
               <div className="bl-card-arrow" aria-hidden="true"><i className="ti ti-arrow-up-right" /></div>
               <div className="bl-card-body">
+                <span className="bl-card-tag">Blog</span>
                 <h3 className="bl-card-title">{blog.title}</h3>
                 <p className="bl-card-desc">{blog.desc}</p>
               </div>

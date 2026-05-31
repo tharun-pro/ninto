@@ -284,6 +284,7 @@ export default async function HomePage() {
               </div>
               <div className="bl-card-arrow" aria-hidden="true"><i className="ti ti-arrow-up-right" /></div>
               <div className="bl-card-body">
+                <span className="bl-card-tag">Blog</span>
                 <h3 className="bl-card-title">{b.title}</h3>
                 <p className="bl-card-desc">{b.desc}</p>
               </div>

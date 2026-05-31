@@ -6,7 +6,7 @@ export default function BlogsFilter({ posts, basePath = '/blogs' }: { posts: San
   const visible = posts.filter((p) => p.postType !== 'clinic')
 
   return (
-    <div className="bl-posts-grid">
+    <div className="bl-posts-grid bl-posts-grid--listing">
       {visible.length > 0 ? visible.map((post) => (
         <Link href={`${basePath}/${post.slug}`} key={post._id} className="bl-card">
           <div className="bl-card-img">
