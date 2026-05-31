@@ -37,6 +37,7 @@ export interface SanityPost {
 }
 
 export interface SanityPostFull extends SanityPost {
+  subText?: string
   body?: SanityBlock[]
 }
 

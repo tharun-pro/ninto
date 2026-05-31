@@ -11,7 +11,7 @@ import BlogsFilter from '@/app/blogs/BlogsFilter'
 export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
-  title: 'Clinic Blogs — Ninto',
+  title: 'Ninto',
   description: 'Expert guides on ABDM onboarding, EMR best practices, digital consent, and growing your clinic\'s digital footprint.',
 }
 

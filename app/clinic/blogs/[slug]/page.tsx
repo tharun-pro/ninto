@@ -27,13 +27,13 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   try {
     const post = await sanityFetch<SanityPostFull>(postBySlugQuery, { slug: params.slug })
-    if (!post) return { title: 'Clinic Blog — Ninto' }
+    if (!post) return { title: 'Ninto' }
     return {
-      title: `${post.title} — Ninto Clinics`,
+      title: 'Ninto',
       description: post.excerpt,
     }
   } catch {
-    return { title: 'Clinic Blog — Ninto' }
+    return { title: 'Ninto' }
   }
 }
 
@@ -65,6 +65,7 @@ export default async function ClinicBlogDetailPage({ params }: Props) {
           <div className="art-hero-content">
             <h1 className="art-title">{post.title}</h1>
             {post.excerpt && <p className="art-subtitle">{post.excerpt}</p>}
+            {post.subText && <p className="art-subtext">{post.subText}</p>}
             <div className="art-meta">
               {post.author && <span>{post.author}</span>}
               {post.publishedAt && (
@@ -85,8 +86,9 @@ export default async function ClinicBlogDetailPage({ params }: Props) {
       {related.length > 0 && (
         <section className="bl-grid-section">
           <div className="bl-grid-header">
-            <p className="bl-grid-label">more insights</p>
-            <h2 className="bl-grid-title">More clinic blogs <span className="green">for you</span></h2>
+            <p className="bl-grid-label">more blogs</p>
+            <h2 className="bl-grid-title">More content <span className="green">for you</span></h2>
+            <p className="bl-grid-sub">Stay informed with expert blogs on India&apos;s digital healthcare ecosystem from ABDM and ABHA IDs to EMR compliance and patient data privacy.</p>
           </div>
           <div className="bl-posts-grid">
             {related.map((r) => (
@@ -103,7 +105,6 @@ export default async function ClinicBlogDetailPage({ params }: Props) {
                 <div className="bl-card-body">
                   {r.category && <span className="bl-card-tag">{r.category}</span>}
                   <h3 className="bl-card-title">{r.title}</h3>
-                  {r.excerpt && <p className="bl-card-desc">{r.excerpt}</p>}
                 </div>
               </Link>
             ))}

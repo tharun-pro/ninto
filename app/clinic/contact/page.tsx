@@ -3,6 +3,7 @@
 import { useState, useRef } from 'react'
 import emailjs from '@emailjs/browser'
 import NavClinic from '@/components/NavClinic'
+import SuccessAnimation from '@/components/SuccessAnimation'
 import FooterClinic from '@/components/FooterClinic'
 import SiteEffects from '@/components/SiteEffects'
 
@@ -13,6 +14,17 @@ export default function ClinicContactPage() {
   const handleFocus = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     e.currentTarget.closest('.ct-field')?.classList.add('f-active')
   }
+  const handlePhoneInput = (e: React.FormEvent<HTMLInputElement>) => {
+    const el = e.currentTarget
+    el.value = el.value.replace(/\D/g, '')
+  }
+
+  const handleTextareaInput = (e: React.FormEvent<HTMLTextAreaElement>) => {
+    const el = e.currentTarget
+    el.style.height = 'auto'
+    el.style.height = `${el.scrollHeight}px`
+  }
+
   const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     if (!e.currentTarget.value.trim()) {
       e.currentTarget.closest('.ct-field')?.classList.remove('f-active')
@@ -32,7 +44,7 @@ export default function ClinicContactPage() {
     form.querySelectorAll('.ct-field').forEach(f => f.classList.remove('f-error'))
 
     if (!name) { form.querySelector('#ct-name')?.closest('.ct-field')?.classList.add('f-error'); valid = false }
-    if (!/^\+?\d{10}$/.test(phone)) { form.querySelector('#ct-phone')?.closest('.ct-field')?.classList.add('f-error'); valid = false }
+    if (!/^\d{10,12}$/.test(phone)) { form.querySelector('#ct-phone')?.closest('.ct-field')?.classList.add('f-error'); valid = false }
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { form.querySelector('#ct-email')?.closest('.ct-field')?.classList.add('f-error'); valid = false }
     if (!description) { form.querySelector('#ct-desc')?.closest('.ct-field')?.classList.add('f-error'); valid = false }
 
@@ -44,10 +56,11 @@ export default function ClinicContactPage() {
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
         process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
         { name, phone, email, description, source: 'Clinic', title: `New Clinic signup — ${name}` },
-        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!,
+        { publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY! },
       )
       setStatus('success')
-    } catch {
+    } catch (err) {
+      console.error('[EmailJS error]', err)
       setStatus('error')
     }
   }
@@ -81,10 +94,12 @@ export default function ClinicContactPage() {
         </div>
 
         <div className="ct-right">
-          <div className="ct-form-head">
-            <p className="ct-form-title">Tell us about your clinic.</p>
-            <p className="ct-form-subtitle">We will use this to onboard your clinic to our closed beta.<br />No spam.</p>
-          </div>
+          {status !== 'success' && (
+            <div className="ct-form-head">
+              <p className="ct-form-title">Tell us about your clinic.</p>
+              <p className="ct-form-subtitle">We will use this to onboard your clinic to our closed beta.<br />No spam.</p>
+            </div>
+          )}
 
           {status !== 'success' && (
             <form className="ct-form" ref={formRef} onSubmit={handleSubmit} noValidate>
@@ -94,7 +109,7 @@ export default function ClinicContactPage() {
               </div>
               <div className="ct-field">
                 <label htmlFor="ct-phone">Phone number</label>
-                <input type="tel" id="ct-phone" name="phone" placeholder="+91 99999 99999" autoComplete="tel" onFocus={handleFocus} onBlur={handleBlur} />
+                <input type="tel" id="ct-phone" name="phone" placeholder="9999999999" inputMode="numeric" autoComplete="tel" onFocus={handleFocus} onBlur={handleBlur} onInput={handlePhoneInput} />
               </div>
               <div className="ct-field">
                 <label htmlFor="ct-email">E-mail</label>
@@ -102,14 +117,17 @@ export default function ClinicContactPage() {
               </div>
               <div className="ct-field">
                 <label htmlFor="ct-desc">Clinic description</label>
-                <textarea id="ct-desc" name="description" rows={2} placeholder="Tell us about your clinic..." onFocus={handleFocus} onBlur={handleBlur} />
+                <textarea id="ct-desc" name="description" rows={1} placeholder="Tell us about your clinic..." onFocus={handleFocus} onBlur={handleBlur} onInput={handleTextareaInput} />
+                <i className="ti ti-arrows-diagonal ct-resize-icon" aria-hidden="true" />
               </div>
             </form>
           )}
 
           {status === 'success' && (
             <div className="ct-success visible" role="alert">
-              <p className="ct-success-title">Thank you! We&apos;ll be in touch about your clinic onboarding.</p>
+              <SuccessAnimation />
+              <h2 className="ct-success-heading"><span style={{color:'#00a000'}}>Welcome</span> to Ninto Beta</h2>
+              <p className="ct-success-sub">Our team will review your submission within 48hrs and reach you with early access details.</p>
             </div>
           )}
 

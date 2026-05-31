@@ -6,6 +6,9 @@ import PageTransitionManager from '@/components/PageTransitionManager'
 export const metadata: Metadata = {
   title: 'Ninto',
   description: 'Store, organize and share your family\'s medical history. ABHA-linked records, prescription tracking, and effortless sharing with doctors.',
+  icons: {
+    icon: '/Shared/Ninto 16x16.png',
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

@@ -21,7 +21,6 @@ export default function BlogsFilter({ posts, basePath = '/blogs' }: { posts: San
           <div className="bl-card-body">
             {post.category && <span className="bl-card-tag">{post.category}</span>}
             <h3 className="bl-card-title">{post.title}</h3>
-            {post.excerpt && <p className="bl-card-desc">{post.excerpt}</p>}
           </div>
         </Link>
       )) : (

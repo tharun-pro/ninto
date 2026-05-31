@@ -5,7 +5,7 @@ import FooterPatient from '@/components/FooterPatient'
 import SiteEffects from '@/components/SiteEffects'
 
 export const metadata: Metadata = {
-  title: 'Privacy Policies — Ninto',
+  title: 'Ninto',
   description: 'At Ninto, your health journey is personal, and so is your data.',
 }
 

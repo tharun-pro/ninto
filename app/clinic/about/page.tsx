@@ -5,7 +5,7 @@ import FooterClinic from '@/components/FooterClinic'
 import SiteEffects from '@/components/SiteEffects'
 
 export const metadata: Metadata = {
-  title: 'About — Ninto Clinics',
+  title: 'Ninto',
   description: 'Meeting every regulation so you can focus exclusively on your patients. We handle the compliance, you provide the care.',
 }
 

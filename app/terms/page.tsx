@@ -5,7 +5,7 @@ import FooterPatient from '@/components/FooterPatient'
 import SiteEffects from '@/components/SiteEffects'
 
 export const metadata: Metadata = {
-  title: 'Terms & Conditions — Ninto',
+  title: 'Ninto',
   description: 'Welcome to Ninto. This document is a legally binding electronic agreement under the Indian Information Technology Act, 2000.',
 }
 

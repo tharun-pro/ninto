@@ -5,7 +5,7 @@ import FooterPatient from '@/components/FooterPatient'
 import SiteEffects from '@/components/SiteEffects'
 
 export const metadata: Metadata = {
-  title: 'About — Ninto',
+  title: 'Ninto',
   description: 'Stop hunting through WhatsApp chats for reports. Ninto is your personal health command center, built for the way healthcare in India actually works.',
 }
 

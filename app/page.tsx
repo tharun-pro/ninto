@@ -11,7 +11,7 @@ import type { SanityPost } from '@/lib/sanity'
 export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
-  title: 'Ninto — Smarter way to manage health',
+  title: 'Ninto',
   description: 'Store, organize and share your family\'s medical history. ABHA-linked records, prescription tracking, and effortless sharing with doctors.',
 }
 
@@ -68,7 +68,7 @@ export default async function HomePage() {
           </div>
           <div className="hero-content">
             <h1 className="hero-title">Smarter way to <span style={{color:'#00a000'}}>manage health</span></h1>
-            <p className="hero-lede">Store, organize and share your family&apos;s medical history. ABHA-linked records, prescription tracking, and effortless sharing with doctors.</p>
+            <p className="hero-lede" style={{maxWidth: '560px'}}>Store, organize and share your family&apos;s medical history. ABHA-linked records, prescription tracking, and effortless sharing with doctors.</p>
             <div className="hero-actions">
               <Link href="/contact" className="fnav-btn">Get started</Link>
               <Link href="/clinic" className="hero-btn-clinic">
@@ -269,11 +269,10 @@ export default async function HomePage() {
               <div className="bl-card-body">
                 {post.category && <span className="bl-card-tag">{post.category}</span>}
                 <h3 className="bl-card-title">{post.title}</h3>
-                {post.excerpt && <p className="bl-card-desc">{post.excerpt}</p>}
               </div>
             </Link>
           )) : [
-            { title: 'Health Insights', desc: 'Stay informed with expert blogs on India\'s digital healthcare ecosystem.' },
+            { title: 'Blogs', desc: 'Stay informed with expert blogs on India\'s digital healthcare ecosystem.' },
             { title: 'ABHA & Your Health', desc: 'Understanding ABHA and its role in your health journey.' },
             { title: 'Digital Health Records', desc: 'How digital records are changing patient care in India.' },
           ].map((b, i) => (

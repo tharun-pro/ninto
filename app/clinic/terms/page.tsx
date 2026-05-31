@@ -5,7 +5,7 @@ import FooterClinic from '@/components/FooterClinic'
 import SiteEffects from '@/components/SiteEffects'
 
 export const metadata: Metadata = {
-  title: 'Terms & Conditions — Ninto Clinics',
+  title: 'Ninto',
   description: 'Terms and conditions governing clinic use of the Ninto platform.',
 }
 

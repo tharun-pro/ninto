@@ -11,7 +11,7 @@ import BlogsFilter from './BlogsFilter'
 export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
-  title: 'Blogs — Ninto',
+  title: 'Ninto',
   description: 'Stay informed with expert blogs on India\'s digital healthcare ecosystem.',
 }
 

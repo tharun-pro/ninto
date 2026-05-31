@@ -32,7 +32,7 @@ export const patientPostsQuery = `
 
 export const postBySlugQuery = `
   *[_type == "post" && slug.current == $slug][0] {
-    title, "slug": slug.current, excerpt, coverImage,
+    title, "slug": slug.current, excerpt, subText, coverImage,
     "author": author->name, publishedAt, readTime,
     "category": category->title, body
   }

@@ -4,6 +4,7 @@ import { useState, useRef } from 'react'
 import emailjs from '@emailjs/browser'
 import Link from 'next/link'
 import NavPatient from '@/components/NavPatient'
+import SuccessAnimation from '@/components/SuccessAnimation'
 import FooterPatient from '@/components/FooterPatient'
 import SiteEffects from '@/components/SiteEffects'
 
@@ -14,6 +15,17 @@ export default function ContactPage() {
   const handleFocus = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     e.currentTarget.closest('.ct-field')?.classList.add('f-active')
   }
+  const handlePhoneInput = (e: React.FormEvent<HTMLInputElement>) => {
+    const el = e.currentTarget
+    el.value = el.value.replace(/\D/g, '')
+  }
+
+  const handleTextareaInput = (e: React.FormEvent<HTMLTextAreaElement>) => {
+    const el = e.currentTarget
+    el.style.height = 'auto'
+    el.style.height = `${el.scrollHeight}px`
+  }
+
   const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     if (!e.currentTarget.value.trim()) {
       e.currentTarget.closest('.ct-field')?.classList.remove('f-active')
@@ -33,7 +45,7 @@ export default function ContactPage() {
     form.querySelectorAll('.ct-field').forEach(f => f.classList.remove('f-error'))
 
     if (!name) { form.querySelector('#ct-name')?.closest('.ct-field')?.classList.add('f-error'); valid = false }
-    if (!/^\+?\d{10}$/.test(phone)) { form.querySelector('#ct-phone')?.closest('.ct-field')?.classList.add('f-error'); valid = false }
+    if (!/^\d{10,12}$/.test(phone)) { form.querySelector('#ct-phone')?.closest('.ct-field')?.classList.add('f-error'); valid = false }
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { form.querySelector('#ct-email')?.closest('.ct-field')?.classList.add('f-error'); valid = false }
     if (!description) { form.querySelector('#ct-desc')?.closest('.ct-field')?.classList.add('f-error'); valid = false }
 
@@ -45,10 +57,11 @@ export default function ContactPage() {
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
         process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
         { name, phone, email, description, source: 'Patient', title: `New Patient signup — ${name}` },
-        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!,
+        { publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY! },
       )
       setStatus('success')
-    } catch {
+    } catch (err) {
+      console.error('[EmailJS error]', err)
       setStatus('error')
     }
   }
@@ -82,10 +95,12 @@ export default function ContactPage() {
         </div>
 
         <div className="ct-right">
-          <div className="ct-form-head">
-            <p className="ct-form-title">Tell us about you.</p>
-            <p className="ct-form-subtitle">We will only use this phone number to send an invite<br />for the beta once it&apos;s live. No spam.</p>
-          </div>
+          {status !== 'success' && (
+            <div className="ct-form-head">
+              <p className="ct-form-title">Tell us about you.</p>
+              <p className="ct-form-subtitle">We will only use this phone number to send an invite<br />for the beta once it&apos;s live. No spam.</p>
+            </div>
+          )}
 
           {status !== 'success' && (
             <form className="ct-form" ref={formRef} onSubmit={handleSubmit} noValidate>
@@ -95,7 +110,7 @@ export default function ContactPage() {
               </div>
               <div className="ct-field">
                 <label htmlFor="ct-phone">Phone number</label>
-                <input type="tel" id="ct-phone" name="phone" placeholder="+91 99999 99999" autoComplete="tel" onFocus={handleFocus} onBlur={handleBlur} />
+                <input type="tel" id="ct-phone" name="phone" placeholder="9999999999" inputMode="numeric" autoComplete="tel" onFocus={handleFocus} onBlur={handleBlur} onInput={handlePhoneInput} />
               </div>
               <div className="ct-field">
                 <label htmlFor="ct-email">E-mail</label>
@@ -103,14 +118,17 @@ export default function ContactPage() {
               </div>
               <div className="ct-field">
                 <label htmlFor="ct-desc">Description</label>
-                <textarea id="ct-desc" name="description" rows={2} placeholder="Hello Ninto" onFocus={handleFocus} onBlur={handleBlur} />
+                <textarea id="ct-desc" name="description" rows={1} placeholder="Hello Ninto" onFocus={handleFocus} onBlur={handleBlur} onInput={handleTextareaInput} />
+                <i className="ti ti-arrows-diagonal ct-resize-icon" aria-hidden="true" />
               </div>
             </form>
           )}
 
           {status === 'success' && (
             <div className="ct-success visible" role="alert">
-              <p className="ct-success-title">Thank you! Your details have been submitted successfully.</p>
+              <SuccessAnimation />
+              <h2 className="ct-success-heading"><span style={{color:'#00a000'}}>Welcome</span> to Ninto Beta</h2>
+              <p className="ct-success-sub">Our team will review your submission within 48hrs and reach you with early access details.</p>
             </div>
           )}
 

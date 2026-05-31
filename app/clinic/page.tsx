@@ -11,7 +11,7 @@ import type { SanityPost } from '@/lib/sanity'
 export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
-  title: 'Ninto Clinics — Powering the future of care',
+  title: 'Ninto',
   description: 'All-in-one patient record and OPD management software for clinics. ABDM certified, ABHA-linked.',
 }
 
@@ -67,8 +67,8 @@ export default async function ClinicHomePage() {
             </div>
           </div>
           <div className="hero-content">
-            <h1 className="hero-title"><span style={{color:'#242b24'}}>Powering</span> the future of care</h1>
-            <p className="hero-lede">All-in-one patient record and OPD management software for clinics. Manage appointments, histories, prescriptions, and billing in one dashboard.</p>
+            <h1 className="hero-title"><span style={{color:'#00a000'}}>Powering</span> the future of care</h1>
+            <p className="hero-lede" style={{maxWidth: '640px'}}>All-in-one patient record and OPD management software for clinics. Manage appointments, histories, prescriptions, and billing in one dashboard.</p>
             <div className="hero-actions">
               <Link href="/clinic/contact" className="fnav-btn">Get started</Link>
               <Link href="/" className="hero-btn-patient">
@@ -269,7 +269,6 @@ export default async function ClinicHomePage() {
               <div className="bl-card-body">
                 {post.category && <span className="bl-card-tag">{post.category}</span>}
                 <h3 className="bl-card-title">{post.title}</h3>
-                {post.excerpt && <p className="bl-card-desc">{post.excerpt}</p>}
               </div>
             </Link>
           )) : [
