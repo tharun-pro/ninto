@@ -9,44 +9,60 @@ const components: PortableTextComponents = {
     normal: ({ children, value }) => {
       const isEmpty = !value?.children?.length ||
         (value.children.length === 1 && (value.children[0] as any)?.text === '')
-      if (isEmpty) return null
-      return <p className="art-section-body" style={{ margin: 0 }}>{children}</p>
+      if (isEmpty) return <div style={{ height: 16 }} />
+      return (
+        <div style={{ marginBottom: 16 }}>
+          <p className="art-section-body">{children}</p>
+        </div>
+      )
     },
     h2: ({ children }) => (
-      <h2 className="art-section-title" style={{ marginTop: 40, marginBottom: 0 }}>{children}</h2>
+      <div style={{ marginTop: 40, marginBottom: 16 }}>
+        <h2 className="art-section-title">{children}</h2>
+      </div>
     ),
     h3: ({ children }) => (
-      <h3 style={{ fontSize: 22, fontWeight: 500, lineHeight: 1.2, color: '#4e4e4e', margin: '32px 0 0' }}>{children}</h3>
+      <div style={{ marginTop: 32, marginBottom: 12 }}>
+        <h3 style={{ fontSize: 22, fontWeight: 500, lineHeight: 1.2, color: '#4e4e4e', margin: 0 }}>{children}</h3>
+      </div>
     ),
     h4: ({ children }) => (
-      <h4 style={{ fontSize: 18, fontWeight: 500, lineHeight: 1.3, color: '#4e4e4e', margin: '32px 0 0' }}>{children}</h4>
+      <div style={{ marginTop: 24, marginBottom: 8 }}>
+        <h4 style={{ fontSize: 18, fontWeight: 500, lineHeight: 1.3, color: '#4e4e4e', margin: 0 }}>{children}</h4>
+      </div>
     ),
     blockquote: ({ children }) => (
-      <blockquote style={{ borderLeft: '3px solid #00a000', paddingLeft: 16, margin: 0, fontStyle: 'italic', color: '#6b6b6b', lineHeight: 1.6 }}>
-        {children}
-      </blockquote>
+      <div style={{ marginBottom: 16 }}>
+        <blockquote style={{ borderLeft: '3px solid #00a000', paddingLeft: 16, margin: 0, fontStyle: 'italic', color: '#6b6b6b', lineHeight: 1.6 }}>
+          {children}
+        </blockquote>
+      </div>
     ),
   },
 
   list: {
     bullet: ({ children }) => (
-      <ul style={{ paddingLeft: 24, margin: 0, display: 'flex', flexDirection: 'column', gap: 12, listStyleType: 'disc' }}>
-        {children}
-      </ul>
+      <div style={{ marginBottom: 16 }}>
+        <ul style={{ paddingLeft: 24, margin: 0, display: 'flex', flexDirection: 'column', gap: 12, listStyleType: 'disc' }}>
+          {children}
+        </ul>
+      </div>
     ),
     number: ({ children }) => (
-      <ol style={{ paddingLeft: 24, margin: '24px 0 0', display: 'flex', flexDirection: 'column', gap: 12, listStyleType: 'decimal' }}>
-        {children}
-      </ol>
+      <div style={{ marginBottom: 16 }}>
+        <ol style={{ paddingLeft: 24, margin: 0, display: 'flex', flexDirection: 'column', gap: 12, listStyleType: 'decimal' }}>
+          {children}
+        </ol>
+      </div>
     ),
   },
 
   listItem: {
     bullet: ({ children }) => (
-      <li style={{ fontSize: 16, lineHeight: '18px', color: '#4e4e4e', fontWeight: 400 }}>{children}</li>
+      <li style={{ fontSize: 16, lineHeight: '1.6', color: '#4e4e4e', fontWeight: 400 }}>{children}</li>
     ),
     number: ({ children }) => (
-      <li style={{ fontSize: 16, lineHeight: '18px', color: '#4e4e4e', fontWeight: 400 }}>{children}</li>
+      <li style={{ fontSize: 16, lineHeight: '1.6', color: '#4e4e4e', fontWeight: 400 }}>{children}</li>
     ),
   },
 
@@ -63,8 +79,8 @@ const components: PortableTextComponents = {
     link: ({ value, children }) => (
       <a
         href={value?.href}
-        target={value?.blank ? '_blank' : undefined}
-        rel={value?.blank ? 'noopener noreferrer' : undefined}
+        target="_blank"
+        rel="noopener noreferrer"
         style={{ color: '#00a000', textDecoration: 'underline' }}
       >
         {children}
@@ -74,24 +90,26 @@ const components: PortableTextComponents = {
 
   types: {
     image: ({ value }) => (
-      <figure style={{ margin: 0 }}>
-        <img
-          src={urlFor(value).width(800).url()}
-          alt={value.alt ?? ''}
-          style={{ width: '100%', borderRadius: 8, display: 'block' }}
-        />
-        {value.caption && (
-          <figcaption style={{ fontSize: 13, color: '#959595', marginTop: 8, textAlign: 'center', lineHeight: 1.4 }}>
-            {value.caption}
-          </figcaption>
-        )}
-      </figure>
+      <div style={{ marginBottom: 24 }}>
+        <figure style={{ margin: 0 }}>
+          <img
+            src={urlFor(value).width(800).url()}
+            alt={value.alt ?? ''}
+            style={{ width: '100%', borderRadius: 8, display: 'block' }}
+          />
+          {value.caption && (
+            <figcaption style={{ fontSize: 13, color: '#959595', marginTop: 8, textAlign: 'center', lineHeight: 1.4 }}>
+              {value.caption}
+            </figcaption>
+          )}
+        </figure>
+      </div>
     ),
     table: ({ value }) => {
       const rows: { _key?: string; cells?: string[] }[] = value?.rows ?? []
       if (!rows.length) return null
       return (
-        <div style={{ overflowX: 'auto', marginTop: 8 }}>
+        <div style={{ overflowX: 'auto', marginBottom: 24 }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 15, color: '#4e4e4e' }}>
             <tbody>
               {rows.map((row, ri) => (
@@ -120,7 +138,7 @@ const components: PortableTextComponents = {
 export default function BlogBody({ body }: { body: any[] }) {
   if (!body?.length) return null
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+    <div>
       <PortableText value={body} components={components} />
     </div>
   )

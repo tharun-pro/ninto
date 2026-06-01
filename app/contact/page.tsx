@@ -98,7 +98,7 @@ export default function ContactPage() {
           {status !== 'success' && (
             <div className="ct-form-head">
               <p className="ct-form-title">Tell us about you.</p>
-              <p className="ct-form-subtitle">We will only use this phone number to send an invite<br />for the beta once it&apos;s live. No spam.</p>
+              <p className="ct-form-subtitle">We will only use this phone number to send an invite for the beta once it&apos;s live. No spam.</p>
             </div>
           )}
 
