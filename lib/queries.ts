@@ -1,5 +1,5 @@
 export const allPostsQuery = `
-  *[_type == "post"] | order(publishedAt desc) {
+  *[_type == "post" && defined(slug.current) && defined(coverImage.asset)] | order(publishedAt desc) {
     _id, title, "slug": slug.current, excerpt, coverImage,
     "author": author->name, "category": category->title,
     publishedAt, readTime, postType
@@ -7,7 +7,7 @@ export const allPostsQuery = `
 `
 
 export const relatedPostsQuery = `
-  *[_type == "post" && slug.current != $slug]
+  *[_type == "post" && slug.current != $slug && defined(slug.current) && defined(coverImage.asset)]
   | order(publishedAt desc) [0...3] {
     _id, title, "slug": slug.current, excerpt, coverImage,
     "category": category->title, postType
@@ -15,7 +15,7 @@ export const relatedPostsQuery = `
 `
 
 export const clinicPostsQuery = `
-  *[_type == "post" && postType == "clinic"] | order(publishedAt desc) {
+  *[_type == "post" && postType == "clinic" && defined(slug.current) && defined(coverImage.asset)] | order(publishedAt desc) {
     _id, title, "slug": slug.current, excerpt, coverImage,
     "author": author->name, "category": category->title,
     publishedAt, readTime
@@ -23,7 +23,7 @@ export const clinicPostsQuery = `
 `
 
 export const patientPostsQuery = `
-  *[_type == "post" && postType == "patient"] | order(publishedAt desc) {
+  *[_type == "post" && postType == "patient" && defined(slug.current) && defined(coverImage.asset)] | order(publishedAt desc) {
     _id, title, "slug": slug.current, excerpt, coverImage,
     "author": author->name, "category": category->title,
     publishedAt, readTime
@@ -39,14 +39,14 @@ export const postBySlugQuery = `
 `
 
 export const relatedClinicPostsQuery = `
-  *[_type == "post" && postType == "clinic" && slug.current != $slug]
+  *[_type == "post" && postType == "clinic" && slug.current != $slug && defined(slug.current) && defined(coverImage.asset)]
   | order(publishedAt desc) [0...3] {
     _id, title, "slug": slug.current, excerpt, coverImage
   }
 `
 
 export const relatedPatientPostsQuery = `
-  *[_type == "post" && postType == "patient" && slug.current != $slug]
+  *[_type == "post" && postType == "patient" && slug.current != $slug && defined(slug.current) && defined(coverImage.asset)]
   | order(publishedAt desc) [0...3] {
     _id, title, "slug": slug.current, excerpt, coverImage
   }
@@ -61,19 +61,21 @@ export const patientPostSlugsQuery = `
 `
 
 export const recentClinicPostsQuery = `
-  *[_type == "post" && postType == "clinic"] | order(publishedAt desc) [0...3] {
-    _id, title, "slug": slug.current, excerpt, coverImage
+  *[_type == "post" && postType == "clinic" && defined(slug.current) && defined(coverImage.asset)] | order(publishedAt desc) [0...3] {
+    _id, title, "slug": slug.current, excerpt, coverImage,
+    "category": category->title, postType
   }
 `
 
 export const recentPatientPostsQuery = `
-  *[_type == "post" && postType == "patient"] | order(publishedAt desc) [0...3] {
-    _id, title, "slug": slug.current, excerpt, coverImage
+  *[_type == "post" && postType == "patient" && defined(slug.current) && defined(coverImage.asset)] | order(publishedAt desc) [0...3] {
+    _id, title, "slug": slug.current, excerpt, coverImage,
+    "category": category->title, postType
   }
 `
 
 export const recentAllPostsQuery = `
-  *[_type == "post"] | order(publishedAt desc) [0...3] {
+  *[_type == "post" && defined(slug.current) && defined(coverImage.asset)] | order(publishedAt desc) [0...3] {
     _id, title, "slug": slug.current, excerpt, coverImage,
     "category": category->title, postType
   }

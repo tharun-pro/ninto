@@ -1044,6 +1044,8 @@ img, svg { display: block; max-width: 100%; }
   .f-about { flex-direction: column; padding: 60px 40px; gap: 60px; }
   .f-about-left { max-width: 100%; }
   .f-about-imgs { align-self: flex-start; }
+  .art-hero { flex-direction: column; gap: 40px; }
+  .art-hero-img { width: 100%; }
 }
 @media (max-width: 1100px) {
   .fnav { padding: 0 40px; }

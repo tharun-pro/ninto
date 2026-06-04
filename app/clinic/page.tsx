@@ -5,7 +5,7 @@ import NavClinic from '@/components/NavClinic'
 import FooterClinic from '@/components/FooterClinic'
 import SiteEffects from '@/components/SiteEffects'
 import { sanityFetch, urlFor } from '@/lib/sanity'
-import { recentAllPostsQuery } from '@/lib/queries'
+import { recentClinicPostsQuery } from '@/lib/queries'
 import type { SanityPost } from '@/lib/sanity'
 
 export const dynamic = 'force-dynamic'
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export default async function ClinicHomePage() {
   let recentPosts: SanityPost[] = []
   try {
-    recentPosts = await sanityFetch<SanityPost[]>(recentAllPostsQuery)
+    recentPosts = await sanityFetch<SanityPost[]>(recentClinicPostsQuery)
   } catch {}
 
   return (
