@@ -28,7 +28,7 @@ export default async function ClinicBlogsPage() {
 
       <section className="bl-hero">
         <div className="bl-hero-bg" aria-hidden="true">
-          <img src="/Shared/hero%20bg.png" alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+          <img src="/Shared/hero%20bg.png" alt="" />
         </div>
         <div className="bl-hero-inner">
           <div className="bl-hero-top">

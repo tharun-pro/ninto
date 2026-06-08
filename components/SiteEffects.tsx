@@ -29,7 +29,7 @@ export default function SiteEffects() {
       dot.style.left = mx + 'px'; dot.style.top = my + 'px'
     }
 
-    const HOVERABLE = 'a, button, [role="button"], input, textarea, select, label, .f-faq-row, .f-blog-item, .f-user-item'
+    const HOVERABLE = 'a, button, [role="button"], input, textarea, select, label, .f-faq-row, .f-blog-item, .f-user-item, .f-clinic-item'
     const onMouseOver = (e: MouseEvent) => {
       if ((e.target as Element).closest(HOVERABLE)) {
         dot.classList.add('is-hover'); ring.classList.add('is-hover')
@@ -344,8 +344,7 @@ export default function SiteEffects() {
 
     // Kick off auto-play from whichever item starts active
     const initial = items.find(i => i.classList.contains('active')) ?? items[0]
-    const startIdx = items.indexOf(initial)
-    timer = setTimeout(() => activate(items[(startIdx + 1) % items.length]), DURATION)
+    activate(initial)
 
     const cleanup: Array<() => void> = []
     items.forEach((item) => {
@@ -362,33 +361,71 @@ export default function SiteEffects() {
 
   useEffect(() => {
     // ── Clinics accordion ──
-    const items = document.querySelectorAll<HTMLElement>('.f-clinic-item')
+    const items = Array.from(document.querySelectorAll<HTMLElement>('.f-clinic-item'))
     const imgEl = document.querySelector<HTMLImageElement>('.f-clinics-image img')
     if (!items.length) return
 
-    const cleanup: Array<() => void> = []
+    const DURATION = 4000
 
+    // Inject progress bar into each item once
     items.forEach((item) => {
-      const handler = () => {
-        items.forEach((i) => {
-          i.classList.remove('active')
-          const arr = i.querySelector<HTMLElement>('.f-clinic-arrow')
-          if (arr) { arr.classList.remove('up'); arr.classList.add('down') }
-        })
-        item.classList.add('active')
-        const arr = item.querySelector<HTMLElement>('.f-clinic-arrow')
-        if (arr) { arr.classList.remove('down'); arr.classList.add('up') }
-        const src = item.dataset.image
-        if (imgEl && src) {
-          imgEl.classList.add('fading')
-          setTimeout(() => { imgEl.src = src; imgEl.classList.remove('fading') }, 350)
-        }
+      if (!item.querySelector('.f-clinic-progress')) {
+        const bar = document.createElement('div')
+        bar.className = 'f-clinic-progress'
+        item.insertBefore(bar, item.firstChild)
       }
+    })
+
+    let timer: ReturnType<typeof setTimeout> | null = null
+
+    const activate = (item: HTMLElement) => {
+      if (timer) clearTimeout(timer)
+
+      items.forEach((i) => {
+        i.classList.remove('active')
+        const arr = i.querySelector<HTMLElement>('.f-clinic-arrow')
+        if (arr) { arr.classList.remove('up'); arr.classList.add('down') }
+        const bar = i.querySelector<HTMLElement>('.f-clinic-progress')
+        if (bar) { bar.getAnimations().forEach(a => a.cancel()); (bar as HTMLElement).style.transform = 'scaleY(0)' }
+      })
+
+      item.classList.add('active')
+      const arr = item.querySelector<HTMLElement>('.f-clinic-arrow')
+      if (arr) { arr.classList.remove('down'); arr.classList.add('up') }
+      const src = item.dataset.image
+      if (imgEl && src) {
+        imgEl.classList.add('fading')
+        setTimeout(() => { imgEl.src = src; imgEl.classList.remove('fading') }, 350)
+      }
+
+      const bar = item.querySelector<HTMLElement>('.f-clinic-progress')
+      if (bar) {
+        bar.getAnimations().forEach(a => a.cancel())
+        bar.animate(
+          [{ transform: 'scaleY(0)' }, { transform: 'scaleY(1)' }],
+          { duration: DURATION, fill: 'forwards', easing: 'linear' }
+        )
+      }
+
+      const idx = items.indexOf(item)
+      timer = setTimeout(() => activate(items[(idx + 1) % items.length]), DURATION)
+    }
+
+    // Kick off auto-play from whichever item starts active
+    const initial = items.find(i => i.classList.contains('active')) ?? items[0]
+    activate(initial)
+
+    const cleanup: Array<() => void> = []
+    items.forEach((item) => {
+      const handler = () => activate(item)
       item.addEventListener('click', handler)
       cleanup.push(() => item.removeEventListener('click', handler))
     })
 
-    return () => cleanup.forEach((fn) => fn())
+    return () => {
+      if (timer) clearTimeout(timer)
+      cleanup.forEach((fn) => fn())
+    }
   }, [pathname])
 
   useEffect(() => {

@@ -3,7 +3,7 @@ import { urlFor } from '@/lib/sanity'
 import type { SanityPost } from '@/lib/sanity'
 
 export default function BlogsFilter({ posts, basePath = '/blogs' }: { posts: SanityPost[], basePath?: string }) {
-  const visible = posts.filter((p) => p.postType === 'patient' && p.slug && p.coverImage?.asset)
+  const visible = posts.filter((p) => p.slug && p.coverImage?.asset)
 
   if (visible.length === 0) {
     return (

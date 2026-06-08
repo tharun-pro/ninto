@@ -5,7 +5,7 @@ import NavClinic from '@/components/NavClinic'
 import FooterClinic from '@/components/FooterClinic'
 import SiteEffects from '@/components/SiteEffects'
 import { sanityFetch, urlFor } from '@/lib/sanity'
-import { recentClinicPostsQuery } from '@/lib/queries'
+import { recentAllPostsQuery } from '@/lib/queries'
 import type { SanityPost } from '@/lib/sanity'
 
 export const dynamic = 'force-dynamic'
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export default async function ClinicHomePage() {
   let recentPosts: SanityPost[] = []
   try {
-    recentPosts = await sanityFetch<SanityPost[]>(recentClinicPostsQuery)
+    recentPosts = await sanityFetch<SanityPost[]>(recentAllPostsQuery)
   } catch {}
 
   return (
@@ -201,45 +201,45 @@ export default async function ClinicHomePage() {
           <div className="f-clinics-sticky-body">
             <div className="f-clinics-body">
               <div className="f-clinics-list">
-                <div className="f-clinic-item active" data-image="/Clinic/specialist.png">
+                <div className="f-clinic-item active" data-image="/Clinic/specialist%20clinic.webp">
                   <div className="f-clinic-item-content">
                     <span className="f-clinic-tag">Specialist</span>
                     <p className="f-clinic-title">Specialist Clinics</p>
                     <div className="f-clinic-subheader-wrap"><p className="f-clinic-subheader">HPR-registered specialists need more than just records; they need a workflow that respects the patient&apos;s journey. From digital consent to specialty-specific handoffs, we&apos;ve got the details covered.</p></div>
-                    <div className="f-clinic-inline-img-wrap"><div className="f-clinic-inline-img-inner"><img src="/Clinic/specialist.png" alt="Specialist clinic" /></div></div>
+                    <div className="f-clinic-inline-img-wrap"><div className="f-clinic-inline-img-inner"><img src="/Clinic/specialist%20clinic.webp" alt="Specialist clinic" /></div></div>
                   </div>
                   <div className="f-clinic-arrow up"><i className="ti ti-chevron-right"></i></div>
                 </div>
-                <div className="f-clinic-item" data-image="/Clinic/abha.png">
+                <div className="f-clinic-item" data-image="/Clinic/multispecialist.webp">
                   <div className="f-clinic-item-content">
                     <span className="f-clinic-tag">Hospital</span>
                     <p className="f-clinic-title">Multispecialty Hospitals &amp; Polyclinics</p>
                     <div className="f-clinic-subheader-wrap"><p className="f-clinic-subheader">Managing a hospital shouldn&apos;t feel like managing ten different businesses. Ninto connects your counters, labs, and departments into a single, synchronized heartbeat.</p></div>
-                    <div className="f-clinic-inline-img-wrap"><div className="f-clinic-inline-img-inner"><img src="/Clinic/abha.png" alt="Hospital" /></div></div>
+                    <div className="f-clinic-inline-img-wrap"><div className="f-clinic-inline-img-inner"><img src="/Clinic/multispecialist.webp" alt="Hospital" /></div></div>
                   </div>
                   <div className="f-clinic-arrow down"><i className="ti ti-chevron-right"></i></div>
                 </div>
-                <div className="f-clinic-item" data-image="/Clinic/chronic.png">
+                <div className="f-clinic-item" data-image="/Clinic/diagonist%20labs.webp">
                   <div className="f-clinic-item-content">
                     <span className="f-clinic-tag">Diagnostic</span>
                     <p className="f-clinic-title">Diagnostic Labs &amp; Radiology Centers</p>
                     <div className="f-clinic-subheader-wrap"><p className="f-clinic-subheader">Don&apos;t let reports get lost in an inbox. Deliver results directly to the patient&apos;s ABHA-linked record, ensuring that doctors see your findings the moment they are ready.</p></div>
-                    <div className="f-clinic-inline-img-wrap"><div className="f-clinic-inline-img-inner"><img src="/Clinic/chronic.png" alt="Diagnostic centre" /></div></div>
+                    <div className="f-clinic-inline-img-wrap"><div className="f-clinic-inline-img-inner"><img src="/Clinic/diagonist%20labs.webp" alt="Diagnostic centre" /></div></div>
                   </div>
                   <div className="f-clinic-arrow down"><i className="ti ti-chevron-right"></i></div>
                 </div>
-                <div className="f-clinic-item" data-image="/Clinic/family.png">
+                <div className="f-clinic-item" data-image="/Clinic/telemedicine.webp">
                   <div className="f-clinic-item-content">
                     <span className="f-clinic-tag">Hybrid</span>
                     <p className="f-clinic-title">Telemedicine &amp; Hybrid-Care Providers</p>
                     <div className="f-clinic-subheader-wrap"><p className="f-clinic-subheader">Whether your patient is on a screen or in your office, their record should be the same. Ninto creates a continuous care journey that bridges the gap between remote and in-person visits.</p></div>
-                    <div className="f-clinic-inline-img-wrap"><div className="f-clinic-inline-img-inner"><img src="/Clinic/family.png" alt="Telemedicine" /></div></div>
+                    <div className="f-clinic-inline-img-wrap"><div className="f-clinic-inline-img-inner"><img src="/Clinic/telemedicine.webp" alt="Telemedicine" /></div></div>
                   </div>
                   <div className="f-clinic-arrow down"><i className="ti ti-chevron-right"></i></div>
                 </div>
               </div>
               <div className="f-clinics-image">
-                <img src="/Clinic/specialist.png" alt="Ninto User" />
+                <img src="/Clinic/specialist%20clinic.webp" alt="Ninto User" />
               </div>
             </div>
           </div>
