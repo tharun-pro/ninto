@@ -219,12 +219,12 @@ export default async function ClinicHomePage() {
                   </div>
                   <div className="f-clinic-arrow down"><i className="ti ti-chevron-right"></i></div>
                 </div>
-                <div className="f-clinic-item" data-image="/Clinic/diagonist%20labs.webp">
+                <div className="f-clinic-item" data-image="/Clinic/diagonistic%20lab.webp">
                   <div className="f-clinic-item-content">
                     <span className="f-clinic-tag">Diagnostic</span>
                     <p className="f-clinic-title">Diagnostic Labs &amp; Radiology Centers</p>
                     <div className="f-clinic-subheader-wrap"><p className="f-clinic-subheader">Don&apos;t let reports get lost in an inbox. Deliver results directly to the patient&apos;s ABHA-linked record, ensuring that doctors see your findings the moment they are ready.</p></div>
-                    <div className="f-clinic-inline-img-wrap"><div className="f-clinic-inline-img-inner"><img src="/Clinic/diagonist%20labs.webp" alt="Diagnostic centre" /></div></div>
+                    <div className="f-clinic-inline-img-wrap"><div className="f-clinic-inline-img-inner"><img src="/Clinic/diagonistic%20lab.webp" alt="Diagnostic centre" /></div></div>
                   </div>
                   <div className="f-clinic-arrow down"><i className="ti ti-chevron-right"></i></div>
                 </div>

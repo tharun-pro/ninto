@@ -83,7 +83,7 @@ export default function ClinicContactPage() {
             </div>
           </div>
           <div className="ct-left-bottom">
-            <p className="ct-social-note">Prefer to chat first? Send us a mail or connect with us<br />on social &mdash; we&apos;re always happy to help.</p>
+            <p className="ct-social-note">Prefer to chat first? Send us a mail or connect with us<br />on social, we&apos;re always happy to help.</p>
             <div className="ct-socials">
               <a href="#" className="ct-social-btn" aria-label="LinkedIn"><i className="ti ti-brand-linkedin"></i></a>
               <a href="#" className="ct-social-btn" aria-label="X"><i className="ti ti-brand-x"></i></a>
@@ -126,7 +126,7 @@ export default function ClinicContactPage() {
           {status === 'success' && (
             <div className="ct-success visible" role="alert">
               <SuccessAnimation />
-              <h2 className="ct-success-heading"><span style={{color:'#00a000'}}>Welcome</span> to Ninto Beta</h2>
+              <h2 className="ct-success-heading"><span style={{color:'#4e4e4e'}}>Welcome</span> to <span style={{color:'#00a000'}}>Ninto Beta</span></h2>
               <p className="ct-success-sub">Our team will review your submission within 48hrs and reach you with early access details.</p>
             </div>
           )}
